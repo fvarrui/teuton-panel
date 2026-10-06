@@ -4,40 +4,29 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-`teuton-panel` is an early-stage (v0.1.0, "EN DESARROLLO") Ruby gem that adds a web panel on top of [Teuton](https://github.com/teuton-software/teuton), the infrastructure-testing tool used by sysadmin teachers to evaluate students' machines. Teuton itself runs the tests; this gem is the interaction layer around it (listing tests, enabling cases, scheduled runs, student self-registration and self-run via browser or `curl`, publishing results/readme). The planned feature set and routes (`/tests/list`, `/run/once`, `/run/every/N`, `/config`, `/readme`…) are described in [docs/todo.md](docs/todo.md); [docs/demo.md](docs/demo.md) and [docs/history.md](docs/history.md) record the classroom use case that motivates them. Read those before designing new features.
-
-The panel runs on the teacher's machine in a classroom LAN: the teacher area answers only localhost (plus allowed teacher IPs), the student area is reachable from the network and students are identified by a personal code (ADR-001, ADR-004). It targets the `teuton` gem 3.0.0 and always calls it as a subprocess, reading results from its JSON reports (ADR-002); Teuton 3.0.0 has known bugs listed in that ADR. Pending work is in `.minispec/features/`.
+`teuton-panel` is a Ruby gem that serves a web panel for [Teuton](https://github.com/teuton-software/teuton), the infrastructure-testing tool used by sysadmin teachers to evaluate students' machines. A teacher starts it on a classroom LAN: the teacher area answers only the teacher's machine (plus allowed IPs), the student area is reachable from the network and students are identified by a personal code (ADR-001, ADR-004). Teuton runs the tests; the panel always calls the `teuton` 3.x command as a subprocess and reads its JSON reports (ADR-002, which also lists Teuton 3.0.0 bugs to work around). User documentation is in `README.md`; the classroom use case that motivates it is in `docs/`.
 
 ## Commands
 
 | Command | Purpose |
 | --- | --- |
 | `bin/setup` | Install dependencies (`bundle install`) |
-| `bundle exec rake` | Default task: tests + Standard lint |
+| `bundle exec rake` | Default task: tests + Standard lint (a minute or two: some tests run the real `teuton`) |
 | `bundle exec rake test` | Run the test-unit suite (`test/**/*_test.rb`) |
-| `bundle exec ruby -Itest -Ilib test/teuton/panel_test.rb` | Run a single test file |
-| `bundle exec ruby -Itest -Ilib test/teuton/panel_test.rb -n "/VERSION/"` | Run tests matching a name |
+| `bundle exec ruby -Itest -Ilib test/teuton/panel/app_test.rb` | Run a single test file |
+| `bundle exec ruby -Itest -Ilib test/teuton/panel/app_test.rb -n "/register/"` | Run tests matching a name |
 | `bundle exec rake standard` | Lint (Standard Ruby, `ruby_version: 3.2`) |
 | `bundle exec rake standard:fix` | Auto-fix lint offenses |
-| `ruby teuton-panel up DIR` | Start the panel on DIR (Sinatra/Puma on `0.0.0.0:4567`) |
+| `ruby .claude/skills/teuton-sandbox/scripts/create_sandbox.rb` | Sample localhost test in `tmp/sandbox` |
+| `ruby teuton-panel up tmp/sandbox` | Start the panel from the source tree (WEBrick on `0.0.0.0:4567`) |
+| `gem build teuton-panel.gemspec` | Build the gem (installed executable: `bin/teuton-panel`) |
 | `bin/console` | IRB with the gem loaded |
 
 ## Architecture
 
-Flow: `teuton-panel` (executable at repo root, not `exe/`) → `CLI` (Thor, [lib/teuton/panel/cli.rb](lib/teuton/panel/cli.rb)) → `Teuton::Panel.up(basedir)` ([lib/teuton/panel.rb](lib/teuton/panel.rb)) → Sinatra `App`.
+The code map, route list and Teuton integration details are in `.minispec/core/architecture.md`; the visual language in `.minispec/core/design.md`. In short: `bin/teuton-panel` → `CLI` (Thor) → `Teuton::Panel.up` (checks teuton, finds tests, loads `teuton-panel.yaml`, wires `RunQueue`/`Scheduler` into `App` settings) → Sinatra `App` (`app.rb` core plus `app/teacher_routes.rb`, `app/student_routes.rb`, `app/view_helpers.rb`). Runs go through `RunQueue` → `Runner` (own run directory, temp config, JSON reports) → `ResultsStore`. Views are ERB in `views/` (HTML) and `views/txt/` (plain text for `curl`); format is chosen by URL suffix (ADR-005).
 
-- **CLI.** Unknown subcommands fall through `method_missing` to `up`, so `teuton-panel some/dir` equals `teuton-panel up some/dir`. The `new` command calls `Teuton.create`, which does not exist yet.
-- **Project discovery.** `Projects.all(basedir)` ([project.rb](lib/teuton/panel/project.rb)) treats every directory containing a `start.rb` (recursively) as a Teuton test project; it exits if none are found, since the panel is pointless without tests.
-- **Panel config.** `Config` ([config.rb](lib/teuton/panel/config.rb)) loads `teuton-panel.yaml` from `basedir`; if missing it asks via `tty-prompt` and copies the template from [lib/teuton/panel/files/](lib/teuton/panel/files/teuton-panel.yaml). Keys are YAML symbols (`:run:`).
-- **Web app.** `up` injects state into the Sinatra class with `App.set(:panel_projects, ...)` / `App.set(:panel_config, ...)`; routes read it through `settings.panel_*`. `public_folder` points to `lib/teuton/panel/public`, which does not exist yet.
-- **Constants.** `VERSION`, `APPNAME` and `CONFIGFILE` live in [version.rb](lib/teuton/panel/version.rb), which is also the only file that defines the `Teuton` module. Other files use the compact `module Teuton::Panel` form, so `version.rb` must be required first (the CLI does this; `lib/teuton/panel.rb` currently requires `app.rb` before it, which breaks `require "teuton/panel"` as used in `test/test_helper.rb`).
-
-Gemspec notes: packaged files are `Dir.glob("lib/**/*.*")`; runtime deps are thor, tty-prompt, sinatra, rackup and puma. The executable does `require "debug"`.
-
-## Known state
-
-- The test suite and gem loading are currently broken; see `.minispec/features/boot-fixes.md`.
-- README is still the bundler template.
+Gotchas: in ERB views use full constant names (`Teuton::Panel::Params`); route patterns use `(.:format)?`; `views/txt/` renders with trim mode `-`; the app runs in Sinatra's `production` environment on purpose (no host check, no stack traces); Git Bash rewrites URL-like arguments starting with `/` (use PowerShell or `MSYS_NO_PATHCONV=1` when passing paths such as `/teacher` to Ruby scripts).
 
 ## Language
 
@@ -55,7 +44,7 @@ All in `.claude/skills/` and versioned. Unmodified third-party ones (`tdd`, `fro
 - Third-party: `tdd` (mattpocock), `security-and-hardening` (addyosmani, adapted), `frontend-design` (anthropics), `diagnosing-bugs` (mattpocock, script ported to Ruby), `accessibility` (addyosmani, adapted: DevTools instead of Node tools), `web-design-guidelines` (vercel, UI review; fetches its rules from GitHub).
 - Everything in the project is pure Ruby, tooling included: no Python, shell scripts or Node tools in code or skills. Browser checks: Rack::Test for behaviour, Claude in Chrome for visual review.
 
-Project rules win over third-party skills: tests are test-unit (not jest/RSpec); no login, sessions, HTTPS or password hashing by design (ADR-001, ADR-004); no frontend framework, CDN or build step (ADR-003); ask before installing global tools they suggest (e.g. `npm install -g`); no external images, fonts or icon CDNs and no scroll/stagger animations on auto-refreshing pages. Visual direction: elegant educational app for adults, warm and lively, not minimalist (see `.minispec/features/visual-design-guide.md`).
+Project rules win over third-party skills: tests are test-unit (not jest/RSpec); no login, sessions, HTTPS or password hashing by design (ADR-001, ADR-004); no frontend framework, CDN or build step (ADR-003); ask before installing global tools they suggest (e.g. `npm install -g`); no external images, fonts or icon CDNs and no scroll/stagger animations on auto-refreshing pages. Visual direction: elegant educational app for adults, warm and lively, not minimalist (see `.minispec/core/design.md`).
 
 ## MiniSpec (read first)
 
