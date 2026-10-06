@@ -7,6 +7,9 @@ metadata:
   version: "2.0"
 ---
 
+> Modified for teuton-panel: Node-based tooling (npx lighthouse, axe CLI) replaced by the browser's DevTools; not updated from upstream (see `CLAUDE.md`).
+
+
 # Accessibility (a11y)
 
 Comprehensive accessibility guidelines based on WCAG 2.2 and Lighthouse accessibility audits. Goal: make content usable by everyone, including people with disabilities.
@@ -20,7 +23,7 @@ When a rendered page is available:
 3. Inspect a rendered accessibility-tree snapshot for names, roles, states, landmarks, and heading structure; with Chrome DevTools MCP, use `take_snapshot`. Exercise the affected flow with the keyboard.
 4. Fix the source, then re-run the same audit and manual interaction.
 
-If the live tools are unavailable, use Lighthouse CLI or axe for automated coverage and complete the same manual checks. Automated tools detect only a subset of accessibility barriers: a score of 100 is not WCAG conformance, and a low score does not replace issue-level evidence.
+If the live tools are unavailable, use the browser's built-in Lighthouse panel (Chrome/Edge DevTools) by hand and complete the same manual checks. Do not install Node tools for this project. Automated tools detect only a subset of accessibility barriers: a score of 100 is not WCAG conformance, and a low score does not replace issue-level evidence.
 
 ## WCAG Principles: POUR
 
@@ -406,16 +409,7 @@ Use `aria-live` regions to announce dynamic content changes without moving focus
 
 ### Automated testing
 
-Prefer a live Lighthouse audit that returns failing rendered nodes directly to the agent. With Chrome DevTools MCP, this is `lighthouse_audit`. Otherwise:
-
-```bash
-# Lighthouse accessibility audit
-npx lighthouse https://example.com --only-categories=accessibility
-
-# axe-core
-npm install @axe-core/cli -g
-axe https://example.com
-```
+Prefer a live Lighthouse audit that returns failing rendered nodes directly to the agent. With Chrome DevTools MCP, this is `lighthouse_audit`. Otherwise ask the user to run the Lighthouse panel in Chrome/Edge DevTools (Accessibility category) on the page and paste the failing items. This project installs no Node tools (no `npx`, no `npm`).
 
 ### Manual testing
 
