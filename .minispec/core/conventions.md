@@ -13,5 +13,5 @@
 - State needed by routes is injected into `App` with `App.set`; no global variables.
 - Templates copied to the user live in `lib/teuton/panel/files/`.
 - `teuton-panel.yaml` keys are YAML symbols (`:run:`). It is created with defaults when missing, without asking, and saved as soon as a setting changes.
-- Registration parameters (`tt_include_params`) live in the test's `config.yaml` `global` section, next to `tt_include`.
+- Registration fields live in `teuton-panel-params.yaml` next to the test's `config.yaml` (never inside `config.d/`, which Teuton reads as cases). The panel writes only `tt_include` into `config.yaml`; Teuton 3.0.0 crashes on hash values in `global` (ADR-002).
 - Markdown: one line per paragraph and list item, no horizontal rules between sections.

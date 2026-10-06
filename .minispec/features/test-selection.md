@@ -12,14 +12,14 @@ The teacher sees every Teuton test found under the base directory and chooses th
 
 ## Changes
 
-- Teacher page `/teacher/tests`: list tests (name, path, has `config.yaml`, cases in `cases:`, files in `tt_include`, `tt_include_params` present).
+- Teacher page `/teacher/tests`: list tests (name, path, has `config.yaml`, cases in `cases:`, files in `tt_include`, params file present).
 - Select the active test; persist it in `teuton-panel.yaml`. With a single test, select it automatically.
 - Changing the active test asks for confirmation, stops a running loop, and is reported to students by `/students/<code>/status` ("the test has changed, register again").
 - Show `teuton check` output for the selected test to catch script/config errors.
-- A test without `config.yaml`: create it with `global:` holding `tt_include: config.d` and `tt_include_params` proposed from `teuton config`, and `cases: []` (no seed case). Write it with a short comment header explaining both keys.
+- A test without `config.yaml`: create it with `global: {tt_include: config.d}` and `cases: []` (no seed case), with a short comment header; create `teuton-panel-params.yaml` proposed from `teuton config`.
 
 ## Acceptance
 
 - With two tests in the base directory, the teacher can switch between them (after confirming) and the choice persists.
-- A test without `config.yaml` gets one with `tt_include`, proposed `tt_include_params` and no fake case.
+- A test without `config.yaml` gets one with `tt_include` and no fake case, plus a proposed params file.
 - Student routes refer to the active test only.

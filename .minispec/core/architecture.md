@@ -40,7 +40,7 @@ Teacher area (localhost + allowed IPs). POST for every change.
 
 - `/teacher` — home: active test, student URLs, run status.
 - `/teacher/tests`, `POST /teacher/tests/select` — tests, `teuton check`, active test.
-- `/teacher/registration` — `tt_include_params` editor.
+- `/teacher/registration` — registration fields editor (`teuton-panel-params.yaml`).
 - `/teacher/students`, `/teacher/students/<code>`, `POST .../<code>`, `POST .../<code>/delete`, `POST /teacher/students/new` — registrations.
 - `/teacher/run`, `POST /teacher/run/start`, `POST /teacher/run/stop`; `/teacher/runs`, `/teacher/runs/<id>` — runs and history.
 - `/teacher/results` (`?projector=1`), `/teacher/results/<code>`, `/teacher/moodle.csv` — results.
@@ -56,8 +56,8 @@ Format by suffix (ADR-005): none/`.html` → HTML, `.txt` → plain text, `.json
 - Every run has its own working directory under the data dir (`.teuton-panel/runs/`), so partial runs never overwrite other results. Run directories are the run history.
 - A queue serializes work: teacher runs first, student runs in parallel up to `:runs: :max_parallel:`.
 - After each run the panel updates its results store (latest result per student, keyed by `tt_panel_code`). Dashboard, student views and the panel's `moodle.csv` read from the store.
-- Registration writes one YAML file per student (`config.d/<code>.yaml`) into the `tt_include` directory; Teuton reads them natively. Form fields come from `tt_include_params`.
-- Writes to the teacher's `config.yaml` touch only `tt_include` and `tt_include_params`, as text, keeping comments.
+- Registration writes one YAML file per student (`config.d/<code>.yaml`) into the `tt_include` directory; Teuton reads them natively. Form fields come from `teuton-panel-params.yaml` next to `config.yaml`.
+- Writes to the teacher's `config.yaml` touch only `tt_include`, as text, keeping comments.
 - Never show raw case reports: their `config` section contains every host password.
 
 ## Folder map
