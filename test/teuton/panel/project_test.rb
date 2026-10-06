@@ -13,6 +13,11 @@ class ProjectTest < Test::Unit::TestCase
     assert_equal %w[alpha beta], projects.map(&:name)
   end
 
+  test "find projects from a path with backslashes" do
+    projects = Teuton::Panel::Projects.all(File.expand_path(@basedir).tr("/", "\\"))
+    assert_equal 2, projects.size
+  end
+
   test "no projects in an empty directory" do
     projects = Teuton::Panel::Projects.all(File.join(@basedir, "missing"))
     assert_equal [], projects

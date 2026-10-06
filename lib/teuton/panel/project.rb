@@ -62,6 +62,7 @@ module Teuton::Panel
     # @param basedir (String)
     # @return Array of Project
     def self.all(basedir)
+      basedir = File.expand_path(basedir) # Also turns C:\dir into C:/dir for Dir.glob
       files = Dir.glob(File.join(basedir, "**", "start.rb")).sort
       files.reject! { _1.include?("/var/") || _1.include?("/.teuton-panel/") }
       files.map { Project.new(File.dirname(_1)) }
