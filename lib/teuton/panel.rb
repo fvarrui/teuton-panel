@@ -3,6 +3,7 @@
 require_relative "panel/version"
 require_relative "panel/app"
 require_relative "panel/config"
+require_relative "panel/lang"
 require_relative "panel/network"
 require_relative "panel/project"
 

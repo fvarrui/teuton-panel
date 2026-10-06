@@ -1,0 +1,4 @@
+app:
+  name: "Teuton Panel"
+students:
+  code_is: "Tu código personal es %{code}"
