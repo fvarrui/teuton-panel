@@ -12,7 +12,7 @@ App (teacher area | student area) → run queue → teuton CLI subprocess (own r
 - `CLI` — subcommands `up` and `version`. An unknown subcommand is treated as a directory for `up` (`method_missing`).
 - `Projects` / `Project` — every directory with a `start.rb` under `basedir` is a Teuton project.
 - `Config` — loads `teuton-panel.yaml` from `basedir`; created with defaults when missing.
-- `App` — Sinatra app bound to `0.0.0.0:4567`. `up` injects state with `App.set(...)`; routes read it through `settings.panel_*`.
+- `App` — Sinatra app on WEBrick, bound to `0.0.0.0:4567`. `up` injects state with `App.set(...)`; routes read it through `settings.panel_*`.
 - `Runner`, run queue, results store — run Teuton and keep the latest result per student (planned, `teuton-runner`).
 - `version.rb` — `VERSION`, `APPNAME`, `CONFIGFILE`. The only file that defines the `Teuton` module, so it must load before the rest.
 
@@ -62,7 +62,7 @@ Format by suffix (ADR-005): none/`.html` → HTML, `.txt` → plain text, `.json
 
 ## Folder map
 
-- `teuton-panel` — executable at the repo root (not in `exe/`).
+- `bin/teuton-panel` — installed executable; `teuton-panel` at the repo root — development launcher (`require "debug"`).
 - `lib/teuton/panel/` — gem code; `views/` (ERB), `public/` (CSS), `locales/` (`en.yml`, `es.yml`), `files/` (templates copied to the user) — planned except `files/`.
 - `test/` — test-unit tests.
 - `docs/` — design notes.

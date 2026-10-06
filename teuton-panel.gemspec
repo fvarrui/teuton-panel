@@ -42,13 +42,13 @@ Gem::Specification.new do |spec|
 
   spec.extra_rdoc_files = ["README.md", "LICENSE"] + Dir.glob(File.join("docs", "**", "*.md"))
   spec.executables << "teuton-panel"
-  spec.files = Dir.glob(File.join("lib", "**", "*.*"))
+  spec.files = Dir.glob(File.join("lib", "**", "*.*")) + ["bin/teuton-panel"]
 
   spec.required_ruby_version = ">= 3.2.8"
   spec.add_runtime_dependency "thor", "~> 1.5"
-  spec.add_runtime_dependency "tty-prompt", "~> 0.23"
+  spec.add_runtime_dependency "teuton", "~> 3.0"
+  spec.add_runtime_dependency "kramdown", "~> 2.5"
   spec.add_runtime_dependency "sinatra", "~> 4.2"
   spec.add_runtime_dependency "rackup", "~> 2.3"
-  spec.add_runtime_dependency "puma", "~> 8.0"
+  spec.add_runtime_dependency "webrick", "~> 1.9"
 end
-

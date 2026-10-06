@@ -6,16 +6,16 @@
 
 ## Runtime
 
-- Teuton 3.0.0 (run as a subprocess; not yet in the gemspec)
+- Teuton 3.0.0 (runtime dependency, run as a subprocess)
+- kramdown (Markdown to HTML)
 - Thor (CLI)
-- tty-prompt (terminal prompts)
 - Sinatra 4 (web)
-- Rackup + Puma (server)
+- Rackup + WEBrick (server; pure Ruby, installs without a compiler on Windows)
 
 ## Development
 
 - Bundler, Rake
-- test-unit
+- test-unit, rack-test
 - Standard (lint)
 
 ## Data
@@ -29,4 +29,5 @@
 
 ## Compatibility
 
-- Teuton 3.0.0 needs Ruby ≥ 3.2.8 and thor ~> 1.3; no conflict with sinatra, puma, thor ~> 1.5 or tty-prompt.
+- Teuton 3.0.0 needs Ruby ≥ 3.2.8 and thor ~> 1.3; no conflict with sinatra, webrick or thor ~> 1.5.
+- No dependency may need a C compiler: RubyInstaller without MSYS2 must be able to install the gem (that is why WEBrick replaced Puma).

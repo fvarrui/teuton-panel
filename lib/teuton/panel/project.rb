@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+require_relative "version"
+
 module Teuton::Panel
   class Project
     attr_reader :dirpath
@@ -6,26 +10,23 @@ module Teuton::Panel
       @dirpath = dirpath
     end
 
+    def name
+      File.basename(@dirpath)
+    end
+
     def to_s
       "Project: #{@dirpath}"
     end
   end
 
   module Projects
+    ##
+    # Find Teuton tests (directories with a start.rb) under basedir
+    # @param basedir (String)
+    # @return Array of Project
     def self.all(basedir)
-      projects = []
-      files = Dir.glob("#{basedir}/**/start.rb")
-      files.map do 
-        dirpath = File.dirname(_1)
-        projects << Project.new(dirpath)
-      end
-
-      if projects.size.zero?
-        puts "No projects were found in the directory! (#{basedir})"
-        exit 1
-      end
-
-      projects  
+      files = Dir.glob(File.join(basedir, "**", "start.rb")).sort
+      files.map { Project.new(File.dirname(_1)) }
     end
   end
 end

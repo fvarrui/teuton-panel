@@ -1,3 +1,10 @@
 # For available configuration options, see:
 #   https://github.com/standardrb/standard
 ruby_version: 3.2
+ignore:
+  - "**/*":
+    # Git stores LF and converts on checkout (core.autocrlf), so line endings
+    # depend on the machine, not on the code.
+    - Layout/EndOfLine
+  - "tmp/**/*"
+  - "test/files/**/*"

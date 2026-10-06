@@ -2,7 +2,7 @@
 
 ## Decision
 
-The web app is built with plain Sinatra (`Sinatra::Base`) served by Puma. No Rails, no other web framework, no database, no frontend build step. New dependencies are added only when they clearly pay off.
+The web app is built with plain Sinatra (`Sinatra::Base`) served by WEBrick (pure Ruby; Puma was dropped because it needs a C compiler on Windows). No Rails, no other web framework, no database, no frontend build step. New dependencies are added only when they clearly pay off.
 
 ## Motivation
 
