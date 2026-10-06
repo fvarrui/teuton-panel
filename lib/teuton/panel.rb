@@ -5,7 +5,11 @@ require_relative "panel/app"
 require_relative "panel/config"
 require_relative "panel/lang"
 require_relative "panel/network"
+require_relative "panel/params"
 require_relative "panel/project"
+require_relative "panel/registration"
+require_relative "panel/students"
+require_relative "panel/teuton_config"
 
 module Teuton::Panel
   ##
