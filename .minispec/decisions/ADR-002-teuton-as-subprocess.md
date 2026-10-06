@@ -19,7 +19,7 @@ Teuton 3.0.0's Ruby API is not safe to call repeatedly from a long-lived server:
 - Each run is a separate process: isolated, killable, with its own working directory and stdout capture.
 - Options used: `--no-color`, `--quiet`, `--export=json`, absolute `--cpath`, `spawn`/`Open3` with `chdir:`.
 - Teuton numbers cases by position and always writes `var/<testname>/case-NN.*`, `resume.*` and `moodle.csv`; a partial run (one student, a selection) would overwrite the class reports. Every run therefore gets its own working directory, and the panel keeps the latest result of each student in its own results store.
-- Known Teuton 3.0.0 bugs to work around until fixed upstream:
+- Known Teuton 3.0.0 bugs to work around until fixed upstream, reported in [teuton#44](https://github.com/teuton-software/teuton/issues/44) (2026-10-06). When a Teuton release fixes them, raise the `teuton` requirement and drop the matching workarounds (subset runs could then use `--case`, and disabled students `tt_skip`):
   - Any skipped case (`tt_skip: true` or `--case=N`) crashes the run before reports are written (`Settings.letter(:skip)`). To run a subset, generate a temporary config with only those cases and pass it with `--cpath`.
   - Errors in `start.rb` are hidden by a broken `Rainbow.new(...)` call; show stderr as-is.
   - CLI argument errors exit with status 0; check the report files, not only the exit code.
