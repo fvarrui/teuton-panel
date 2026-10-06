@@ -36,9 +36,9 @@ module Teuton::Panel
     # stdout of teuton readme/config/check for a test
     # @param action (String) readme, config or check
     # @param project (Project)
-    # @param args (Array) Extra CLI arguments
+    # @param args (Array) Extra CLI arguments (e.g. --lang=es, --no-color)
     def self.capture(action, project, args = [])
-      output, _status = Open3.capture2e(*command, action, "--no-color", *args, project.dirpath, chdir: project.dirpath)
+      output, _status = Open3.capture2e(*command, action, *args, project.dirpath, chdir: project.dirpath)
       output
     end
 
