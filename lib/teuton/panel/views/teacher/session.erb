@@ -1,0 +1,26 @@
+<% @title = t("nav.sessions") %>
+<div class="page-head">
+  <div>
+    <h1><%= h(info["label"].to_s.empty? ? t("teacher.sessions.untitled") : info["label"]) %></h1>
+    <p class="muted"><%= h time_text(info["archived_at"]) %> · <%= h info["test"] %></p>
+  </div>
+  <div class="actions">
+    <a class="btn secondary" href="/teacher/sessions/<%= h info["id"] %>/moodle.csv"><%= h t("teacher.results.moodle") %></a>
+    <a class="btn secondary" href="/teacher/sessions"><%= h t("students.run.back") %></a>
+  </div>
+</div>
+<section class="card">
+  <% if archived.empty? %>
+    <p class="muted"><%= h t("teacher.students.empty") %></p>
+  <% else %>
+  <div class="table-wrap"><table>
+    <thead><tr><th><%= h t("table.student") %></th><th><%= h t("students.code") %></th><th><%= h t("table.grade") %></th></tr></thead>
+    <tbody>
+      <% archived.each do |student| %>
+        <% result = results.get(student[:code].to_s) %>
+        <tr><td><%= h student[:data]["tt_members"] %></td><td><kbd><%= h student[:code] %></kbd></td><td><%= grade_bar(result&.dig("grade")) %></td></tr>
+      <% end %>
+    </tbody>
+  </table></div>
+  <% end %>
+</section>

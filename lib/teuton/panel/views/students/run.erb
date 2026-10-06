@@ -1,0 +1,17 @@
+<% @title = t("students.run.title") %>
+<div class="page-head">
+  <div>
+    <h1><%= h t("students.run.title") %></h1>
+    <p class="muted"><%= h student[:data]["tt_members"] %> · <%= h student[:code] %></p>
+  </div>
+  <a class="btn secondary" href="/students/<%= h student[:code] %>"><%= h t("students.run.back") %></a>
+</div>
+<% if state == "done" %>
+  <section class="card featured">
+    <div class="notice success"><%= h t("students.run.done") %></div>
+    <div class="score-big"><%= grade_text(result["grade"]) %><small>/100</small></div>
+    <%= erb :"students/_targets", layout: false, locals: {result: result} %>
+  </section>
+<% else %>
+  <div class="notice <%= %w[disabled failed].include?(state) ? "error" : "warn" %>"><%= h t("students.run.#{state}", wait: wait, time: next_at ? next_at.strftime("%H:%M:%S") : "") %></div>
+<% end %>

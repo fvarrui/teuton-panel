@@ -1,0 +1,17 @@
+<% @title = t("students.results.title") %>
+<div class="page-head">
+  <div>
+    <h1><%= h t("students.results.title") %></h1>
+    <p class="muted"><%= h student[:data]["tt_members"] %> · <%= h student[:code] %></p>
+  </div>
+  <a class="btn secondary" href="/students/<%= h student[:code] %>"><%= h t("students.run.back") %></a>
+</div>
+<section class="card featured">
+  <% if result.nil? %>
+    <div class="empty"><%= icon(:chart, 40) %><p><%= h t("students.results.none") %></p></div>
+  <% else %>
+    <div class="score-big"><%= grade_text(result["grade"]) %><small>/100</small></div>
+    <p class="muted"><%= h t("students.results.when", time: time_text(result["finished_at"])) %></p>
+    <%= erb :"students/_targets", layout: false, locals: {result: result} %>
+  <% end %>
+</section>

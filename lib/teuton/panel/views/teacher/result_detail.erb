@@ -1,0 +1,39 @@
+<% result = row[:result] %>
+<% @title = row[:data]["tt_members"].to_s %>
+<div class="page-head">
+  <div>
+    <h1><%= h row[:data]["tt_members"] %></h1>
+    <p class="muted"><%= h time_text(result&.dig("finished_at")) %></p>
+  </div>
+  <a class="btn secondary" href="/teacher/results"><%= h t("students.run.back") %></a>
+</div>
+<% if result.nil? %>
+  <section class="card"><p class="muted"><%= h t("students.results.none") %></p></section>
+<% else %>
+<section class="card featured">
+  <div class="score-big"><%= grade_text(result["grade"]) %><small>/100</small></div>
+  <p><%= state_badge(row[:disabled], result) %></p>
+  <% unless result["conn_status"].empty? %>
+    <div class="notice warn"><%= h result["conn_status"].map { |host, error| "#{host}: #{error}" }.join(", ") %></div>
+  <% end %>
+  <% if result["unique_fault"].to_i > 0 %><div class="notice error"><%= h t("students.results.copy") %></div><% end %>
+</section>
+<section class="card">
+  <div class="table-wrap"><table>
+    <thead><tr><th></th><th><%= h t("teacher.results.target") %></th><% unless projector %><th><%= h t("teacher.results.command") %></th><th><%= h t("teacher.results.expected") %></th><th><%= h t("teacher.results.output") %></th><% end %></tr></thead>
+    <tbody>
+      <% result["targets"].each do |target| %>
+        <tr>
+          <td><span class="mark <%= "ok" if target["check"] %>"><%= target["check"] ? "&#10003;" : "&#10007;" %></span></td>
+          <td><%= h target["description"] %><br><small class="muted"><%= h target["group"] %> · x<%= h target["weight"] %></small></td>
+          <% unless projector %>
+            <td><code><%= h target["command"] %></code></td>
+            <td><%= h target["expected"] %></td>
+            <td><code><%= h target["output"].to_s[0, 300] %></code></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table></div>
+</section>
+<% end %>

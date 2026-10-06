@@ -1,0 +1,70 @@
+<% @title = t("nav.run") %>
+<% @refresh = 10 if status[:active] || queue[:running].any? %>
+<% used = settings_used || {} %>
+<% run_cfg = config[:run] %>
+<div class="page-head">
+  <div>
+    <h1><%= h t("teacher.run.title") %></h1>
+    <p class="muted"><%= h t("teacher.run.intro", test: project.name) %></p>
+  </div>
+  <% if status[:active] %>
+    <form method="post" action="/teacher/run/stop" class="inline">
+      <button class="btn danger" type="submit"><%= h t("teacher.run.stop") %></button>
+    </form>
+  <% end %>
+</div>
+
+<div class="grid">
+  <section class="card featured">
+    <h2 class="section-title"><%= icon(:play) %> <%= h t("teacher.run.new") %></h2>
+    <form method="post" action="/teacher/run/start">
+      <fieldset>
+        <legend><%= h t("teacher.run.mode") %></legend>
+        <div class="checks">
+          <% Teuton::Panel::Scheduler::MODES.each do |mode| %>
+            <label><input type="radio" name="mode" value="<%= mode %>" <%= "checked" if (used[:mode] || "once") == mode %>> <%= h t("teacher.run.mode_#{mode}") %></label>
+          <% end %>
+        </div>
+      </fieldset>
+      <div class="grid" style="gap: 0 1rem">
+        <div class="field"><label for="times"><%= h t("teacher.run.times") %></label><input type="number" id="times" name="times" min="1" value="<%= run_cfg[:times] %>"></div>
+        <div class="field"><label for="delay"><%= h t("teacher.run.delay") %></label><input type="number" id="delay" name="delay" min="0" value="<%= run_cfg[:delay] %>"></div>
+        <div class="field"><label for="every"><%= h t("teacher.run.every") %></label><input type="number" id="every" name="every" min="10" value="<%= run_cfg[:every] %>"></div>
+        <div class="field"><label for="until"><%= h t("teacher.run.until") %></label><input type="datetime-local" id="until" name="until"></div>
+      </div>
+      <fieldset>
+        <legend><%= h t("teacher.run.cases") %></legend>
+        <% if rows.empty? %>
+          <p class="muted"><%= h t("teacher.students.empty") %></p>
+        <% else %>
+          <div class="checks">
+            <% rows.each do |row| %>
+              <label><input type="checkbox" name="keys[]" value="<%= h row[:key] %>" <%= row[:disabled] ? "disabled" : "checked" %>> <%= h row[:data]["tt_members"] %></label>
+            <% end %>
+          </div>
+        <% end %>
+      </fieldset>
+      <button class="btn" type="submit"><%= icon(:play, 18) %> <%= h t("teacher.run.start") %></button>
+    </form>
+  </section>
+  <section class="card">
+    <h2 class="section-title"><%= icon(:clock) %> <%= h t("teacher.run.status") %></h2>
+    <% if status[:active] %>
+      <p><span class="badge ok"><%= h t("teacher.run.active_#{status[:mode]}") %></span> <%= h t("teacher.run.pass", pass: status[:pass]) %></p>
+      <% if status[:next_at] %><p><%= h t("teacher.run.next_pass", time: status[:next_at].strftime("%H:%M:%S")) %></p><% end %>
+    <% else %>
+      <p><span class="badge disabled"><%= h t("teacher.run.idle") %></span></p>
+    <% end %>
+    <p class="muted"><%= h t("teacher.home.queue", running: queue[:running].size, waiting: queue[:waiting].size) %></p>
+    <% queue[:running].each do |job| %>
+      <p><span class="badge pending"><%= h t("kinds.#{job[:kind]}") %><%= job[:code] ? " · #{job[:code]}" : "" %></span></p>
+    <% end %>
+    <% if summary %>
+      <h3><%= h t("teacher.run.last") %></h3>
+      <p class="muted"><%= h time_text(summary["finished_at"]) %> · <%= h t("kinds.#{summary["kind"]}") %> · <%= h t("teacher.run.exitcode", code: summary["exitcode"]) %>
+        · <a href="/teacher/runs/<%= h summary["id"] %>"><%= h t("teacher.run.open") %></a></p>
+      <% unless summary["ok"] %><div class="notice error"><%= h t("teacher.run.failed") %></div><% end %>
+      <pre class="log"><%= h log %></pre>
+    <% end %>
+  </section>
+</div>

@@ -1,0 +1,59 @@
+<% @title = t("nav.results") %>
+<% @refresh = 10 %>
+<% if projector %>
+  <% @body_class = "projector" %>
+  <div class="page-head">
+    <div>
+      <h1><%= h project.name %></h1>
+      <% urls.first(2).each do |url| %><p class="projector-urls"><%= h url %></p><% end %>
+    </div>
+    <a class="btn secondary" href="/teacher/results" style="color: #fff; border-color: #fff"><%= h t("teacher.results.exit_projector") %></a>
+  </div>
+  <% if rows.empty? %>
+    <div class="empty"><p><%= h t("teacher.students.empty") %></p></div>
+  <% else %>
+    <div class="tiles">
+      <% rows.sort_by { [_1[:result].nil? ? 1 : 0, -_1[:result]&.dig("grade").to_f] }.each do |row| %>
+        <% css, text = row_state(row[:disabled], row[:result]) %>
+        <% tile = (css == "ok") ? grade_class(row[:result]["grade"]) : css %>
+        <% tile = grade_class(row[:result]["grade"]) if css == "fail" && row[:result] %>
+        <div class="tile <%= tile %>">
+          <div class="name"><%= h row[:data]["tt_members"] %></div>
+          <div class="value"><%= row[:result] ? grade_text(row[:result]["grade"]) : "—" %></div>
+          <div class="note"><%= h text %></div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+<% else %>
+  <div class="page-head">
+    <div>
+      <h1><%= h t("teacher.results.title") %></h1>
+      <p class="muted"><%= h t("teacher.results.intro", test: project.name) %></p>
+    </div>
+    <div class="actions">
+      <a class="btn" href="/teacher/results?projector=1"><%= icon(:chart, 18) %> <%= h t("teacher.results.projector") %></a>
+      <a class="btn secondary" href="/teacher/moodle.csv"><%= h t("teacher.results.moodle") %></a>
+    </div>
+  </div>
+  <section class="card">
+    <% if rows.empty? %>
+      <div class="empty"><%= icon(:chart, 40) %><p><%= h t("teacher.students.empty") %></p></div>
+    <% else %>
+    <div class="table-wrap"><table>
+      <thead><tr><th><%= h t("table.student") %></th><th><%= h t("table.grade") %></th><th><%= h t("table.state") %></th><th><%= h t("table.when") %></th><th></th></tr></thead>
+      <tbody>
+        <% rows.sort_by { [_1[:result].nil? ? 1 : 0, -_1[:result]&.dig("grade").to_f] }.each do |row| %>
+          <tr class="<%= "disabled" if row[:disabled] %>">
+            <td><strong><%= h row[:data]["tt_members"] %></strong></td>
+            <td><%= grade_bar(row[:result]&.dig("grade"), row[:disabled]) %></td>
+            <td><%= state_badge(row[:disabled], row[:result]) %></td>
+            <td><%= h time_text(row[:result]&.dig("finished_at")) %></td>
+            <td><% if row[:result] %><a class="btn small secondary" href="/teacher/results/<%= h row[:key] %>"><%= h t("teacher.results.detail") %></a><% end %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table></div>
+    <% end %>
+  </section>
+<% end %>

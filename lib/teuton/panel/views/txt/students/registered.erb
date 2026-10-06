@@ -1,0 +1,12 @@
+<%= t("students.code_is", code: code) %>
+<%= t("students.registered.keep_code") %>
+
+<%= t("students.registered.your_url") %> <%= url %>
+<%- if config[:student][:run] -%>
+<%= t("students.help.run") %>
+  curl <%= url %>/run.txt
+<%- end -%>
+<%- if config[:student][:results] -%>
+<%= t("students.help.results") %>
+  curl <%= url %>/results.txt
+<%- end -%>

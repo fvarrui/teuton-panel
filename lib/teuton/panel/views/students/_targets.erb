@@ -1,0 +1,9 @@
+<% if result["unique_fault"] %><div class="notice error"><%= h t("students.results.copy") %></div><% end %>
+<% unless result["connection"] == "ok" %><div class="notice warn"><%= h t("students.status.problem", detail: result["connection"]) %></div><% end %>
+<% if result["targets"] %>
+  <ul class="target-list">
+    <% result["targets"].each do |target| %>
+      <li><span class="mark <%= "ok" if target["check"] %>"><%= target["check"] ? "&#10003;" : "&#10007;" %></span><span><%= h target["description"] %></span></li>
+    <% end %>
+  </ul>
+<% end %>

@@ -1,0 +1,46 @@
+<% @title = t("nav.students") %>
+<% @refresh = 15 %>
+<div class="page-head">
+  <div>
+    <h1><%= h t("nav.students") %></h1>
+    <p class="muted"><%= h t("teacher.students.intro", test: project.name) %></p>
+  </div>
+</div>
+<section class="card">
+  <% if rows.empty? %>
+    <div class="empty"><%= icon(:users, 40) %><p><%= h t("teacher.students.empty") %></p></div>
+  <% else %>
+  <div class="table-wrap"><table>
+    <thead><tr><th><%= h t("table.student") %></th><th><%= h t("students.code") %></th><th>IP</th><th><%= h t("table.registered") %></th><th><%= h t("table.grade") %></th><th><%= h t("table.state") %></th><th></th></tr></thead>
+    <tbody>
+      <% rows.each do |row| %>
+        <tr class="<%= "disabled" if row[:disabled] %>">
+          <td><strong><%= h row[:data]["tt_members"] %></strong><br><small class="muted"><%= h row[:source] %></small></td>
+          <td><% if row[:code] %><kbd><%= h row[:code] %></kbd><% else %><span class="muted"><%= h t("teacher.students.no_code") %></span><% end %></td>
+          <td><%= h row[:data]["tt_source_ip"] %></td>
+          <td><%= h(row[:time] ? row[:time].strftime("%H:%M:%S") : "-") %></td>
+          <td><%= grade_bar(row[:result]&.dig("grade"), row[:disabled]) %></td>
+          <td><%= state_badge(row[:disabled], row[:result]) %></td>
+          <td class="actions">
+            <% if row[:code] %>
+              <a class="btn small secondary" href="/teacher/students/<%= h row[:code] %>"><%= h t("teacher.students.edit") %></a>
+              <form method="post" action="/teacher/students/<%= h row[:code] %>/disable" class="inline">
+                <input type="hidden" name="value" value="<%= row[:disabled] ? "0" : "1" %>">
+                <button class="btn small secondary" type="submit"><%= h t(row[:disabled] ? "teacher.students.enable" : "teacher.students.disable") %></button>
+              </form>
+              <form method="post" action="/teacher/students/<%= h row[:code] %>/delete" class="inline" onsubmit="return confirm('<%= h t("teacher.students.confirm_delete") %>')">
+                <button class="btn small danger" type="submit"><%= h t("teacher.students.delete") %></button>
+              </form>
+            <% elsif row[:filepath] %>
+              <form method="post" action="/teacher/students/assign" class="inline">
+                <input type="hidden" name="filepath" value="<%= h row[:filepath] %>">
+                <button class="btn small secondary" type="submit"><%= h t("teacher.students.assign") %></button>
+              </form>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table></div>
+  <% end %>
+</section>

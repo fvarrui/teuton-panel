@@ -1,0 +1,36 @@
+<%= t("app.name") %> - <%= project ? t("students.home.active_test", test: project.name) : t("errors.no_test") %>
+
+<%= t("students.help.title") %>
+<%- if config[:student][:register] && project -%>
+  <%= t("students.help.register") %>
+    curl "<%= student_base_url %>/register.txt?<%= registration_fields.map { "#{_1}=..." }.join("&") %>"
+<%- end -%>
+  <%= t("students.help.personal") %>
+    curl <%= student_base_url %>/CODE.txt
+<%- if config[:student][:run] -%>
+  <%= t("students.help.run") %>
+    curl <%= student_base_url %>/CODE/run.txt
+<%- end -%>
+<%- if config[:student][:results] -%>
+  <%= t("students.help.results") %>
+    curl <%= student_base_url %>/CODE/results.txt
+<%- end -%>
+<%- if config[:student][:history] -%>
+  <%= t("students.help.history") %>
+    curl <%= student_base_url %>/CODE/history.txt
+<%- end -%>
+<%- if config[:student][:status] -%>
+  <%= t("students.help.status") %>
+    curl <%= student_base_url %>/CODE/status.txt
+<%- end -%>
+<%- if config[:student][:readme] -%>
+  <%= t("students.help.readme") %>
+    curl <%= student_base_url %>/readme.md
+<%- end -%>
+<%- unless members.nil? -%>
+
+<%= t("students.home.registered", count: members.size) %>
+<%- members.each do |m| -%>
+  - <%= m["members"] %>
+<%- end -%>
+<%- end -%>

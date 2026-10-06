@@ -1,0 +1,40 @@
+<% @title = t("nav.sessions") %>
+<div class="page-head">
+  <div>
+    <h1><%= h t("teacher.sessions.title") %></h1>
+    <p class="muted"><%= h t("teacher.sessions.intro") %></p>
+  </div>
+</div>
+<% if error == "running" %><div class="notice error"><%= h t("teacher.sessions.stop_first") %></div><% end %>
+<section class="card featured">
+  <h2><%= h t("teacher.sessions.new") %></h2>
+  <form method="post" action="/teacher/sessions/new" onsubmit="return confirm('<%= h t("teacher.sessions.confirm") %>')">
+    <div class="field">
+      <label for="label"><%= h t("teacher.sessions.label") %></label>
+      <input type="text" id="label" name="label" placeholder="<%= h t("teacher.sessions.label_example") %>">
+    </div>
+    <button class="btn" type="submit"><%= icon(:archive, 18) %> <%= h t("teacher.sessions.archive") %></button>
+  </form>
+</section>
+<section class="card">
+  <h2><%= h t("teacher.sessions.archived") %></h2>
+  <% if sessions.empty? %>
+    <p class="muted"><%= h t("teacher.sessions.empty") %></p>
+  <% else %>
+  <div class="table-wrap"><table>
+    <thead><tr><th><%= h t("table.when") %></th><th><%= h t("teacher.sessions.label") %></th><th></th></tr></thead>
+    <tbody>
+      <% sessions.each do |session| %>
+        <tr>
+          <td><%= h time_text(session["archived_at"]) %></td>
+          <td><%= h session["label"] %></td>
+          <td class="actions">
+            <a class="btn small secondary" href="/teacher/sessions/<%= h session["id"] %>"><%= h t("teacher.run.open") %></a>
+            <a class="btn small secondary" href="/teacher/sessions/<%= h session["id"] %>/moodle.csv"><%= h t("teacher.results.moodle") %></a>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table></div>
+  <% end %>
+</section>

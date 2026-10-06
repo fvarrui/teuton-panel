@@ -1,0 +1,42 @@
+<% @title = t("nav.tests") %>
+<div class="page-head">
+  <div>
+    <h1><%= h t("nav.tests") %></h1>
+    <p class="muted"><%= h t("teacher.tests.intro", basedir: config.basedir) %></p>
+  </div>
+</div>
+<section class="card">
+  <div class="table-wrap"><table>
+    <thead><tr><th><%= h t("table.test") %></th><th><%= h t("table.path") %></th><th><%= h t("teacher.tests.config") %></th><th><%= h t("teacher.tests.registered") %></th><th></th></tr></thead>
+    <tbody>
+      <% projects.each do |test| %>
+        <% active = project && project.dirpath == test.dirpath %>
+        <% dirpath = test.include_dir %>
+        <% count = Teuton::Panel::Students.new(dirpath).all.size %>
+        <tr>
+          <td><strong><%= h test.name %></strong> <% if active %><span class="badge ok"><%= h t("teacher.tests.active") %></span><% end %></td>
+          <td class="muted"><%= h test.relpath(config.basedir) %></td>
+          <td><%= test.config? ? h(t("teacher.tests.config_ok", cases: test.config_cases.size)) : %(<span class="badge pending">#{h t("teacher.tests.no_config")}</span>) %></td>
+          <td><%= dirpath.nil? ? "-" : count %></td>
+          <td>
+            <% unless active %>
+              <form method="post" action="/teacher/tests/select" class="inline" onsubmit="return confirm('<%= h t("teacher.tests.confirm") %>')">
+                <input type="hidden" name="test" value="<%= h test.relpath(config.basedir) %>">
+                <button class="btn small" type="submit"><%= h t("teacher.tests.activate") %></button>
+              </form>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table></div>
+</section>
+<% if project %>
+<section class="card">
+  <div class="page-head" style="margin-bottom: 0.5rem">
+    <h2><%= h t("teacher.tests.check_title", test: project.name) %></h2>
+    <a class="btn secondary small" href="/teacher/tests?check=1"><%= h t("teacher.tests.check") %></a>
+  </div>
+  <% if check %><pre class="log"><%= h check %></pre><% else %><p class="muted"><%= h t("teacher.tests.check_text") %></p><% end %>
+</section>
+<% end %>

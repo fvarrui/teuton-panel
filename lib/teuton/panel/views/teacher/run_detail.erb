@@ -1,0 +1,26 @@
+<% @title = t("teacher.runs.detail") %>
+<div class="page-head">
+  <div>
+    <h1><%= h t("teacher.runs.detail") %></h1>
+    <p class="muted"><%= h time_text(run["finished_at"]) %> · <%= h t("kinds.#{run["kind"]}") %> · <%= h t("teacher.run.exitcode", code: run["exitcode"]) %></p>
+  </div>
+  <a class="btn secondary" href="/teacher/runs"><%= h t("students.run.back") %></a>
+</div>
+<section class="card">
+  <% if run["cases"].empty? %>
+    <div class="notice error"><%= h t("teacher.run.failed") %></div>
+  <% else %>
+  <div class="table-wrap"><table>
+    <thead><tr><th><%= h t("table.student") %></th><th><%= h t("table.grade") %></th><th><%= h t("table.state") %></th></tr></thead>
+    <tbody>
+      <% run["cases"].sort_by { -_1["grade"].to_f }.each do |result| %>
+        <tr><td><%= h result["members"] %></td><td><%= grade_bar(result["grade"]) %></td><td><%= state_badge(false, result) %></td></tr>
+      <% end %>
+    </tbody>
+  </table></div>
+  <% end %>
+</section>
+<section class="card">
+  <h2><%= h t("teacher.runs.output") %></h2>
+  <pre class="log"><%= h log %></pre>
+</section>

@@ -1,0 +1,20 @@
+<% @title = t("teacher.students.edit") %>
+<div class="page-head">
+  <div>
+    <h1><%= h t("teacher.students.edit_title", name: student[:data]["tt_members"]) %></h1>
+    <p class="muted"><kbd><%= h student[:code] %></kbd> · <%= h File.basename(student[:filepath]) %></p>
+  </div>
+  <a class="btn secondary" href="/teacher/students"><%= h t("students.run.back") %></a>
+</div>
+<% unless errors.empty? %><div class="notice error"><%= h t("teacher.students.own_ip") %></div><% end %>
+<section class="card featured">
+  <form method="post" action="/teacher/students/<%= h student[:code] %>">
+    <% data.each do |field, value| %>
+      <div class="field <%= "error" if errors.include?(field) %>">
+        <label for="d-<%= h field %>"><%= h field %></label>
+        <input type="text" id="d-<%= h field %>" name="data[<%= h field %>]" value="<%= h value %>">
+      </div>
+    <% end %>
+    <button class="btn" type="submit"><%= h t("teacher.save") %></button>
+  </form>
+</section>

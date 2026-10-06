@@ -1,0 +1,8 @@
+<%= student[:data]["tt_members"] %> (<%= student[:code] %>)
+<%- if result.nil? -%>
+<%= t("students.results.none") %>
+<%- else -%>
+<%= t("students.results.grade") %>: <%= grade_text(result["grade"]) %>/100
+<%= t("students.results.when", time: time_text(result["finished_at"])) %>
+<%= erb :"txt/students/_targets", layout: false, locals: {result: result}, trim: "-" -%>
+<%- end -%>

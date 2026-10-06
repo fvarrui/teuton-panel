@@ -1,0 +1,9 @@
+<%- if result["unique_fault"] -%>
+<%= t("students.results.copy") %>
+<%- end -%>
+<%- unless result["connection"] == "ok" -%>
+<%= t("students.status.problem", detail: result["connection"]) %>
+<%- end -%>
+<%- (result["targets"] || []).each do |target| -%>
+  [<%= target["check"] ? "OK" : "FAIL" %>] <%= target["description"] %>
+<%- end -%>

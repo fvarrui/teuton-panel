@@ -1,0 +1,8 @@
+<% @title = t("nav.readme") %>
+<div class="page-head">
+  <div>
+    <h1><%= h t("teacher.readme.title") %></h1>
+    <p class="muted"><%= h t(config[:student][:readme] ? "teacher.readme.published" : "teacher.readme.hidden") %></p>
+  </div>
+</div>
+<section class="card readme"><%= html %></section>

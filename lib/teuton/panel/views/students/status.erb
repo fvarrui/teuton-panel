@@ -1,0 +1,20 @@
+<% @title = t("students.status.title") %>
+<div class="page-head">
+  <div>
+    <h1><%= h t("students.status.title") %></h1>
+    <p class="muted"><%= h student[:data]["tt_members"] %> · <%= h student[:code] %></p>
+  </div>
+  <a class="btn secondary" href="/students/<%= h student[:code] %>"><%= h t("students.run.back") %></a>
+</div>
+<section class="card featured">
+  <% if student[:disabled] %>
+    <div class="notice warn"><%= h t("students.personal.disabled") %></div>
+  <% elsif result.nil? %>
+    <div class="empty"><%= icon(:clock, 40) %><p><%= h t("students.status.never") %></p></div>
+  <% elsif result["connection"] == "ok" %>
+    <div class="notice success"><%= h t("students.status.ok", time: time_text(result["finished_at"])) %></div>
+  <% else %>
+    <div class="notice error"><%= h t("students.status.problem", detail: result["connection"]) %></div>
+    <p><%= h t("students.status.hint") %></p>
+  <% end %>
+</section>

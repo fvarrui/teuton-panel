@@ -1,0 +1,31 @@
+<% @title = t("students.register.title") %>
+<% spec = Teuton::Panel::Params.load(project) %>
+<div class="page-head">
+  <div>
+    <h1><%= h t("students.register.title") %></h1>
+    <p class="muted"><%= h t("students.register.intro", test: project.name) %></p>
+  </div>
+</div>
+<% unless errors.empty? %>
+  <div class="notice error" role="alert"><%= h t("students.register.fix_errors") %></div>
+<% end %>
+<% if spec.value?("AUTO IP") %>
+  <div class="notice"><%= h t("students.register.auto_ip", ip: client_ip) %></div>
+<% end %>
+<section class="card featured">
+  <form method="post" action="/students/register">
+    <% fields.each do |field| %>
+      <% error = errors.find { _1[0] == field } %>
+      <div class="field <%= "error" if error %>">
+        <label for="f-<%= h field %>"><%= h field_label(field, spec[field]) %></label>
+        <input type="<%= field_type(field, spec[field]) %>" id="f-<%= h field %>" name="<%= h field %>" value="<%= h(values[field]) unless field.include?("password") %>" required>
+        <small><%= h(error ? t("errors.field_#{error[1]}") : field) %></small>
+      </div>
+    <% end %>
+    <button class="btn" type="submit"><%= icon(:spark, 18) %> <%= h t("students.register.submit") %></button>
+  </form>
+</section>
+<section class="card">
+  <h2 class="section-title"><%= icon(:terminal) %> <%= h t("students.home.terminal") %></h2>
+  <pre class="cmd"><span class="prompt">$ </span>curl "<%= h student_base_url %>/register.txt?<%= h fields.map { "#{_1}=..." }.join("&") %>"</pre>
+</section>

@@ -24,6 +24,8 @@ module Teuton::Panel
   # Start the panel from the base directory
   # @param basedir (String) Directory with Teuton tests
   def self.up(basedir)
+    $stdout.sync = true
+    check_teuton
     projects = Projects.all(basedir)
     if projects.empty?
       warn "[ERROR] Teuton::Panel.up: No Teuton tests found! <#{basedir}>"
@@ -31,11 +33,16 @@ module Teuton::Panel
       exit 1
     end
     config = Config.new(basedir)
+    select_single_test(config, projects)
+    queue = RunQueue.new(config[:runs][:max_parallel])
 
     App.set(:panel_projects, projects)
     App.set(:panel_config, config)
+    App.set(:panel_queue, queue)
+    App.set(:panel_scheduler, Scheduler.new(queue))
     App.set(:bind, config[:server][:bind])
     App.set(:port, config[:server][:port])
+    at_exit { queue.kill_all }
     show_banner(config)
     App.run!
   end
@@ -46,6 +53,24 @@ module Teuton::Panel
   def self.student_urls(config)
     port = config[:server][:port]
     Network.local_ips.map { "http://#{_1}:#{port}/students" }
+  end
+
+  private_class_method def self.check_teuton
+    version = Runner.version
+    return if !version.nil? && version.start_with?("3.")
+
+    warn "[ERROR] Teuton::Panel.up: teuton 3.x is required (found: #{version || "none"})"
+    warn "[ERROR] Install it with 'gem install teuton -v \"~> 3.0\"'"
+    exit 1
+  end
+
+  private_class_method def self.select_single_test(config, projects)
+    return unless config[:test].nil? && projects.size == 1
+
+    test = projects.first
+    TeutonConfig.ensure_include(test.configpath)
+    Params.save(test, Params.propose(Runner.capture("config", test))) unless Params.exists?(test)
+    config.update(test: test.relpath(config.basedir))
   end
 
   private_class_method def self.show_banner(config)

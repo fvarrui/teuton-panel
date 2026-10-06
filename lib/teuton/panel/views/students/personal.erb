@@ -1,0 +1,60 @@
+<% @title = student[:data]["tt_members"].to_s %>
+<div class="page-head">
+  <div>
+    <h1><%= h t("students.personal.hello", name: student[:data]["tt_members"]) %></h1>
+    <p class="muted"><%= h t("students.personal.code_line", code: student[:code]) %></p>
+  </div>
+  <div class="actions">
+    <% if config[:student][:run] && !student[:disabled] %>
+      <form method="post" action="/students/<%= h student[:code] %>/run" class="inline">
+        <button class="btn" type="submit"><%= icon(:play, 18) %> <%= h t("students.personal.run_now") %></button>
+      </form>
+    <% end %>
+  </div>
+</div>
+<% if notice == "updated" %><div class="notice success"><%= h t("students.personal.updated") %></div><% end %>
+<% if notice == "invalid" %><div class="notice error"><%= h t("students.register.fix_errors") %></div><% end %>
+<% if student[:disabled] %><div class="notice warn"><%= h t("students.personal.disabled") %></div><% end %>
+
+<div class="grid">
+  <section class="card featured">
+    <h2 class="section-title"><%= icon(:chart) %> <%= h t("students.results.title") %></h2>
+    <% if !config[:student][:results] %>
+      <p class="muted"><%= h t("errors.feature_disabled") %></p>
+    <% elsif result.nil? %>
+      <p class="muted"><%= h t("students.results.none") %></p>
+    <% else %>
+      <div class="score-big"><%= grade_text(result["grade"]) %><small>/100</small></div>
+      <p class="muted"><%= h t("students.results.when", time: time_text(result["finished_at"])) %></p>
+      <a href="/students/<%= h student[:code] %>/results"><%= h t("students.personal.see_detail") %></a>
+    <% end %>
+  </section>
+  <section class="card">
+    <h2 class="section-title"><%= icon(:clock) %> <%= h t("students.personal.more") %></h2>
+    <ul>
+      <% if config[:student][:history] %><li><a href="/students/<%= h student[:code] %>/history"><%= h t("students.history.title") %></a></li><% end %>
+      <% if config[:student][:status] %><li><a href="/students/<%= h student[:code] %>/status"><%= h t("students.status.title") %></a></li><% end %>
+      <% if config[:student][:readme] %><li><a href="/students/readme"><%= h t("nav.readme") %></a></li><% end %>
+    </ul>
+    <pre class="cmd"><span class="prompt">$ </span>curl <%= h student_base_url %>/<%= h student[:code] %>.txt</pre>
+  </section>
+</div>
+
+<section class="card">
+  <h2 class="section-title"><%= icon(:form) %> <%= h t("students.personal.my_data") %></h2>
+  <% if config[:student][:register] %>
+    <% spec = Teuton::Panel::Params.load(project) %>
+    <form method="post" action="/students/<%= h student[:code] %>">
+      <% fields.each do |field| %>
+        <div class="field">
+          <label for="f-<%= h field %>"><%= h field_label(field, spec[field]) %></label>
+          <input type="<%= field_type(field, spec[field]) %>" id="f-<%= h field %>" name="<%= h field %>" value="<%= h(data[field]) unless field.include?("password") %>" <%= "required" unless field.include?("password") %>>
+          <small><%= h(field.include?("password") ? t("students.personal.password_keep") : field) %></small>
+        </div>
+      <% end %>
+      <button class="btn secondary" type="submit"><%= h t("students.personal.save") %></button>
+    </form>
+  <% else %>
+    <table><tbody><% data.each do |k, v| %><tr><th><%= h k %></th><td><%= h v %></td></tr><% end %></tbody></table>
+  <% end %>
+</section>

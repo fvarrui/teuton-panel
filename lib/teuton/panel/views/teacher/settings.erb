@@ -1,0 +1,56 @@
+<% @title = t("nav.settings") %>
+<% student = config[:student] %>
+<div class="page-head">
+  <div>
+    <h1><%= h t("teacher.settings.title") %></h1>
+    <p class="muted"><%= h config.filepath %></p>
+  </div>
+</div>
+<% if saved %><div class="notice success"><%= h t("teacher.saved") %></div><% end %>
+<form method="post" action="/teacher/settings">
+  <section class="card featured">
+    <h2><%= h t("teacher.settings.students") %></h2>
+    <fieldset>
+      <legend><%= h t("teacher.settings.features") %></legend>
+      <div class="checks">
+        <% %w[register list run results feedback history status readme].each do |feature| %>
+          <label><input type="checkbox" name="student[<%= feature %>]" value="1" <%= "checked" if student[feature.to_sym] %>> <%= h t("teacher.settings.feature_#{feature}") %></label>
+        <% end %>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend><%= h t("teacher.settings.formats") %></legend>
+      <div class="checks">
+        <% Teuton::Panel::App::FORMATS.each do |format| %>
+          <label><input type="checkbox" name="formats[]" value="<%= format %>" <%= "checked" if student[:formats].map(&:to_s).include?(format) %>> <%= h t("teacher.settings.format_#{format}") %></label>
+        <% end %>
+      </div>
+      <small class="muted"><%= h t("teacher.settings.formats_none") %></small>
+    </fieldset>
+    <% if student[:formats].empty? %><div class="notice warn"><%= h t("errors.student_area_closed") %></div><% end %>
+    <div class="field">
+      <label for="run_interval"><%= h t("teacher.settings.run_interval") %></label>
+      <input type="number" id="run_interval" name="run_interval" min="0" value="<%= student[:run_interval] %>">
+    </div>
+  </section>
+  <section class="card">
+    <h2><%= h t("teacher.settings.panel") %></h2>
+    <div class="field">
+      <label for="language"><%= h t("teacher.settings.language") %></label>
+      <select id="language" name="language">
+        <% Teuton::Panel::Lang::LANGS.each do |code| %><option value="<%= code %>" <%= "selected" if config[:language].to_s == code %>><%= h t("langs.#{code}") %></option><% end %>
+      </select>
+    </div>
+    <div class="field">
+      <label for="max_parallel"><%= h t("teacher.settings.max_parallel") %></label>
+      <input type="number" id="max_parallel" name="max_parallel" min="1" value="<%= config[:runs][:max_parallel] %>">
+      <small><%= h t("teacher.settings.restart") %></small>
+    </div>
+    <div class="field">
+      <label for="teacher_allow"><%= h t("teacher.settings.teacher_allow") %></label>
+      <input type="text" id="teacher_allow" name="teacher_allow" value="<%= h config[:teacher][:allow].join(", ") %>" placeholder="192.168.1.10">
+      <small><%= h t("teacher.settings.teacher_allow_help") %></small>
+    </div>
+  </section>
+  <button class="btn" type="submit"><%= h t("teacher.save") %></button>
+</form>

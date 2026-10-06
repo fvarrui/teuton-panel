@@ -1,0 +1,52 @@
+<% @title = t("teacher.home.title") %>
+<% sched = status[:scheduler] %>
+<div class="page-head">
+  <div>
+    <h1><%= h t("teacher.home.title") %></h1>
+    <p class="muted"><%= h(project ? t("teacher.home.active_test", test: project.name) : t("errors.no_test")) %></p>
+  </div>
+  <div class="actions">
+    <% if project %>
+      <a class="btn" href="/teacher/run"><%= icon(:play, 18) %> <%= h t("nav.run") %></a>
+      <a class="btn secondary" href="/teacher/results?projector=1"><%= icon(:chart, 18) %> <%= h t("teacher.results.projector") %></a>
+    <% else %>
+      <a class="btn" href="/teacher/tests"><%= h t("teacher.tests.choose") %></a>
+    <% end %>
+  </div>
+</div>
+
+<div class="grid">
+  <section class="card featured">
+    <h2 class="section-title"><%= icon(:users) %> <%= h t("teacher.home.students") %></h2>
+    <% registered = rows.count { !_1[:code].nil? } %>
+    <% evaluated = rows.count { !_1[:result].nil? } %>
+    <p><span class="score-big"><%= rows.size %></span></p>
+    <p class="muted"><%= h t("teacher.home.counts", registered: registered, evaluated: evaluated) %></p>
+    <a href="/teacher/students"><%= h t("teacher.home.see_students") %></a>
+  </section>
+  <section class="card">
+    <h2 class="section-title"><%= icon(:clock) %> <%= h t("teacher.home.runs") %></h2>
+    <% if sched[:active] %>
+      <p><span class="badge ok"><%= h t("teacher.run.active_#{sched[:mode]}") %></span></p>
+      <% if sched[:next_at] %><p class="muted"><%= h t("teacher.run.next_pass", time: sched[:next_at].strftime("%H:%M:%S")) %></p><% end %>
+    <% else %>
+      <p><span class="badge disabled"><%= h t("teacher.run.idle") %></span></p>
+    <% end %>
+    <% if status[:last] %>
+      <p class="muted"><%= h t("teacher.home.last_run", time: time_text(status[:last]["finished_at"]), kind: t("kinds.#{status[:last]["kind"]}")) %></p>
+    <% end %>
+    <p class="muted"><%= h t("teacher.home.queue", running: status[:queue][:running].size, waiting: status[:queue][:waiting].size) %></p>
+  </section>
+</div>
+
+<section class="card">
+  <h2 class="section-title"><%= icon(:terminal) %> <%= h t("teacher.home.share") %></h2>
+  <p class="muted"><%= h t("teacher.home.share_text") %></p>
+  <% if urls.empty? %>
+    <p class="notice warn"><%= h t("teacher.home.no_network") %></p>
+  <% end %>
+  <% urls.each do |url| %>
+    <p><a href="<%= h url %>"><%= h url %></a></p>
+    <pre class="cmd"><span class="prompt">$ </span>curl <%= h url %>.txt</pre>
+  <% end %>
+</section>

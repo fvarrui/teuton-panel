@@ -1,0 +1,44 @@
+<% @title = t("students.home.title") %>
+<section class="hero">
+  <div>
+    <h1><%= h t("students.home.title") %></h1>
+    <p><%= h(project ? t("students.home.active_test", test: project.name) : t("errors.no_test")) %></p>
+  </div>
+  <div class="hero-icon"><%= icon(:terminal, 96) %></div>
+</section>
+
+<ol class="steps">
+  <li><h3><%= h t("students.home.step_register") %></h3><p><%= h t("students.home.step_register_text") %></p></li>
+  <li><h3><%= h t("students.home.step_run") %></h3><p><%= h t("students.home.step_run_text") %></p></li>
+  <li><h3><%= h t("students.home.step_results") %></h3><p><%= h t("students.home.step_results_text") %></p></li>
+</ol>
+
+<div class="grid">
+  <section class="card featured">
+    <h2><%= h t("students.home.have_code") %></h2>
+    <form method="get" action="/students/go">
+      <div class="field">
+        <label for="code"><%= h t("students.code") %></label>
+        <input type="text" id="code" name="code" maxlength="6" autocomplete="off" style="max-width: 10rem; text-transform: uppercase">
+      </div>
+      <button class="btn" type="submit"><%= h t("students.home.open") %></button>
+      <% if config[:student][:register] %><a class="btn secondary" href="/students/register"><%= h t("nav.register") %></a><% end %>
+    </form>
+  </section>
+  <section class="card">
+    <h2 class="section-title"><%= icon(:terminal) %> <%= h t("students.home.terminal") %></h2>
+    <p class="muted"><%= h t("students.home.terminal_text") %></p>
+    <pre class="cmd"><span class="prompt">$ </span>curl <%= h student_base_url %>.txt</pre>
+  </section>
+</div>
+
+<% unless members.nil? %>
+<section class="card">
+  <h2 class="section-title"><%= icon(:users) %> <%= h t("students.home.registered", count: members.size) %></h2>
+  <% if members.empty? %>
+    <p class="muted"><%= h t("students.home.nobody") %></p>
+  <% else %>
+    <div class="checks"><% members.each do |m| %><span class="badge ok"><%= h m["members"] %></span><% end %></div>
+  <% end %>
+</section>
+<% end %>

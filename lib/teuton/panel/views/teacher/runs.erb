@@ -1,0 +1,27 @@
+<% @title = t("nav.history") %>
+<div class="page-head">
+  <div>
+    <h1><%= h t("teacher.runs.title") %></h1>
+    <p class="muted"><%= h t("teacher.runs.intro") %></p>
+  </div>
+</div>
+<section class="card">
+  <% if runs.empty? %>
+    <div class="empty"><%= icon(:clock, 40) %><p><%= h t("teacher.runs.empty") %></p></div>
+  <% else %>
+  <div class="table-wrap"><table>
+    <thead><tr><th><%= h t("table.when") %></th><th><%= h t("table.kind") %></th><th><%= h t("table.cases") %></th><th><%= h t("teacher.runs.average") %></th><th></th></tr></thead>
+    <tbody>
+      <% runs.each do |run| %>
+        <tr>
+          <td><%= h time_text(run["finished_at"]) %></td>
+          <td><%= h t("kinds.#{run["kind"]}") %> <% unless run["ok"] %><span class="badge fail"><%= h t("teacher.runs.failed") %></span><% end %></td>
+          <td><%= run["cases"].size %></td>
+          <td><%= grade_bar(Teuton::Panel::History.average(run)) %></td>
+          <td><a class="btn small secondary" href="/teacher/runs/<%= h run["id"] %>"><%= h t("teacher.run.open") %></a></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table></div>
+  <% end %>
+</section>

@@ -1,0 +1,17 @@
+<%= t("students.personal.hello", name: student[:data]["tt_members"]) %>
+<%= t("students.personal.code_line", code: student[:code]) %>
+<%- if student[:disabled] -%>
+<%= t("students.personal.disabled") %>
+<%- end -%>
+<%- if notice == "updated" -%>
+<%= t("students.personal.updated") %>
+<%- end -%>
+
+<%= t("students.personal.my_data") %>
+<%- data.each do |k, v| -%>
+  <%= k.ljust(20) %> <%= v %>
+<%- end -%>
+<%- if config[:student][:results] -%>
+
+<%= t("students.results.title") %>: <%= result.nil? ? t("students.results.none") : "#{grade_text(result["grade"])}/100" %>
+<%- end -%>

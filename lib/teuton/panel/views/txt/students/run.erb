@@ -1,0 +1,7 @@
+<%- if state == "done" -%>
+<%= t("students.run.done") %>
+<%= t("students.results.grade") %>: <%= grade_text(result["grade"]) %>/100
+<%= erb :"txt/students/_targets", layout: false, locals: {result: result}, trim: "-" -%>
+<%- else -%>
+<%= t("students.run.#{state}", wait: wait, time: next_at ? next_at.strftime("%H:%M:%S") : "") %>
+<%- end -%>

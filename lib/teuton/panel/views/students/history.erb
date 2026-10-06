@@ -1,0 +1,22 @@
+<% @title = t("students.history.title") %>
+<div class="page-head">
+  <div>
+    <h1><%= h t("students.history.title") %></h1>
+    <p class="muted"><%= h student[:data]["tt_members"] %> · <%= h student[:code] %></p>
+  </div>
+  <a class="btn secondary" href="/students/<%= h student[:code] %>"><%= h t("students.run.back") %></a>
+</div>
+<section class="card">
+  <% if runs.empty? %>
+    <div class="empty"><%= icon(:clock, 40) %><p><%= h t("students.history.none") %></p></div>
+  <% else %>
+    <div class="table-wrap"><table>
+      <thead><tr><th><%= h t("table.when") %></th><th><%= h t("table.kind") %></th><th><%= h t("table.grade") %></th></tr></thead>
+      <tbody>
+        <% runs.each do |run| %>
+          <tr><td><%= h time_text(run["finished_at"]) %></td><td><%= h t("kinds.#{run["kind"]}") %></td><td><%= grade_bar(run["grade"]) %></td></tr>
+        <% end %>
+      </tbody>
+    </table></div>
+  <% end %>
+</section>

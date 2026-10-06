@@ -1,0 +1,45 @@
+<% @title = t("nav.registration") %>
+<div class="page-head">
+  <div>
+    <h1><%= h t("teacher.registration.title") %></h1>
+    <p class="muted"><%= h t("teacher.registration.intro", file: Teuton::Panel::Params::FILENAME) %></p>
+  </div>
+</div>
+<% if saved %><div class="notice success"><%= h t("teacher.saved") %></div><% end %>
+<section class="card featured">
+  <form method="post" action="/teacher/registration">
+    <div class="table-wrap"><table>
+      <thead><tr><th><%= h t("teacher.registration.field") %></th><th><%= h t("teacher.registration.mode") %></th><th><%= h t("teacher.registration.value") %></th><th><%= h t("teacher.registration.remove") %></th></tr></thead>
+      <tbody>
+        <% rows = params_spec.to_a + [["", "ASK"]] %>
+        <% rows.each_with_index do |(field, mode), i| %>
+          <% fixed = Teuton::Panel::Params.fixed?(mode) %>
+          <tr>
+            <td><input type="text" name="fields[<%= i %>][name]" value="<%= h field %>" placeholder="<%= h t("teacher.registration.new_field") %>" aria-label="<%= h t("teacher.registration.field") %>"></td>
+            <td>
+              <select name="fields[<%= i %>][mode]" aria-label="<%= h t("teacher.registration.mode") %>">
+                <% (Teuton::Panel::Params::MODES + ["FIXED"]).each do |option| %>
+                  <option value="<%= option %>" <%= "selected" if option == mode || (fixed && option == "FIXED") %>><%= h t("modes.#{option.downcase.tr(" ", "_")}") %></option>
+                <% end %>
+              </select>
+            </td>
+            <td><input type="text" name="fields[<%= i %>][value]" value="<%= h(fixed ? mode : "") %>" aria-label="<%= h t("teacher.registration.value") %>"></td>
+            <td><% unless field.empty? %><input type="checkbox" name="fields[<%= i %>][delete]" value="1" aria-label="<%= h t("teacher.registration.remove") %>"><% end %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table></div>
+    <div class="actions" style="margin-top: 1rem">
+      <button class="btn" type="submit"><%= h t("teacher.save") %></button>
+      <button class="btn secondary" type="submit" name="propose" value="1"><%= h t("teacher.registration.propose") %></button>
+    </div>
+  </form>
+</section>
+<section class="card">
+  <h2><%= h t("teacher.registration.help_title") %></h2>
+  <ul>
+    <li><%= h t("teacher.registration.help_ask") %></li>
+    <li><%= h t("teacher.registration.help_auto") %></li>
+    <li><%= h t("teacher.registration.help_fixed") %></li>
+  </ul>
+</section>

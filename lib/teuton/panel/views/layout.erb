@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="<%= @lang %>">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= h(@title ? "#{@title} · #{t("app.name")}" : t("app.name")) %></title>
+  <link rel="stylesheet" href="/css/style.css">
+  <% if @refresh %><meta http-equiv="refresh" content="<%= @refresh %>"><% end %>
+</head>
+<body class="<%= @body_class %>">
+  <% unless @body_class == "projector" %>
+  <header class="topbar">
+    <div class="inner">
+      <a class="brand" href="<%= (@area == "teacher") ? "/teacher" : "/students" %>">
+        <span class="brand-mark"><%= icon(:server, 18) %></span><%= h t("app.name") %>
+      </a>
+      <span class="area"><%= h t(@area == "teacher" ? "app.teacher_area" : "app.student_area") %></span>
+      <nav class="nav" aria-label="<%= h t("app.menu") %>">
+        <% if @area == "teacher" %>
+          <%= nav_link("/teacher", t("nav.home")) %>
+          <%= nav_link("/teacher/tests", t("nav.tests")) %>
+          <%= nav_link("/teacher/students", t("nav.students")) %>
+          <%= nav_link("/teacher/run", t("nav.run")) %>
+          <%= nav_link("/teacher/results", t("nav.results")) %>
+          <%= nav_link("/teacher/runs", t("nav.history")) %>
+          <%= nav_link("/teacher/registration", t("nav.registration")) %>
+          <%= nav_link("/teacher/readme", t("nav.readme")) %>
+          <%= nav_link("/teacher/sessions", t("nav.sessions")) %>
+          <%= nav_link("/teacher/settings", t("nav.settings")) %>
+        <% else %>
+          <%= nav_link("/students", t("nav.home")) %>
+          <% if config[:student][:register] %><%= nav_link("/students/register", t("nav.register")) %><% end %>
+          <% if config[:student][:readme] %><%= nav_link("/students/readme", t("nav.readme")) %><% end %>
+        <% end %>
+      </nav>
+      <span class="langs"><%= lang_link("en") %><%= lang_link("es") %></span>
+    </div>
+  </header>
+  <% end %>
+  <main>
+    <%= yield %>
+  </main>
+</body>
+</html>

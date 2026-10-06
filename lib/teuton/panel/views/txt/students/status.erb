@@ -1,0 +1,11 @@
+<%= student[:data]["tt_members"] %> (<%= student[:code] %>)
+<%- if student[:disabled] -%>
+<%= t("students.personal.disabled") %>
+<%- elsif result.nil? -%>
+<%= t("students.status.never") %>
+<%- elsif result["connection"] == "ok" -%>
+<%= t("students.status.ok", time: time_text(result["finished_at"])) %>
+<%- else -%>
+<%= t("students.status.problem", detail: result["connection"]) %>
+<%= t("students.status.hint") %>
+<%- end -%>

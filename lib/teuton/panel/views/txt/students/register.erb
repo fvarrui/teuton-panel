@@ -1,0 +1,15 @@
+<%= t("students.register.title") %> - <%= project.name %>
+
+<%- if errors.empty? -%>
+<%= t("students.register.fields") %>
+<%- fields.each do |field| -%>
+  <%= field %>
+<%- end -%>
+
+  curl "<%= student_base_url %>/register.txt?<%= fields.map { "#{_1}=..." }.join("&") %>"
+<%- else -%>
+<%= t("students.register.fix_errors") %>
+<%- errors.each do |field, error| -%>
+  - <%= field %>: <%= t("errors.field_#{error}") %>
+<%- end -%>
+<%- end -%>

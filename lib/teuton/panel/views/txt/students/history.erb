@@ -1,0 +1,8 @@
+<%= t("students.history.title") %> - <%= student[:data]["tt_members"] %> (<%= student[:code] %>)
+<%- if runs.empty? -%>
+<%= t("students.history.none") %>
+<%- else -%>
+<%- runs.each do |run| -%>
+  <%= time_text(run["finished_at"]) %>  <%= grade_text(run["grade"]).rjust(5) %>  <%= t("kinds.#{run["kind"]}") %>
+<%- end -%>
+<%- end -%>

@@ -1,0 +1,6 @@
+<% @title = status.to_s %>
+<section class="card" style="max-width: 40rem; margin: 2rem auto; text-align: center">
+  <div class="score-big"><%= status %></div>
+  <p style="margin: 1rem auto"><%= h message %></p>
+  <a class="btn secondary" href="<%= (@area == "teacher") ? "/teacher" : "/students" %>"><%= h t("nav.home") %></a>
+</section>
