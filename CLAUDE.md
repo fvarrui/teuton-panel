@@ -52,9 +52,9 @@ The web app is plain Sinatra, no Rails, kept simple (ADR-003). Write all Ruby th
 All in `.claude/skills/` and versioned. Third-party ones are pinned in `skills-lock.json` (update with `npx skills update -p`, reinstall with `npx skills experimental_install`).
 
 - Own: `dvarrui-ruby-style` (how to write Ruby here), `verify` (rake + smoke test before finishing), `teuton-sandbox` (sample localhost Teuton test and real JSON reports), `minispec-*` (specs workflow).
-- Third-party: `tdd` (mattpocock), `security-and-hardening` (addyosmani), `frontend-design` and `webapp-testing` (anthropics), `diagnosing-bugs` (mattpocock), `accessibility` (addyosmani).
+- Third-party: `tdd` (mattpocock), `security-and-hardening` (addyosmani), `frontend-design` and `webapp-testing` (anthropics), `diagnosing-bugs` (mattpocock), `accessibility` (addyosmani), `web-design-guidelines` (vercel, UI review; fetches its rules from GitHub).
 
-Project rules win over third-party skills: tests are test-unit (not jest/RSpec); no login, sessions, HTTPS or password hashing by design (ADR-001, ADR-004); no frontend framework, CDN or build step (ADR-003); ask before installing global tools they suggest (e.g. `npm install -g`).
+Project rules win over third-party skills: tests are test-unit (not jest/RSpec); no login, sessions, HTTPS or password hashing by design (ADR-001, ADR-004); no frontend framework, CDN or build step (ADR-003); ask before installing global tools they suggest (e.g. `npm install -g`); no external images, fonts or icon CDNs and no scroll/stagger animations on auto-refreshing pages. Visual direction: elegant educational app for adults, warm and lively, not minimalist (see `.minispec/features/visual-design-guide.md`).
 
 ## MiniSpec (read first)
 
