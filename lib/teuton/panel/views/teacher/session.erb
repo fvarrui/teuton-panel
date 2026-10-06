@@ -18,7 +18,7 @@
     <tbody>
       <% archived.each do |student| %>
         <% result = results.get(student[:code].to_s) %>
-        <tr><td><%= h student[:data]["tt_members"] %></td><td><kbd><%= h student[:code] %></kbd></td><td><%= grade_bar(result&.dig("grade")) %></td></tr>
+        <tr><td><%= h student[:data]["tt_members"] %></td><td><kbd translate="no"><%= h student[:code] %></kbd></td><td><%= grade_bar(result&.dig("grade")) %></td></tr>
       <% end %>
     </tbody>
   </table></div>

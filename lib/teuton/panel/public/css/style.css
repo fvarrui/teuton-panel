@@ -42,7 +42,11 @@ body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(
 a { color: var(--lagoon-dark); text-underline-offset: 3px; }
 a:hover { color: var(--lagoon); }
 :focus-visible { outline: 3px solid var(--sun); outline-offset: 2px; }
-h1, h2, h3 { font-family: var(--font-title); line-height: 1.15; margin: 0 0 0.5em; }
+h1, h2, h3 { font-family: var(--font-title); line-height: 1.15; margin: 0 0 0.5em; text-wrap: balance; }
+.skip { position: absolute; left: -999px; top: 0.5rem; background: var(--sun); color: var(--ink); padding: 0.4rem 0.8rem; border-radius: var(--radius-small); z-index: 10; }
+.skip:focus { left: 0.5rem; }
+table, .grade-value, .score-big, .tile .value { font-variant-numeric: tabular-nums; }
+.btn, button, a { touch-action: manipulation; }
 h1 { font-size: 2.1rem; font-weight: 800; letter-spacing: -0.01em; }
 h2 { font-size: 1.4rem; font-weight: 600; }
 h3 { font-size: 1.1rem; font-weight: 600; }

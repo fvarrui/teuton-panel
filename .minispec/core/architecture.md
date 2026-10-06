@@ -3,67 +3,49 @@
 ## Flow
 
 ```
-teuton-panel (executable) → CLI (Thor) → Teuton::Panel.up(basedir) → Projects + Config → App (Sinatra/Puma)
-App (teacher area | student area) → run queue → teuton CLI subprocess (own run dir) → JSON reports → results store → views
+bin/teuton-panel → CLI (Thor) → Teuton::Panel.up(basedir) → check teuton 3.x, Projects, Config, RunQueue, Scheduler → App (Sinatra/WEBrick)
+App (teacher area | student area) → RunQueue → Runner: teuton subprocess in its own run dir → JSON reports → ResultsStore → views
 ```
 
-## Key pieces
+## Key pieces (`lib/teuton/panel/`)
 
-- `CLI` — subcommands `up` and `version`. An unknown subcommand is treated as a directory for `up` (`method_missing`).
-- `Projects` / `Project` — every directory with a `start.rb` under `basedir` is a Teuton project.
-- `Config` — loads `teuton-panel.yaml` from `basedir`; created with defaults when missing.
-- `App` — Sinatra app on WEBrick, bound to `0.0.0.0:4567`. `up` injects state with `App.set(...)`; routes read it through `settings.panel_*`.
-- `Runner`, run queue, results store — run Teuton and keep the latest result per student (planned, `teuton-runner`).
-- `version.rb` — `VERSION`, `APPNAME`, `CONFIGFILE`. The only file that defines the `Teuton` module, so it must load before the rest.
+- `cli.rb` — `up` and `version`; an unknown subcommand is a directory for `up`.
+- `panel.rb` — facade `up`: check teuton, find tests, load config, auto-select a single test, wire App settings, banner, kill runs at exit.
+- `config.rb` — `teuton-panel.yaml` (defaults deep-merged, saved on every change, `datapath`).
+- `project.rb` — `Project` (a test) and `Projects.all`; `teuton_config.rb` reads `config.yaml` and adds `tt_include` as text.
+- `params.rb` — registration fields file; `registration.rb` builds and validates a student's case values.
+- `students.rb` — `config.d/<code>.yaml` registry: codes, create, update, disable, delete.
+- `workspace.rb` — paths of a test inside the data dir; `runner.rb` — temp config, teuton subprocess, report parsing; `run_queue.rb` — teacher first and alone, students in parallel; `results_store.rb` — latest result per student, `moodle.csv`; `scheduler.rb` — once / times / every; `history.rb` — run summaries; `sessions.rb` — archive; `readme.rb` — masked `teuton readme`, kramdown.
+- `lang.rb` + `locales/` — translations; `network.rb` — IP normalize, loopback, own IPs.
+- `app.rb` — Sinatra core: settings, helpers (`t`, `format!`, `respond`, `feature!`), area filters, errors; `app/teacher_routes.rb`, `app/student_routes.rb`, `app/view_helpers.rb` reopen `App`.
+- `views/` (HTML ERB with `layout.erb`), `views/txt/` (plain-text ERB), `public/` (CSS and OFL fonts).
 
-## Areas (ADR-001, ADR-004)
+## Areas (ADR-001, ADR-004, ADR-005)
 
-- Teacher routes accept loopback requests and the IPs listed in `:teacher: :allow:`; anything else gets 403.
-- Student routes are open to the LAN, each one behind an on/off switch in the panel config; the teacher also chooses which formats (HTML, text, JSON) students get, and none closes the student area (ADR-005).
-- Students are identified by a personal code given at registration, carried in the URL (`/students/<code>/...`), not by IP.
+- Teacher routes accept loopback, this machine's own IPs and the IPs in `:teacher: :allow:`; anything else gets 403.
+- Student routes are open to the LAN, each behind an on/off switch; the teacher chooses the formats students get (none closes the area).
+- Students are identified by a personal code in the URL (`/students/<code>/...`), not by IP.
+- The app runs in Sinatra's `production` environment: no host-name check (students may use the machine's name) and no stack traces.
 
 ## Routes
 
-Student area (LAN; switch in brackets). `<code>` matches the personal code pattern only.
+Student area (switch in brackets): `GET /` → `/students`; `/students` [list] (`.txt` = curl help); `/students/register` GET/POST [register]; `/students/go?code=`; `/students/readme` (`.md`) [readme]; `/students/<code>` GET/POST [register]; `/students/<code>/run` GET/POST [run]; `/students/<code>/results` [results, feedback]; `/students/<code>/history` [history]; `/students/<code>/status` [status].
 
-- `GET /` → redirect to `/students`.
-- `GET /students` — home and members list [list]; `/students.txt` is the usage help for `curl`.
-- `GET|POST /students/register` — registration form / submit; GET with params registers from `curl` [register].
-- `GET /students/readme` — test statement [readme].
-- `GET /students/<code>` — personal page; `POST` updates own registration data [register].
-- `GET|POST /students/<code>/run` — run own case [run].
-- `GET /students/<code>/results` — latest grade and feedback [results, feedback].
-- `GET /students/<code>/history` — grades per run of the session [history].
-- `GET /students/<code>/status` — connection result of the last run [status].
+Teacher area (POST for every change): `/teacher`; `/teacher/tests` + `POST select`; `/teacher/registration`; `/teacher/students`, `/<code>`, `POST /<code>`, `/<code>/disable`, `/<code>/delete`, `POST /assign`; `/teacher/run` + `POST start|stop`; `/teacher/runs`, `/<id>`; `/teacher/results` (`?projector=1`), `/<key>`; `/teacher/moodle.csv`; `/teacher/readme`; `/teacher/settings`; `/teacher/sessions`, `POST new`, `/<id>`, `/<id>/moodle.csv`.
 
-Teacher area (localhost + allowed IPs). POST for every change.
-
-- `/teacher` — home: active test, student URLs, run status.
-- `/teacher/tests`, `POST /teacher/tests/select` — tests, `teuton check`, active test.
-- `/teacher/registration` — registration fields editor (`teuton-panel-params.yaml`).
-- `/teacher/students`, `/teacher/students/<code>`, `POST .../<code>`, `POST .../<code>/delete`, `POST /teacher/students/new` — registrations.
-- `/teacher/run`, `POST /teacher/run/start`, `POST /teacher/run/stop`; `/teacher/runs`, `/teacher/runs/<id>` — runs and history.
-- `/teacher/results` (`?projector=1`), `/teacher/results/<code>`, `/teacher/moodle.csv` — results.
-- `/teacher/readme` — readme preview.
-- `/teacher/settings` — panel config.
-- `/teacher/sessions`, `POST /teacher/sessions/new`, `/teacher/sessions/<id>` — class sessions.
-
-Format by suffix (ADR-005): none/`.html` → HTML, `.txt` → plain text, `.json` → JSON (`readme.md`, `moodle.csv`). Any route: `?lang=en|es`. Static files from `public/` (`/css/style.css`). Disabled feature or teacher route from outside → 403; unknown route or code → 404 (translated).
+Format by suffix: none/`.html` → HTML, `.txt` → text, `.json` → JSON (teacher routes: HTML and JSON only). Any route: `?lang=en|es` (remembered in a cookie). Disabled feature or format → 403; unknown route or code → 404 (translated).
 
 ## Teuton integration (ADR-002)
 
-- Teuton is always run as a subprocess (`teuton run|readme|config|check`), with `--no-color`, `--quiet`, `--export=json` and an absolute `--cpath` to a temporary config holding exactly the cases to run.
-- Every run has its own working directory under the data dir (`.teuton-panel/runs/`), so partial runs never overwrite other results. Run directories are the run history.
-- A queue serializes work: teacher runs first, student runs in parallel up to `:runs: :max_parallel:`.
-- After each run the panel updates its results store (latest result per student, keyed by `tt_panel_code`). Dashboard, student views and the panel's `moodle.csv` read from the store.
-- Registration writes one YAML file per student (`config.d/<code>.yaml`) into the `tt_include` directory; Teuton reads them natively. Form fields come from `teuton-panel-params.yaml` next to `config.yaml`.
-- Writes to the teacher's `config.yaml` touch only `tt_include`, as text, keeping comments.
-- Never show raw case reports: their `config` section contains every host password.
+- `Runner.command` is `[RbConfig.ruby, Gem.bin_path("teuton", "teuton")]` (works on Windows without `.bat`).
+- Each run: `<datadir>/tests/<slug>/runs/<id>/` with a temp `config.yaml` (global scalars + exactly the cases to run, each tagged `tt_panel_key`), `output.log`, Teuton's `var/` and a `summary.json`. Run dirs are the history.
+- `tt_panel_key` is the student's code, `cfg-N` for hand-written `cases:` or `file-<name>` for code-less files; the store and history match reports by it.
+- Disabled students and `tt_panel_disabled` never reach Teuton; `--case` and `tt_skip` are never used.
+- Readme, config proposal and check come from `teuton readme|config|check` stdout.
 
 ## Folder map
 
 - `bin/teuton-panel` — installed executable; `teuton-panel` at the repo root — development launcher (`require "debug"`).
-- `lib/teuton/panel/` — gem code; `views/` (ERB), `public/` (CSS), `locales/` (`en.yml`, `es.yml`), `files/` (templates copied to the user) — planned except `files/`.
-- `test/` — test-unit tests.
-- `docs/` — design notes.
-- In the user's base dir: `teuton-panel.yaml` and the data dir `.teuton-panel/` (runs, results store, archive).
+- `lib/teuton/panel/` — gem code (see above).
+- `test/` — test-unit tests; `runner_test.rb` and `app_test.rb` run the real teuton on the `teuton-sandbox` test.
+- In the user's base dir: `teuton-panel.yaml`; next to each test `teuton-panel-params.yaml` and `config.d/`; data dir `.teuton-panel/` (`tests/<slug>/runs`, `results.json`, `archive/`).

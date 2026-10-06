@@ -3,6 +3,7 @@ app:
   teacher_area: "Profesorado"
   student_area: "Alumnado"
   menu: "Menú principal"
+  skip: "Saltar al contenido"
 nav:
   home: "Inicio"
   tests: "Tests"

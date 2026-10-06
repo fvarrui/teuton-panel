@@ -8,7 +8,7 @@
 </div>
 <% if state == "done" %>
   <section class="card featured">
-    <div class="notice success"><%= h t("students.run.done") %></div>
+    <div class="notice success" role="status"><%= h t("students.run.done") %></div>
     <div class="score-big"><%= grade_text(result["grade"]) %><small>/100</small></div>
     <%= erb :"students/_targets", layout: false, locals: {result: result} %>
   </section>

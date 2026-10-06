@@ -47,6 +47,6 @@
   <% end %>
   <% urls.each do |url| %>
     <p><a href="<%= h url %>"><%= h url %></a></p>
-    <pre class="cmd"><span class="prompt">$ </span>curl <%= h url %>.txt</pre>
+    <pre class="cmd" translate="no"><span class="prompt">$ </span>curl <%= h url %>.txt</pre>
   <% end %>
 </section>

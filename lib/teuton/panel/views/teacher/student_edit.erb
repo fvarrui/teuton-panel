@@ -2,7 +2,7 @@
 <div class="page-head">
   <div>
     <h1><%= h t("teacher.students.edit_title", name: student[:data]["tt_members"]) %></h1>
-    <p class="muted"><kbd><%= h student[:code] %></kbd> · <%= h File.basename(student[:filepath]) %></p>
+    <p class="muted"><kbd translate="no"><%= h student[:code] %></kbd> · <%= h File.basename(student[:filepath]) %></p>
   </div>
   <a class="btn secondary" href="/teacher/students"><%= h t("students.run.back") %></a>
 </div>

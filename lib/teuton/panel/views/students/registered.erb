@@ -2,7 +2,7 @@
 <section class="card featured" style="text-align: center">
   <h1><%= h t("students.registered.title") %></h1>
   <p class="muted" style="margin: 0 auto"><%= h t("students.registered.keep_code") %></p>
-  <div class="code-display" aria-label="<%= h t("students.code") %>"><%= h code %></div>
+  <div class="code-display" translate="no" aria-label="<%= h t("students.code") %>"><%= h code %></div>
   <p style="margin: 0 auto 1rem"><a href="/students/<%= h code %>"><%= h url %></a></p>
   <div class="actions" style="justify-content: center">
     <a class="btn" href="/students/<%= h code %>"><%= h t("students.registered.open") %></a>
@@ -10,6 +10,6 @@
 </section>
 <section class="card">
   <h2 class="section-title"><%= icon(:terminal) %> <%= h t("students.home.terminal") %></h2>
-  <% if config[:student][:run] %><pre class="cmd"><span class="prompt">$ </span>curl <%= h url %>/run.txt</pre><% end %>
-  <% if config[:student][:results] %><pre class="cmd"><span class="prompt">$ </span>curl <%= h url %>/results.txt</pre><% end %>
+  <% if config[:student][:run] %><pre class="cmd" translate="no"><span class="prompt">$ </span>curl <%= h url %>/run.txt</pre><% end %>
+  <% if config[:student][:results] %><pre class="cmd" translate="no"><span class="prompt">$ </span>curl <%= h url %>/results.txt</pre><% end %>
 </section>

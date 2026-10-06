@@ -8,6 +8,7 @@
   <% if @refresh %><meta http-equiv="refresh" content="<%= @refresh %>"><% end %>
 </head>
 <body class="<%= @body_class %>">
+  <a class="skip" href="#content"><%= h t("app.skip") %></a>
   <% unless @body_class == "projector" %>
   <header class="topbar">
     <div class="inner">
@@ -37,7 +38,7 @@
     </div>
   </header>
   <% end %>
-  <main>
+  <main id="content">
     <%= yield %>
   </main>
 </body>

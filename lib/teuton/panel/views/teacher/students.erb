@@ -16,7 +16,7 @@
       <% rows.each do |row| %>
         <tr class="<%= "disabled" if row[:disabled] %>">
           <td><strong><%= h row[:data]["tt_members"] %></strong><br><small class="muted"><%= h row[:source] %></small></td>
-          <td><% if row[:code] %><kbd><%= h row[:code] %></kbd><% else %><span class="muted"><%= h t("teacher.students.no_code") %></span><% end %></td>
+          <td><% if row[:code] %><kbd translate="no"><%= h row[:code] %></kbd><% else %><span class="muted"><%= h t("teacher.students.no_code") %></span><% end %></td>
           <td><%= h row[:data]["tt_source_ip"] %></td>
           <td><%= h(row[:time] ? row[:time].strftime("%H:%M:%S") : "-") %></td>
           <td><%= grade_bar(row[:result]&.dig("grade"), row[:disabled]) %></td>

@@ -74,6 +74,13 @@ module Teuton::Panel
         "text"
       end
 
+      def field_autocomplete(field, mode)
+        return "name" if mode == "AS NAME"
+        return "email" if mode == "AS EMAIL"
+
+        "off"
+      end
+
       def nav_link(path, label)
         current = (request.path_info == path || (path != "/teacher" && request.path_info.start_with?(path))) ? "current" : ""
         %(<a href="#{path}" class="#{current}">#{h label}</a>)

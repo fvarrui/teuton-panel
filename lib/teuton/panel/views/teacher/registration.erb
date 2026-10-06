@@ -5,7 +5,7 @@
     <p class="muted"><%= h t("teacher.registration.intro", file: Teuton::Panel::Params::FILENAME) %></p>
   </div>
 </div>
-<% if saved %><div class="notice success"><%= h t("teacher.saved") %></div><% end %>
+<% if saved %><div class="notice success" role="status"><%= h t("teacher.saved") %></div><% end %>
 <section class="card featured">
   <form method="post" action="/teacher/registration">
     <div class="table-wrap"><table>

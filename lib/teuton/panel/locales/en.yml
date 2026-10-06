@@ -3,6 +3,7 @@ app:
   teacher_area: "Teacher"
   student_area: "Students"
   menu: "Main menu"
+  skip: "Skip to content"
 nav:
   home: "Home"
   tests: "Tests"

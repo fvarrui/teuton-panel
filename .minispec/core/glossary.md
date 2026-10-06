@@ -56,6 +56,14 @@ A student registering from any machine (browser or `curl`), which creates their 
 
 Executing Teuton on some or all cases of the active test: by the teacher (once, N times, every T seconds) or by a student (own case). Each run has its own run directory.
 
+## `tt_panel_key`
+
+Key the panel adds to every case in a run's temporary config: the student's code, `cfg-N` for hand-written `cases:` or `file-<name>` for code-less files in `config.d/`. Results and history are matched by it.
+
+## Run directory
+
+`.teuton-panel/tests/<slug>/runs/<id>/`: one per run, with its temp config, Teuton output, reports and `summary.json`. Together they are the session's run history.
+
 ## Run queue
 
 Orders runs: teacher first, student runs in parallel up to a limit.

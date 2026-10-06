@@ -12,7 +12,7 @@
     <% end %>
   </div>
 </div>
-<% if notice == "updated" %><div class="notice success"><%= h t("students.personal.updated") %></div><% end %>
+<% if notice == "updated" %><div class="notice success" role="status"><%= h t("students.personal.updated") %></div><% end %>
 <% if notice == "invalid" %><div class="notice error"><%= h t("students.register.fix_errors") %></div><% end %>
 <% if student[:disabled] %><div class="notice warn"><%= h t("students.personal.disabled") %></div><% end %>
 
@@ -36,7 +36,7 @@
       <% if config[:student][:status] %><li><a href="/students/<%= h student[:code] %>/status"><%= h t("students.status.title") %></a></li><% end %>
       <% if config[:student][:readme] %><li><a href="/students/readme"><%= h t("nav.readme") %></a></li><% end %>
     </ul>
-    <pre class="cmd"><span class="prompt">$ </span>curl <%= h student_base_url %>/<%= h student[:code] %>.txt</pre>
+    <pre class="cmd" translate="no"><span class="prompt">$ </span>curl <%= h student_base_url %>/<%= h student[:code] %>.txt</pre>
   </section>
 </div>
 
@@ -48,7 +48,7 @@
       <% fields.each do |field| %>
         <div class="field">
           <label for="f-<%= h field %>"><%= h field_label(field, spec[field]) %></label>
-          <input type="<%= field_type(field, spec[field]) %>" id="f-<%= h field %>" name="<%= h field %>" value="<%= h(data[field]) unless field.include?("password") %>" <%= "required" unless field.include?("password") %>>
+          <input type="<%= field_type(field, spec[field]) %>" autocomplete="<%= field_autocomplete(field, spec[field]) %>" spellcheck="false" id="f-<%= h field %>" name="<%= h field %>" value="<%= h(data[field]) unless field.include?("password") %>" <%= "required" unless field.include?("password") %>>
           <small><%= h(field.include?("password") ? t("students.personal.password_keep") : field) %></small>
         </div>
       <% end %>

@@ -6,7 +6,7 @@
     <p class="muted"><%= h config.filepath %></p>
   </div>
 </div>
-<% if saved %><div class="notice success"><%= h t("teacher.saved") %></div><% end %>
+<% if saved %><div class="notice success" role="status"><%= h t("teacher.saved") %></div><% end %>
 <form method="post" action="/teacher/settings">
   <section class="card featured">
     <h2><%= h t("teacher.settings.students") %></h2>

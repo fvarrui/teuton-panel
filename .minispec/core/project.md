@@ -14,10 +14,10 @@
 
 - Finds Teuton tests (directories with a `start.rb`) under a base directory; without tests it does not start.
 - Loads or creates the panel config file, `teuton-panel.yaml`.
-- Planned: register students remotely into Teuton's `config.d/` (one file per student).
-- Planned: run tests once, N times or periodically; let a student request a run of their own case.
-- Planned: show results from Teuton's JSON reports (teacher dashboard for the projector, own grade for each student).
-- Planned: publish the test readme (`teuton readme`) to students.
+- Registers students remotely into Teuton's `config.d/` (one file per student, personal code).
+- Runs tests once, N times or periodically; lets a student request a run of their own case.
+- Shows results from Teuton's JSON reports (teacher dashboard and projector mode, own grade, history and connection status for each student, `moodle.csv`).
+- Publishes the test statement (`teuton readme`) without passwords; archives class sessions.
 
 ## For whom
 
@@ -30,7 +30,7 @@ Let the teacher use Teuton in class without touching the server during the sessi
 
 ## Teuton version
 
-- Target: `teuton` gem **3.0.0** (latest release, `master`). Not yet declared as a dependency; not installed locally.
+- `teuton` gem **~> 3.0** (runtime dependency; 3.0.0 is the latest release).
 - The panel uses Teuton's own functions (CLI) instead of reimplementing them (ADR-002).
 
 ## Background
