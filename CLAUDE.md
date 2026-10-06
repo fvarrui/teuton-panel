@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 `teuton-panel` is an early-stage (v0.1.0, "EN DESARROLLO") Ruby gem that adds a web panel on top of [Teuton](https://github.com/teuton-software/teuton), the infrastructure-testing tool used by sysadmin teachers to evaluate students' machines. Teuton itself runs the tests; this gem is the interaction layer around it (listing tests, enabling cases, scheduled runs, student self-registration and self-run via browser or `curl`, publishing results/readme). The planned feature set and routes (`/tests/list`, `/run/once`, `/run/every/N`, `/config`, `/readme`…) are described in [docs/todo.md](docs/todo.md); [docs/demo.md](docs/demo.md) and [docs/history.md](docs/history.md) record the classroom use case that motivates them. Read those before designing new features.
 
-The panel runs on the teacher's machine in a classroom LAN: the teacher area is localhost-only, the student area is reachable from the network (ADR-001). It targets the `teuton` gem 3.0.0 and always calls it as a subprocess, reading results from its JSON reports (ADR-002); Teuton 3.0.0 has known bugs listed in that ADR. Pending work is in `.minispec/features/`.
+The panel runs on the teacher's machine in a classroom LAN: the teacher area answers only localhost (plus allowed teacher IPs), the student area is reachable from the network and students are identified by a personal code (ADR-001, ADR-004). It targets the `teuton` gem 3.0.0 and always calls it as a subprocess, reading results from its JSON reports (ADR-002); Teuton 3.0.0 has known bugs listed in that ADR. Pending work is in `.minispec/features/`.
 
 ## Commands
 
@@ -42,6 +42,10 @@ Gemspec notes: packaged files are `Dir.glob("lib/**/*.*")`; runtime deps are tho
 ## Language
 
 Everything in this repo is written in English: code, identifiers, comments, routes/endpoints, CLI messages, commit messages, this file, `.minispec/` (content and headings) and any new documentation. This applies regardless of the language the user chats in. The web GUI is multi-language (English and Spanish, chosen per request from `Accept-Language`): user-facing strings always come from the locale files, never hard-coded in one language.
+
+## Code style
+
+The web app is plain Sinatra, no Rails, kept simple (ADR-003). Write all Ruby the way the Teuton maintainer (dvarrui) does: load the `dvarrui-ruby-style` skill in `.claude/skills/` before writing or reviewing Ruby code.
 
 ## MiniSpec (read first)
 
