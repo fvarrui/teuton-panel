@@ -47,6 +47,15 @@ Everything in this repo is written in English: code, identifiers, comments, rout
 
 The web app is plain Sinatra, no Rails, kept simple (ADR-003). Write all Ruby the way the Teuton maintainer (dvarrui) does: load the `dvarrui-ruby-style` skill in `.claude/skills/` before writing or reviewing Ruby code.
 
+## Project skills
+
+All in `.claude/skills/` and versioned. Third-party ones are pinned in `skills-lock.json` (update with `npx skills update -p`, reinstall with `npx skills experimental_install`).
+
+- Own: `dvarrui-ruby-style` (how to write Ruby here), `verify` (rake + smoke test before finishing), `teuton-sandbox` (sample localhost Teuton test and real JSON reports), `minispec-*` (specs workflow).
+- Third-party: `tdd` (mattpocock), `security-and-hardening` (addyosmani), `frontend-design` and `webapp-testing` (anthropics), `diagnosing-bugs` (mattpocock), `accessibility` (addyosmani).
+
+Project rules win over third-party skills: tests are test-unit (not jest/RSpec); no login, sessions, HTTPS or password hashing by design (ADR-001, ADR-004); no frontend framework, CDN or build step (ADR-003); ask before installing global tools they suggest (e.g. `npm install -g`).
+
 ## MiniSpec (read first)
 
 Before writing any code, read `.minispec/README.md` and follow its reading contract. As a minimum, always read `.minispec/core/project.md`, `.minispec/core/conventions.md` (language rules live there) and `.minispec/core/principles.md`; read the rest of `.minispec/` only on demand (architecture, stack, glossary, the relevant feature or ADR). Keep features small and don't write redundant documentation. When a feature is implemented, promote its permanent knowledge and delete the feature file.
