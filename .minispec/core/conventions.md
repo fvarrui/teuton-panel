@@ -14,4 +14,5 @@
 - Templates copied to the user live in `lib/teuton/panel/files/`.
 - `teuton-panel.yaml` keys are YAML symbols (`:run:`). It is created with defaults when missing, without asking, and saved as soon as a setting changes.
 - Registration fields live in `teuton-panel-params.yaml` next to the test's `config.yaml` (never inside `config.d/`, which Teuton reads as cases). The panel writes only `tt_include` into `config.yaml`; Teuton 3.0.0 crashes on hash values in `global` (ADR-002).
+- Visual design follows `.minispec/core/design.md` (once written, see `visual-design-guide`); no external resources in pages (ADR-003).
 - Markdown: one line per paragraph and list item, no horizontal rules between sections.
