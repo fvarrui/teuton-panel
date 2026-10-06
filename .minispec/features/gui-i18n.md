@@ -2,7 +2,7 @@
 
 ## Goal
 
-Every text the panel shows (HTML and plain-text answers) is available in English and Spanish, chosen per request.
+Every text the panel shows (HTML, `.txt` answers and JSON messages) is available in English and Spanish, chosen per request.
 
 ## Context
 

@@ -13,13 +13,13 @@ Publish the active test's statement (`teuton readme`) as a web page for students
 ## Changes
 
 - Run `teuton readme --lang=<request language>` through the Teuton runner; cache one result per language until the test or its files change.
-- Filter password values (`*_password`) and `tt_include_params` before rendering.
+- Filter password values (`*_password`), `tt_include_params` and `tt_panel_code` before rendering.
 - Render Markdown to HTML with `kramdown` (pure Ruby, no native extensions; add to the gemspec and `stack.md`).
-- Student route `GET /readme` (HTML, or raw Markdown for `curl`); switch `student.readme`.
+- Student route `GET /students/readme` (HTML), `readme.md` / `readme.txt` (raw Markdown for `curl`); switch `student.readme`.
 - Teacher preview of exactly what students will see.
 
 ## Acceptance
 
-- `/readme` shows the test statement as HTML in a browser and as Markdown with `curl`.
+- `/students/readme` shows the test statement as HTML in a browser and as Markdown with `curl .../students/readme.md`.
 - No password from `config.yaml` appears in the published readme.
 - With the switch off, the route is refused.

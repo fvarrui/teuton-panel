@@ -6,8 +6,8 @@
 
 ## Two areas
 
-- **Teacher area** — reachable only from `localhost` (the teacher's own machine). Full control: tests, cases, runs, results, panel settings.
-- **Student area** — reachable from the LAN. Only what the teacher enables: registration, own run, own results, list of registered students, test readme.
+- **Teacher area** — reachable only from `localhost` (the teacher's own machine) and from teacher IPs listed in the panel config. Full control: tests, cases, runs, results, panel settings.
+- **Student area** — reachable from the LAN. Only what the teacher enables: registration (which gives a personal code), own run, own results and history, connection status, list of registered students, test readme.
 - Every student-area action works from a browser and from `curl` (some students only have a terminal).
 
 ## What it does

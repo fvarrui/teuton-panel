@@ -10,23 +10,31 @@ A Teuton directory with a `start.rb` (test definition) and its `config.yaml`. In
 
 ## Active test
 
-The test the teacher is working with in the panel. Runs, registration and results refer to it.
+The single test the teacher is working with. Registration, runs and results refer to it.
 
 ## Case
 
-Each machine or student evaluated within a test: one entry of `cases:` in `config.yaml` or one file in `config.d/`. Teuton numbers cases by position (`case-01`…), so numbers change when files are added.
+Each machine or student evaluated within a test: one entry of `cases:` in `config.yaml` or one file in `config.d/`. Teuton numbers cases by position (`case-01`…), so numbers change between runs; the panel identifies students by code.
 
-## Seed case
+## Personal code
 
-The first case in `config.yaml` (e.g. `tt_members: TOCHANGE`, `host1_ip: TOCHANGE`). Its keys define the fields a student fills in on registration.
+Short code (e.g. `K7QH`) a student gets on registration; their personal URL is `/students/<code>` (ADR-004). Stored as `tt_panel_code` in their `config.d/<code>.yaml`.
+
+## `tt_panel_disabled`
+
+Panel flag in a student's `config.d/` file: the teacher has disabled them (e.g. absent). The panel leaves them out of every run; Teuton never sees the flag.
 
 ## Panel config
 
 The `teuton-panel.yaml` file with the panel's settings. Not to be confused with Teuton's `config.yaml`.
 
+## Data dir
+
+`.teuton-panel/` in the base dir: run directories, results store and archived sessions.
+
 ## Teacher area / student area
 
-The localhost-only part of the panel and the LAN-reachable part (ADR-001).
+The localhost (plus allowed IPs) part of the panel and the LAN part (ADR-001).
 
 ## `tt_include`
 
@@ -34,24 +42,32 @@ Global key in Teuton's `config.yaml` naming a directory (usually `config.d/`). E
 
 ## `tt_include_params`
 
-Panel-side rules for registration fields: asked (`AS NAME`, `AS EMAIL`) or filled automatically (`AUTO IP`, the connection's IP). Not a Teuton 3.0.0 feature.
+Global key the panel adds to `config.yaml`: the registration fields and how each is filled (asked, `AS NAME`, `AS EMAIL`, `AUTO IP`, fixed value). Not a Teuton 3.0.0 feature.
 
 ## `tt_source_ip`
 
-The student's IP as seen by the panel, written into their `config.d/` file. Identifies the student.
+The IP a student registered from. Informative only; identity is the personal code.
 
 ## Registration (remote config)
 
-A student registering from their own machine (browser or `curl`), which creates their file in `config.d/`.
+A student registering from any machine (browser or `curl`), which creates their file in `config.d/` and returns their code.
 
 ## Run
 
-Executing the active test with Teuton: once, N times (`times`) or periodically (`every`).
+Executing Teuton on some or all cases of the active test: by the teacher (once, N times, every T seconds) or by a student (own case). Each run has its own run directory.
 
-## Resume
+## Run queue
 
-Teuton's `var/<test>/resume.json`: grade, members, `moodle_id` and `conn_status` of every case.
+Orders runs: teacher first, student runs in parallel up to a limit.
+
+## Results store
+
+The panel's record of the latest result of each student, whichever run produced it. Feeds the dashboard, student views and the panel's `moodle.csv`.
+
+## Session
+
+The registrations, results and runs of one class period. "New session" archives them and starts empty.
 
 ## `conn_status`
 
-Per-host connection error of a case in the resume (e.g. `host_unreachable`, `error_authentication_failed`).
+Per-host connection error of a case in Teuton's resume (e.g. `host_unreachable`, `error_authentication_failed`).
