@@ -95,6 +95,19 @@ class DomainTest < Test::Unit::TestCase
     assert_equal [["tt_members", "required"], ["tt_moodle_id", "email"], ["host2_ip", "own_ip"]], bad.errors
   end
 
+  test "typed values accept names and emails but not quotes or command syntax" do
+    assert_nil Teuton::Panel::Registration.value_error("tt_members", "Lucía Hernández")
+    assert_nil Teuton::Panel::Registration.value_error("tt_moodle_id", "lucia.h@example.com")
+    assert_nil Teuton::Panel::Registration.value_error("host1_password", "p@ss;w'rd!")
+    assert_equal "chars", Teuton::Panel::Registration.value_error("home", "x'y")
+    assert_equal "chars", Teuton::Panel::Registration.value_error("home", "a;b")
+    assert_equal "length", Teuton::Panel::Registration.value_error("home", "a" * 101)
+
+    params = {"tt_members" => "AS NAME", "home" => "ASK"}
+    reg = Teuton::Panel::Registration.new(params, {"tt_members" => "Ana", "home" => "ana\"x"}, "192.168.1.20").call
+    assert_equal [["home", "chars"]], reg.errors
+  end
+
   test "empty password keeps the current one when updating" do
     params = {"tt_members" => "AS NAME", "host1_password" => "ASK"}
     reg = Teuton::Panel::Registration.new(params, {"tt_members" => "Ana"}, "192.168.1.20", {"host1_password" => "secret"}).call

@@ -136,6 +136,39 @@ class AppTest < Test::Unit::TestCase
     assert_match "<h1", last_response.body
   end
 
+  test "teacher home works without an active test" do
+    FileUtils.mkdir_p(File.join(@basedir, "second"))
+    File.write(File.join(@basedir, "second", "start.rb"), "")
+    @config.update(test: nil)
+    app.set(:panel_projects, Teuton::Panel::Projects.all(@basedir))
+    get "/teacher"
+    assert_equal 200, last_response.status
+    assert_match "/teacher/tests", last_response.body
+    get "/teacher/results"
+    assert_equal 409, last_response.status
+    assert_match "/teacher/tests", last_response.body
+  end
+
+  test "a missing active test is forgotten and a single test is selected" do
+    @config.update(test: "renamed-folder")
+    capture_output { Teuton::Panel.select_test(@config, Teuton::Panel::Projects.all(@basedir)) }
+    assert_equal "test-sandbox", @config[:test]
+  end
+
+  test "teacher keeps a fixed localhost host when editing a student" do
+    data = YAML.load_file(File.join(@basedir, "test-sandbox", "config.d", "AB3K.yaml"))
+    data["answer"] = "5"
+    post "/teacher/students/AB3K", {"data" => data.reject { |k, _v| k.start_with?("tt_panel_") }}
+    assert last_response.redirect?, last_response.body[0, 200]
+    assert_equal "5", YAML.load_file(File.join(@basedir, "test-sandbox", "config.d", "AB3K.yaml"))["answer"]
+  end
+
+  test "registration refuses quotes in typed values" do
+    get "/students/register.txt", {"tt_members" => "Ana", "tt_moodle_id" => "ana@example.com", "answer" => "4'"}, REMOTE
+    assert_equal 422, last_response.status
+    assert_match "answer", last_response.body
+  end
+
   test "teacher pages render" do
     ["/teacher", "/teacher/tests", "/teacher/registration", "/teacher/students", "/teacher/students/AB3K",
       "/teacher/run", "/teacher/runs", "/teacher/results", "/teacher/results?projector=1", "/teacher/readme",

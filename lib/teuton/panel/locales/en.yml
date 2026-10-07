@@ -62,6 +62,8 @@ errors:
   field_required: "This field is required."
   field_email: "Write a valid email address."
   field_own_ip: "Use the IP of the machine to evaluate, not the panel's."
+  field_chars: "Use only letters, digits, spaces and . _ - @ : /"
+  field_length: "Too long: 100 characters at most."
 students:
   code: "Personal code"
   code_is: "Your personal code is %{code}"
@@ -189,7 +191,7 @@ teacher:
     delete: "Delete"
     confirm_delete: "Delete this registration?"
     assign: "Give a code"
-    own_ip: "Some host fields point to the panel's own machine. Fix them."
+    own_ip: "Some values are not allowed: use only letters, digits, spaces and . _ - @ : /, and never the panel's own IP in a host typed by students."
   run:
     title: "Run the test"
     intro: "Evaluate %{test} now or on a schedule."

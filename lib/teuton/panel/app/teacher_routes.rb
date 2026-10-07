@@ -43,6 +43,8 @@ module Teuton::Panel
       end
 
       def last_summary
+        return nil if project.nil?
+
         History.runs(workspace.runs_dir).first
       end
 
@@ -133,12 +135,17 @@ module Teuton::Panel
       student = students.find(params["code"])
       halt 404, error_body(404, t("errors.unknown_code")) if student.nil?
 
+      spec = Params.load(project)
       values = {}
       errors = []
-      editable_data(student[:data]).each_key do |field|
+      editable_data(student[:data]).each do |field, current|
         value = params.dig("data", field).to_s.strip
-        errors << field if field.end_with?("_ip", "_host") && Network.own_ip?(value) && field != "tt_source_ip"
         values[field] = value
+        next if value == current.to_s # Keeping a value is always allowed
+
+        errors << field unless Registration.value_error(field, value).nil?
+        asked = Params.asked?(spec[field].to_s)
+        errors << field if asked && field.end_with?("_ip", "_host") && Network.own_ip?(value)
       end
       unless errors.empty?
         status 422

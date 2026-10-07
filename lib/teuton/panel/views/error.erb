@@ -2,5 +2,8 @@
 <section class="card" style="max-width: 40rem; margin: 2rem auto; text-align: center">
   <div class="score-big"><%= status %></div>
   <p style="margin: 1rem auto"><%= h message %></p>
-  <a class="btn secondary" href="<%= (@area == "teacher") ? "/teacher" : "/students" %>"><%= h t("nav.home") %></a>
+  <div class="actions" style="justify-content: center">
+    <% if @area == "teacher" && status == 409 %><a class="btn" href="/teacher/tests"><%= h t("teacher.tests.choose") %></a><% end %>
+    <a class="btn secondary" href="<%= (@area == "teacher") ? "/teacher" : "/students" %>"><%= h t("nav.home") %></a>
+  </div>
 </section>

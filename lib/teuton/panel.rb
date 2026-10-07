@@ -33,7 +33,7 @@ module Teuton::Panel
       exit 1
     end
     config = Config.new(basedir)
-    select_single_test(config, projects)
+    select_test(config, projects)
     queue = RunQueue.new(config[:runs][:max_parallel])
 
     App.set(:panel_projects, projects)
@@ -64,7 +64,15 @@ module Teuton::Panel
     exit 1
   end
 
-  private_class_method def self.select_single_test(config, projects)
+  ##
+  # Forget an active test that no longer exists and auto-select a single test
+  # @param config (Config)
+  # @param projects (Array) Project
+  def self.select_test(config, projects)
+    unless config[:test].nil? || projects.any? { _1.relpath(config.basedir) == config[:test] }
+      warn "[WARN] Teuton::Panel.select_test: active test not found <#{config[:test]}>"
+      config.update(test: nil)
+    end
     return unless config[:test].nil? && projects.size == 1
 
     test = projects.first

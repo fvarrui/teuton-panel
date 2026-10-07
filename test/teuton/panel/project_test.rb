@@ -18,6 +18,12 @@ class ProjectTest < Test::Unit::TestCase
     assert_equal 2, projects.size
   end
 
+  test "relpath is the test name when the base dir is the test itself" do
+    dirpath = File.join(@basedir, "alpha")
+    project = Teuton::Panel::Projects.all(dirpath).first
+    assert_equal "alpha", project.relpath(dirpath)
+  end
+
   test "no projects in an empty directory" do
     projects = Teuton::Panel::Projects.all(File.join(@basedir, "missing"))
     assert_equal [], projects

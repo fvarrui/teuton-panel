@@ -62,6 +62,8 @@ errors:
   field_required: "Este campo es obligatorio."
   field_email: "Escribe un correo válido."
   field_own_ip: "Usa la IP de la máquina que se evalúa, no la del panel."
+  field_chars: "Usa solo letras, números, espacios y . _ - @ : /"
+  field_length: "Demasiado largo: 100 caracteres como máximo."
 students:
   code: "Código personal"
   code_is: "Tu código personal es %{code}"
@@ -189,7 +191,7 @@ teacher:
     delete: "Borrar"
     confirm_delete: "¿Borrar este registro?"
     assign: "Dar un código"
-    own_ip: "Algún campo de host apunta a la propia máquina del panel. Corrígelo."
+    own_ip: "Algún valor no está permitido: usa solo letras, números, espacios y . _ - @ : /, y nunca la IP del panel en un host que escriben los alumnos."
   run:
     title: "Ejecutar el test"
     intro: "Evalúa %{test} ahora o de forma programada."

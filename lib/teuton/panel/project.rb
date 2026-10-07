@@ -24,7 +24,8 @@ module Teuton::Panel
       base = File.expand_path(basedir)
       return name unless @dirpath.start_with?(base)
 
-      @dirpath.delete_prefix(base).delete_prefix("/")
+      rel = @dirpath.delete_prefix(base).delete_prefix("/")
+      rel.empty? ? name : rel # The base dir is the test itself
     end
 
     def startpath

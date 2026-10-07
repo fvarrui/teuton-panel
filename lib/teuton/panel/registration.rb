@@ -9,6 +9,20 @@ module Teuton::Panel
   # Build and validate a student's case values from request params
   class Registration
     EMAIL = /\A[^@\s]+@[^@\s]+\.[^@\s]+\z/
+    SAFE = %r{\A[\p{L}\p{N} ._@:/-]*\z} # Typed values reach Teuton's commands
+    MAX_SIZE = 100
+
+    ##
+    # Error key for a typed value, or nil when it is acceptable
+    # @param field (String)
+    # @param value (String)
+    def self.value_error(field, value)
+      return "length" if value.size > MAX_SIZE
+      return nil if field.include?("password") # Passwords go to SSH, not to commands
+      return "chars" unless value.match?(SAFE)
+
+      nil
+    end
 
     attr_reader :data
     attr_reader :errors
@@ -61,6 +75,9 @@ module Teuton::Panel
         return
       end
       return @errors << [field, "required"] if value.empty?
+
+      error = Registration.value_error(field, value)
+      return @errors << [field, error] unless error.nil?
       return @errors << [field, "email"] if mode == "AS EMAIL" && !value.match?(EMAIL)
       return @errors << [field, "own_ip"] if host?(field) && Network.own_ip?(value)
 
