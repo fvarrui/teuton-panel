@@ -224,6 +224,19 @@ class AppTest < Test::Unit::TestCase
     assert_equal before, YAML.load_file(file)["tt_source_ip"]
   end
 
+  test "students table sorts, filters and deletes from the edit page" do
+    get "/teacher/students?sort=name&show=disabled"
+    assert_equal 200, last_response.status
+    assert_match "GH6P", last_response.body
+    assert_no_match(/AB3K/, last_response.body)
+    assert_no_match(%r{/delete"}, last_response.body) # no delete button in the table
+    get "/teacher/students?sort=bogus&show=bogus"
+    assert_equal 200, last_response.status
+    assert_match "AB3K", last_response.body
+    get "/teacher/students/AB3K"
+    assert_match "/teacher/students/AB3K/delete", last_response.body
+  end
+
   test "one menu tab is current" do
     current = -> { last_response.body.scan(/<a href="([^"]+)" class="current" aria-current/).flatten }
     get "/teacher/runs"

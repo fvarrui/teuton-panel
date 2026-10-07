@@ -8,6 +8,8 @@ module Teuton::Panel
   # Teacher area: /teacher/... (localhost and allowed IPs only)
   class App < Sinatra::Base
     READONLY_FIELDS = %w[tt_source_ip] # Shown on the student edit page, never changed there
+    STUDENT_SORTS = %w[name grade registered]
+    STUDENT_FILTERS = %w[all pending needs_work disabled]
 
     helpers do
       ##
@@ -58,6 +60,32 @@ module Teuton::Panel
            grade: result&.dig("grade"), connection: result.nil? ? nil : result["conn_status"],
            unique_fault: result.nil? ? false : result["unique_fault"].to_i > 0, finished_at: result&.dig("finished_at")}
         end
+      end
+
+      ##
+      # Students table rows in the chosen order and filter (unknown values: as they come)
+      # @param rows (Array) roster rows
+      # @param sort (String) "", name, grade or registered
+      # @param show (String) all, pending, needs_work or disabled
+      def sort_and_filter(rows, sort, show)
+        rows = rows.select { state_key(_1[:disabled], _1[:result]) == show } unless show == "all"
+        if sort == "name"
+          rows = rows.sort_by { _1[:data]["tt_members"].to_s.downcase }
+        elsif sort == "grade"
+          rows = rows.sort_by { [_1[:result].nil? ? 1 : 0, -_1[:result]&.dig("grade").to_f] }
+        elsif sort == "registered"
+          rows = rows.sort_by { _1[:time] || Time.at(0) }
+        end
+        rows
+      end
+
+      ##
+      # Time of today as HH:MM:SS, older days with the locale's short date
+      def short_time(time)
+        return "-" if time.nil?
+        return time.strftime("%H:%M:%S") if time.to_date == Date.today
+
+        time.strftime(t("formats.short_date"))
       end
 
       def editable_data(data)
@@ -124,7 +152,10 @@ module Teuton::Panel
       format!(%w[html json])
       project!
       rows = roster
-      respond(:"teacher/students", {rows: rows}, results_json(rows))
+      sort = STUDENT_SORTS.include?(params["sort"]) ? params["sort"] : ""
+      show = STUDENT_FILTERS.include?(params["show"]) ? params["show"] : "all"
+      respond(:"teacher/students", {rows: sort_and_filter(rows, sort, show), sort: sort, show: show, total: rows.size},
+        results_json(rows))
     end
 
     post "/teacher/students/assign" do

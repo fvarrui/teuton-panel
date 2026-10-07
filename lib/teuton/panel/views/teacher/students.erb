@@ -1,5 +1,6 @@
 <% @title = t("nav.students") %>
 <% @refresh = 15 %>
+<% link = ->(s, f) { "/teacher/students?" + [("sort=#{s}" unless s.empty?), ("show=#{f}" unless f == "all")].compact.join("&") } %>
 <div class="page-head">
   <div>
     <h1><%= h t("nav.students") %></h1>
@@ -7,29 +8,45 @@
   </div>
 </div>
 <section class="card">
-  <% if rows.empty? %>
+  <% if total.zero? %>
     <div class="empty"><%= icon(:users, 40) %><p><%= h t("teacher.students.empty") %></p></div>
   <% else %>
+  <nav class="filters" aria-label="<%= h t("teacher.students.show") %>">
+    <span class="muted"><%= h t("teacher.students.show") %>:</span>
+    <% Teuton::Panel::App::STUDENT_FILTERS.each do |filter| %>
+      <% label = (filter == "all") ? t("teacher.students.all") : t(Teuton::Panel::App::STATE_VIEWS[filter][1]) %>
+      <a href="<%= link.call(sort, filter) %>" class="<%= "current" if show == filter %>" <%= 'aria-current="true"' if show == filter %>><%= h label %></a>
+    <% end %>
+  </nav>
+  <% if rows.empty? %>
+    <p class="muted"><%= h t("teacher.students.none_here") %></p>
+  <% else %>
   <div class="table-wrap"><table>
-    <thead><tr><th><%= h t("table.student") %></th><th><%= h t("students.code") %></th><th>IP</th><th><%= h t("table.registered") %></th><th><%= h t("table.grade") %></th><th><%= h t("table.state") %></th><th></th></tr></thead>
+    <thead><tr>
+      <% [["name", t("table.student")], [nil, t("students.code")], [nil, "IP"], ["registered", t("table.registered")], ["grade", t("table.grade")], [nil, t("table.state")]].each do |key, label| %>
+        <% if key %>
+          <th <%= 'aria-sort="ascending"' if sort == key && key != "grade" %><%= 'aria-sort="descending"' if sort == key && key == "grade" %>><a class="sort <%= "current" if sort == key %>" href="<%= link.call(key, show) %>"><%= h label %></a></th>
+        <% else %>
+          <th><%= h label %></th>
+        <% end %>
+      <% end %>
+      <th></th>
+    </tr></thead>
     <tbody>
       <% rows.each do |row| %>
         <tr class="<%= "disabled" if row[:disabled] %>">
           <td><strong><%= h row[:data]["tt_members"] %></strong><br><small class="muted"><%= h row[:source] %></small></td>
           <td><% if row[:code] %><kbd translate="no"><%= h row[:code] %></kbd><% else %><span class="muted"><%= h t("teacher.students.no_code") %></span><% end %></td>
           <td><%= h row[:data]["tt_source_ip"] %></td>
-          <td><%= h(row[:time] ? row[:time].strftime("%H:%M:%S") : "-") %></td>
+          <td class="nowrap"><%= h short_time(row[:time]) %></td>
           <td><%= grade_bar(row[:result]&.dig("grade"), row[:disabled]) %></td>
           <td><%= state_badge(row[:disabled], row[:result]) %></td>
-          <td class="actions">
+          <td class="actions nowrap">
             <% if row[:code] %>
               <a class="btn small secondary" href="/teacher/students/<%= h row[:code] %>"><%= h t("teacher.students.edit") %></a>
               <form method="post" action="/teacher/students/<%= h row[:code] %>/disable" class="inline">
                 <input type="hidden" name="value" value="<%= row[:disabled] ? "0" : "1" %>">
                 <button class="btn small secondary" type="submit"><%= h t(row[:disabled] ? "teacher.students.enable" : "teacher.students.disable") %></button>
-              </form>
-              <form method="post" action="/teacher/students/<%= h row[:code] %>/delete" class="inline" onsubmit="return confirm('<%= h t("teacher.students.confirm_delete") %>')">
-                <button class="btn small danger" type="submit"><%= h t("teacher.students.delete") %></button>
               </form>
             <% elsif row[:filepath] %>
               <form method="post" action="/teacher/students/assign" class="inline">
@@ -42,5 +59,6 @@
       <% end %>
     </tbody>
   </table></div>
+  <% end %>
   <% end %>
 </section>

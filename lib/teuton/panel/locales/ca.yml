@@ -44,6 +44,8 @@ status:
   conn_error: "Problema de connexió"
   copy: "Còpia detectada"
   low: "Li falta feina"
+formats:
+  short_date: "%d/%m %H:%M"
 table:
   student: "Alumne"
   grade: "Nota"
@@ -200,6 +202,11 @@ teacher:
     delete: "Esborra"
     confirm_delete: "Vols esborrar aquest registre?"
     assign: "Dona un codi"
+    show: "Mostra"
+    all: "Tots"
+    none_here: "Cap alumne compleix aquest filtre."
+    delete_title: "Esborra aquest registre"
+    delete_text: "S'esborra el fitxer de l'alumne a config.d/. Els seus resultats anteriors continuen a l'històric."
     readonly: "el posa el panell"
     own_ip: "Algun valor no està permès: fes servir només lletres, números, espais i . _ - @ : /, i mai la IP del panell en un host que escriuen els alumnes."
   run:

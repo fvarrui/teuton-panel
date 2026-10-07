@@ -26,3 +26,10 @@
     <button class="btn" type="submit"><%= h t("teacher.save") %></button>
   </form>
 </section>
+<section class="card">
+  <h2><%= h t("teacher.students.delete_title") %></h2>
+  <p class="muted"><%= h t("teacher.students.delete_text") %></p>
+  <form method="post" action="/teacher/students/<%= h student[:code] %>/delete" onsubmit="return confirm('<%= h t("teacher.students.confirm_delete") %>')">
+    <button class="btn danger" type="submit"><%= h t("teacher.students.delete") %></button>
+  </form>
+</section>

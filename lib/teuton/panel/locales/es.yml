@@ -44,6 +44,8 @@ status:
   conn_error: "Problema de conexión"
   copy: "Copia detectada"
   low: "Le falta trabajo"
+formats:
+  short_date: "%d/%m %H:%M"
 table:
   student: "Alumno"
   grade: "Nota"
@@ -200,6 +202,11 @@ teacher:
     delete: "Borrar"
     confirm_delete: "¿Borrar este registro?"
     assign: "Dar un código"
+    show: "Mostrar"
+    all: "Todos"
+    none_here: "Ningún alumno cumple este filtro."
+    delete_title: "Borrar este registro"
+    delete_text: "Se borra el fichero del alumno en config.d/. Sus resultados anteriores siguen en el histórico."
     readonly: "lo pone el panel"
     own_ip: "Algún valor no está permitido: usa solo letras, números, espacios y . _ - @ : /, y nunca la IP del panel en un host que escriben los alumnos."
   run:

@@ -44,6 +44,8 @@ status:
   conn_error: "Connection problem"
   copy: "Copy detected"
   low: "Needs work"
+formats:
+  short_date: "%m/%d %H:%M"
 table:
   student: "Student"
   grade: "Grade"
@@ -200,6 +202,11 @@ teacher:
     delete: "Delete"
     confirm_delete: "Delete this registration?"
     assign: "Give a code"
+    show: "Show"
+    all: "All"
+    none_here: "No students match this filter."
+    delete_title: "Delete this registration"
+    delete_text: "The student's file in config.d/ is removed. Their past results stay in the run history."
     readonly: "set by the panel"
     own_ip: "Some values are not allowed: use only letters, digits, spaces and . _ - @ : /, and never the panel's own IP in a host typed by students."
   run:
