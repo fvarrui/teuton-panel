@@ -17,3 +17,10 @@ desc "Run every use case against samples/linux-files-basics (a few minutes)"
 task :usecases do
   ruby "-Ilib", "test/usecases/run.rb"
 end
+
+namespace :docs do
+  desc "Take the documentation screenshots in en, es and ca (needs Chrome or Edge)"
+  task :screenshots do
+    ruby "docs/_scripts/screenshots.rb"
+  end
+end

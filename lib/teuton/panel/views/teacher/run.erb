@@ -64,7 +64,7 @@
       <p class="muted"><%= h time_text(summary["finished_at"]) %> · <%= h t("kinds.#{summary["kind"]}") %> · <%= h t("teacher.run.exitcode", code: summary["exitcode"]) %>
         · <a href="/teacher/runs/<%= h summary["id"] %>"><%= h t("teacher.run.open") %></a></p>
       <% unless summary["ok"] %><div class="notice error"><%= h t("teacher.run.failed") %></div><% end %>
-      <pre class="log"><%= h log %></pre>
+      <% unless log.strip.empty? %><pre class="log"><%= h log %></pre><% end %>
     <% end %>
   </section>
 </div>

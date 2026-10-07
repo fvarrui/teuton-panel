@@ -48,11 +48,13 @@ module Teuton::Panel
   end
 
   ##
-  # Student URLs, one per LAN interface
+  # Student URLs: the addresses in the config, or one per LAN interface
   # @param config (Config)
   def self.student_urls(config)
     port = config[:server][:port]
-    Network.local_ips.map { "http://#{_1}:#{port}/students" }
+    addresses = config[:server][:addresses].to_a.map(&:to_s).reject(&:empty?)
+    addresses = Network.local_ips if addresses.empty?
+    addresses.map { "http://#{_1}:#{port}/students" }
   end
 
   private_class_method def self.check_teuton

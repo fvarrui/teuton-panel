@@ -264,6 +264,8 @@ teacher:
     language: "Idioma per defecte"
     max_parallel: "Execucions d'alumnes alhora"
     restart: "S'aplica en reiniciar el panell."
+    addresses: "Adreces que es mostren als alumnes"
+    addresses_help: "Deixa-ho buit per mostrar totes les detectades; fes-ho servir si l'ordinador té adaptadors de més (per exemple, de VirtualBox)."
     teacher_allow: "Altres IP de professor"
     teacher_allow_help: "A més d'aquest ordinador, aquestes IP poden obrir la zona del professor (separades per comes)."
   sessions:

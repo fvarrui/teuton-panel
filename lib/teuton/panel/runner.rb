@@ -17,7 +17,7 @@ module Teuton::Panel
     ##
     # Command prefix to call teuton: [ruby, path/to/teuton]
     def self.command
-      [RbConfig.ruby, Gem.bin_path("teuton", "teuton")]
+      [RbConfig.ruby, "-W0", Gem.bin_path("teuton", "teuton")] # -W0: no Ruby warnings in run logs
     rescue Gem::Exception
       ["teuton"]
     end

@@ -22,5 +22,5 @@
 </section>
 <section class="card">
   <h2><%= h t("teacher.runs.output") %></h2>
-  <pre class="log"><%= h log %></pre>
+  <% if log.strip.empty? %><p class="muted">-</p><% else %><pre class="log"><%= h log %></pre><% end %>
 </section>

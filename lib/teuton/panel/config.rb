@@ -9,7 +9,7 @@ module Teuton::Panel
   # Panel settings stored in teuton-panel.yaml (symbol keys)
   class Config
     DEFAULTS = {
-      server: {bind: "0.0.0.0", port: 4567},
+      server: {bind: "0.0.0.0", port: 4567, addresses: []}, # addresses: shown to students (empty = detected)
       language: "es", # Fallback GUI language
       teacher: {allow: []}, # Extra teacher IPs besides localhost
       test: nil, # Active test (path relative to basedir)

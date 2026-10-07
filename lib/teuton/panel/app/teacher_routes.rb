@@ -251,8 +251,9 @@ module Teuton::Panel
       student[:formats] = (params["formats"] || []).select { FORMATS.include?(_1) }
       student[:run_interval] = [params["run_interval"].to_i, 0].max
       allow = params["teacher_allow"].to_s.split(/[\s,]+/).map(&:strip).reject(&:empty?)
+      addresses = params["addresses"].to_s.split(/[\s,]+/).map(&:strip).reject(&:empty?)
       language = Lang::LANGS.include?(params["language"]) ? params["language"] : config[:language]
-      config.update(student: student, teacher: {allow: allow}, language: language,
+      config.update(student: student, teacher: {allow: allow}, language: language, server: {addresses: addresses},
         runs: {max_parallel: [params["max_parallel"].to_i, 1].max})
       redirect "/teacher/settings?saved=1"
     end

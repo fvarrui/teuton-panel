@@ -56,13 +56,13 @@ code, kbd, pre { font-family: var(--font-mono); }
 
 /* Top bar */
 .topbar { background: var(--ink); color: #fff; }
-.topbar .inner { max-width: 1160px; margin: 0 auto; padding: 0.8rem 1.25rem; display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap; }
+.topbar .inner { max-width: 1160px; margin: 0 auto; padding: 0.8rem 1.25rem; display: flex; align-items: center; gap: 0.6rem 1rem; flex-wrap: wrap; }
 .brand { display: flex; align-items: center; gap: 0.6rem; color: #fff; text-decoration: none; font-family: var(--font-title); font-weight: 800; font-size: 1.25rem; }
 .brand:hover { color: #fff; }
 .brand-mark { width: 30px; height: 30px; border-radius: 9px; background: var(--sun); display: grid; place-items: center; color: var(--ink); }
 .area { font-size: 0.85rem; padding: 0.15rem 0.6rem; border-radius: 999px; background: rgba(255, 255, 255, 0.12); }
 .nav { display: flex; gap: 0.2rem; flex-wrap: wrap; margin-left: auto; }
-.nav a { color: #d8deea; text-decoration: none; padding: 0.35rem 0.65rem; border-radius: var(--radius-small); font-size: 0.95rem; }
+.nav a { color: #d8deea; text-decoration: none; padding: 0.3rem 0.45rem; border-radius: var(--radius-small); font-size: 0.9rem; }
 .nav a:hover, .nav a.current { background: rgba(255, 255, 255, 0.12); color: #fff; }
 .langs a { color: #d8deea; font-size: 0.85rem; text-decoration: none; margin-left: 0.4rem; }
 .langs a.current { color: var(--sun); font-weight: 700; }

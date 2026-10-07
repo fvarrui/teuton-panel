@@ -39,6 +39,13 @@ class ConfigTest < Test::Unit::TestCase
     assert_equal "en", again[:language]
   end
 
+  test "student URLs use the configured addresses" do
+    config = nil
+    capture_output { config = Teuton::Panel::Config.new(@tmpdir) }
+    config.update(server: {addresses: ["192.168.1.10"]})
+    assert_equal ["http://192.168.1.10:4567/students"], Teuton::Panel.student_urls(config)
+  end
+
   test "datapath is inside the data dir" do
     config = nil
     capture_output { config = Teuton::Panel::Config.new(@tmpdir) }

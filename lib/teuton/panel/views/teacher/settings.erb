@@ -47,6 +47,11 @@
       <small><%= h t("teacher.settings.restart") %></small>
     </div>
     <div class="field">
+      <label for="addresses"><%= h t("teacher.settings.addresses") %></label>
+      <input type="text" id="addresses" name="addresses" value="<%= h config[:server][:addresses].to_a.join(", ") %>" placeholder="192.168.1.10">
+      <small><%= h t("teacher.settings.addresses_help") %></small>
+    </div>
+    <div class="field">
       <label for="teacher_allow"><%= h t("teacher.settings.teacher_allow") %></label>
       <input type="text" id="teacher_allow" name="teacher_allow" value="<%= h config[:teacher][:allow].join(", ") %>" placeholder="192.168.1.10">
       <small><%= h t("teacher.settings.teacher_allow_help") %></small>
