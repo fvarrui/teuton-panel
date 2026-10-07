@@ -15,6 +15,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 | `bundle exec rake test` | Run the test-unit suite (`test/**/*_test.rb`) |
 | `bundle exec ruby -Itest -Ilib test/teuton/panel/app_test.rb` | Run a single test file |
 | `bundle exec ruby -Itest -Ilib test/teuton/panel/app_test.rb -n "/register/"` | Run tests matching a name |
+| `bundle exec rake usecases` | Every use case against `samples/linux-files-basics` (`test/usecases/run.rb`, a few minutes) |
 | `bundle exec rake standard` | Lint (Standard Ruby, `ruby_version: 3.2`) |
 | `bundle exec rake standard:fix` | Auto-fix lint offenses |
 | `ruby .claude/skills/teuton-sandbox/scripts/create_sandbox.rb` | Sample localhost test in `tmp/sandbox` |

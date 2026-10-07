@@ -1,0 +1,6 @@
+# Linux files basics: Teuton config.
+# tt_include: one YAML file per registered student (written by teuton-panel).
+# Registration fields are in teuton-panel-params.yaml (same directory).
+global:
+  tt_include: config.d
+cases: []

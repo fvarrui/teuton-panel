@@ -1,0 +1,2 @@
+Lab 1 notes
+ls -la shows hidden files

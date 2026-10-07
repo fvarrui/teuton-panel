@@ -1,0 +1,6 @@
+# Registration fields for teuton-panel and how each one is filled:
+# ASK (free text), AS NAME, AS EMAIL, AUTO IP (request IP) or a fixed value.
+tt_members: "AS NAME"
+tt_moodle_id: "AS EMAIL"
+home: "ASK"
+host1_ip: "localhost"

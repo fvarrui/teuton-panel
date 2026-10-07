@@ -1,0 +1,5 @@
+# Demo state, recreated by reset.rb
+/config.d/
+/.teuton-panel/
+/teuton-panel.yaml
+/var/

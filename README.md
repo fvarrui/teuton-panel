@@ -156,6 +156,7 @@ Main settings in `teuton-panel.yaml`:
 - The teacher area answers only the teacher's computer (localhost or its own addresses) and the IPs in `:teacher: :allow:`. To manage the panel from another machine, add its IP there or use an SSH tunnel (`ssh -L 4567:localhost:4567 server`).
 - The student area has no passwords: it is meant for a classroom network. A personal code is a convenience, not strong authentication.
 - Students never see passwords, other students' codes or Teuton's raw reports, and the projector mode hides commands and outputs.
+- Values typed by students reach your test's commands (`run "... #{get(:home)} ..."`). The panel only accepts letters, digits, spaces and `. _ - @ : /` in typed fields (passwords excepted) and at most 100 characters, but your `start.rb` should still check any value it puts into a command, especially when a host is `localhost`, because those commands run on your computer.
 
 ## Troubleshooting
 
@@ -170,8 +171,10 @@ Main settings in `teuton-panel.yaml`:
 ```bash
 bin/setup                                   # bundle install
 bundle exec rake                            # tests + Standard
+bundle exec rake usecases                   # every use case against samples/linux-files-basics
 bundle exec ruby -Itest -Ilib test/teuton/panel/app_test.rb
 ruby .claude/skills/teuton-sandbox/scripts/create_sandbox.rb   # sample test in tmp/sandbox
+ruby samples/linux-files-basics/reset.rb   # richer demo with invented students and history (see samples/)
 ruby teuton-panel up tmp/sandbox            # development launcher
 ```
 

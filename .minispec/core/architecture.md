@@ -10,7 +10,7 @@ App (teacher area | student area) → RunQueue → Runner: teuton subprocess in 
 ## Key pieces (`lib/teuton/panel/`)
 
 - `cli.rb` — `up` and `version`; an unknown subcommand is a directory for `up`.
-- `panel.rb` — facade `up`: check teuton, find tests, load config, auto-select a single test, wire App settings, banner, kill runs at exit.
+- `panel.rb` — facade `up`: check teuton, find tests, load config, `select_test` (forget an active test that no longer exists, auto-select a single test), wire App settings, banner, kill runs at exit. Every teacher page must work with no active test (only test-specific pages answer 409 with a link to Tests).
 - `config.rb` — `teuton-panel.yaml` (defaults deep-merged, saved on every change, `datapath`).
 - `project.rb` — `Project` (a test) and `Projects.all`; `teuton_config.rb` reads `config.yaml` and adds `tt_include` as text.
 - `params.rb` — registration fields file; `registration.rb` builds and validates a student's case values.
@@ -48,4 +48,5 @@ Format by suffix: none/`.html` → HTML, `.txt` → text, `.json` → JSON (teac
 - `bin/teuton-panel` — installed executable; `teuton-panel` at the repo root — development launcher (`require "debug"`).
 - `lib/teuton/panel/` — gem code (see above).
 - `test/` — test-unit tests; `runner_test.rb` and `app_test.rb` run the real teuton on the `teuton-sandbox` test.
+- `samples/linux-files-basics/` — demo challenge with invented students and history (`reset.rb`); `test/usecases/run.rb` (`rake usecases`) runs every use case against it.
 - In the user's base dir: `teuton-panel.yaml`; next to each test `teuton-panel-params.yaml` and `config.d/`; data dir `.teuton-panel/` (`tests/<slug>/runs`, `results.json`, `archive/`).

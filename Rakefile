@@ -12,3 +12,8 @@ end
 require "standard/rake"
 
 task default: %i[test standard]
+
+desc "Run every use case against samples/linux-files-basics (a few minutes)"
+task :usecases do
+  ruby "-Ilib", "test/usecases/run.rb"
+end
