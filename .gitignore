@@ -8,3 +8,9 @@
 /pkg/
 /spec/reports/
 /tmp/
+
+# Documentation site build
+/docs/_site/
+/docs/.jekyll-cache/
+/docs/vendor/
+/docs/.bundle/

@@ -1,0 +1,48 @@
+title: Teuton Panel
+description: Web panel for Teuton in the classroom
+url: https://fvarrui.github.io
+baseurl: /teuton-panel
+theme: just-the-docs
+color_scheme: teuton
+
+plugins:
+  - jekyll-polyglot
+
+# Languages (jekyll-polyglot): every page exists in en/, es/ and ca/ with the same permalink
+languages: ["en", "es", "ca"]
+default_lang: "en"
+exclude_from_localization: ["assets"]
+parallel_localization: false
+lang_from_path: false
+
+aux_links:
+  "GitHub": "https://github.com/dvarrui/teuton-panel"
+aux_links_new_tab: true
+search_enabled: true
+heading_anchors: true
+back_to_top: true
+back_to_top_text: "↑"
+footer_content: "teuton-panel is released under the MPL-2.0 license. Part of the <a href=\"https://github.com/teuton-software/teuton\">Teuton</a> ecosystem."
+
+callouts:
+  note:
+    color: blue
+  tip:
+    color: green
+  warning:
+    color: yellow
+  important:
+    color: red
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
+
+exclude:
+  - _scripts
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - .jekyll-cache

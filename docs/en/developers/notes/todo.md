@@ -1,4 +1,14 @@
-[<< back](../index.md)
+---
+title: Original feature list
+parent: Design notes
+grand_parent: Developers
+nav_order: 3
+lang: en
+permalink: /developers/notes/todo/
+---
+
+> Historical notes kept as they were written; the current design is in `.minispec/` and in this guide.
+{: .note }
 
 # teuton-panel
 

@@ -40,7 +40,7 @@ Gem::Specification.new do |spec|
   # spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.extra_rdoc_files = ["README.md", "LICENSE"] + Dir.glob(File.join("docs", "**", "*.md"))
+  spec.extra_rdoc_files = ["README.md", "LICENSE"]
   spec.executables << "teuton-panel"
   spec.files = Dir.glob(File.join("lib", "**", "*.*")) + ["bin/teuton-panel"]
 

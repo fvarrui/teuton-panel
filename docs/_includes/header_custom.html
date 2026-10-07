@@ -1,0 +1,12 @@
+{%- comment -%} Language switch (jekyll-polyglot) {%- endcomment -%}
+<nav class="lang-switch" aria-label="Language">
+  {%- for lang in site.languages -%}
+    {%- assign label = lang | upcase -%}
+    {%- if lang == site.default_lang -%}
+      {%- assign href = page.permalink | prepend: site.baseurl -%}
+    {%- else -%}
+      {%- assign href = page.permalink | prepend: lang | prepend: "/" | prepend: site.baseurl -%}
+    {%- endif -%}
+    <a {% static_href %}href="{{ href }}"{% endstatic_href %} class="{% if lang == site.active_lang %}current{% endif %}" lang="{{ lang }}">{{ label }}</a>
+  {%- endfor -%}
+</nav>

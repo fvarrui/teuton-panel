@@ -8,3 +8,5 @@ ignore:
     - Layout/EndOfLine
   - "tmp/**/*"
   - "test/files/**/*"
+  - "docs/vendor/**/*"
+  - "docs/_site/**/*"

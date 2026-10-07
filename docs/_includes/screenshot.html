@@ -1,0 +1,7 @@
+{%- comment -%}
+  Screenshot in the page's language: {% include screenshot.html file="teacher-home" alt="..." %}
+{%- endcomment -%}
+<figure class="screenshot">
+  <img src="{{ site.baseurl }}/assets/images/{{ site.active_lang }}/{{ include.file }}.png" alt="{{ include.alt }}" loading="lazy">
+  {%- if include.caption %}<figcaption>{{ include.caption }}</figcaption>{% endif %}
+</figure>

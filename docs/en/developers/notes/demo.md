@@ -1,4 +1,14 @@
-[<< back](../index.md)
+---
+title: Comments on the first demo
+parent: Design notes
+grand_parent: Developers
+nav_order: 2
+lang: en
+permalink: /developers/notes/demo/
+---
+
+> Historical notes kept as they were written; the current design is in `.minispec/` and in this guide.
+{: .note }
 
 # 1. Comments on the demo
 

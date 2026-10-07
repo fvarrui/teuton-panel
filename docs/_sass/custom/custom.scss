@@ -1,0 +1,44 @@
+// Screenshots and language switch
+.screenshot {
+  margin: 1.25rem 0 1.75rem;
+
+  img {
+    display: block;
+    max-width: 100%;
+    border: 1px solid #dde3ec;
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(31, 42, 68, 0.08);
+  }
+
+  figcaption {
+    font-size: 0.85rem;
+    color: #4a5571;
+    margin-top: 0.4rem;
+  }
+}
+
+.lang-switch {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  padding: 0 1rem;
+
+  a {
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: #4a5571;
+    text-decoration: none;
+
+    &.current {
+      color: #0f7c80;
+      text-decoration: underline;
+    }
+  }
+}
+
+.uc-id {
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 0.85em;
+  color: #0b5f62;
+  white-space: nowrap;
+}

@@ -1,4 +1,14 @@
-[<< back](../index.md)
+---
+title: History of the project
+parent: Design notes
+grand_parent: Developers
+nav_order: 1
+lang: en
+permalink: /developers/notes/history/
+---
+
+> Historical notes kept as they were written; the current design is in `.minispec/` and in this guide.
+{: .note }
 
 # History
 
