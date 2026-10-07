@@ -274,6 +274,10 @@ teacher:
     title: "Vista previa del enunciado"
     published: "Los alumnos pueden ver este enunciado."
     hidden: "El enunciado está oculto para los alumnos (ver Ajustes)."
+    full: "Texto completo"
+    as_students: "Como lo ven los alumnos"
+    full_note: "Salida completa de teuton readme. Los alumnos reciben una versión más limpia, sin la línea de versión de Teuton ni los parámetros que no escriben."
+    student_note: "Esto es lo que ven los alumnos."
   settings:
     title: "Ajustes"
     students: "Zona de alumnos"

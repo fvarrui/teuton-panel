@@ -274,6 +274,10 @@ teacher:
     title: "Statement preview"
     published: "Students can see this statement."
     hidden: "The statement is hidden from students (see Settings)."
+    full: "Full text"
+    as_students: "As students see it"
+    full_note: "Full output of teuton readme. Students get a cleaner version, without the Teuton version line or the parameters they do not type."
+    student_note: "This is what students see."
   settings:
     title: "Settings"
     students: "Student area"

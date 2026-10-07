@@ -136,4 +136,16 @@ class ServicesTest < Test::Unit::TestCase
     assert_match 'id="required-hosts"', html
     assert_match "<pre><code>Fecha", html
   end
+
+  test "student statement drops the version block, untyped parameters and the local SSH note" do
+    text = Teuton::Panel::Readme.tidy(README.sub("| 1 | HOST1 |  |\n", "| 1 | HOST1 |  |\n\n> NOTE: SSH Service installation is required on every host.\n"))
+    clean = Teuton::Panel::Readme.clean(text, ["home"], true)
+    assert_no_match(/Teuton : 3/, clean)
+    assert_no_match(/SSH/, clean)
+    assert_no_match(/host1_ip/, clean)
+    assert_match "* home", clean
+    assert_match "* (x2.0) docs/notes.txt has exactly 3 lines.", clean
+    assert_match "SSH", Teuton::Panel::Readme.clean(text, [], false) # remote hosts keep the note
+    assert_no_match(/Parámetros/, Teuton::Panel::Readme.clean(text, [], false)) # nothing typed: no section
+  end
 end

@@ -214,7 +214,7 @@ module Teuton::Panel
       student_format!
       feature!(:readme)
       project!
-      markdown = Readme.markdown(project, @lang)
+      markdown = Readme.student_markdown(project, @lang)
       respond(:"students/readme", {html: Kramdown::Document.new(markdown).to_html, markdown: markdown}, {markdown: markdown})
     end
 

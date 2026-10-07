@@ -4,5 +4,10 @@
     <h1><%= h t("teacher.readme.title") %></h1>
     <p class="muted"><%= h t(config[:student][:readme] ? "teacher.readme.published" : "teacher.readme.hidden") %></p>
   </div>
+  <nav class="filters" aria-label="<%= h t("teacher.readme.title") %>">
+    <a href="/teacher/readme" class="<%= "current" unless student_view %>"><%= h t("teacher.readme.full") %></a>
+    <a href="/teacher/readme?view=students" class="<%= "current" if student_view %>"><%= h t("teacher.readme.as_students") %></a>
+  </nav>
 </div>
+<div class="notice"><%= h t(student_view ? "teacher.readme.student_note" : "teacher.readme.full_note") %></div>
 <section class="card readme"><%= html %></section>

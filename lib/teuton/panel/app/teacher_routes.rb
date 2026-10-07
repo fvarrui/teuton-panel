@@ -316,7 +316,9 @@ module Teuton::Panel
     get "/teacher/readme" do
       format!(%w[html])
       project!
-      erb :"teacher/readme", locals: {html: Readme.html(project, @lang)}
+      student_view = params["view"] == "students"
+      html = student_view ? Readme.student_html(project, @lang) : Readme.html(project, @lang)
+      erb :"teacher/readme", locals: {html: html, student_view: student_view}
     end
 
     get "/teacher/settings" do

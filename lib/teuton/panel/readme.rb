@@ -3,6 +3,8 @@
 require "kramdown"
 require_relative "version"
 require_relative "lang"
+require_relative "params"
+require_relative "registration"
 require_relative "runner"
 
 module Teuton::Panel
@@ -10,6 +12,7 @@ module Teuton::Panel
   # Test statement from `teuton readme`, without passwords, as Markdown or HTML
   module Readme
     LOCK = Mutex.new
+    LOCAL_HOSTS = %w[localhost 127.0.0.1 ::1]
 
     ##
     # Markdown (cached until start.rb or config.yaml change)
@@ -31,6 +34,51 @@ module Teuton::Panel
 
     def self.html(project, lang)
       Kramdown::Document.new(markdown(project, lang)).to_html
+    end
+
+    ##
+    # Statement as students see it: the task only (see clean)
+    # @param project (Project)
+    # @param lang (String)
+    def self.student_markdown(project, lang)
+      spec = Params.load(project)
+      hosts = spec.select { |field, _mode| field.match?(/\Ahost\d+_ip\z/) }
+      local = !hosts.empty? && hosts.values.all? { LOCAL_HOSTS.include?(_1) }
+      clean(markdown(project, lang), Registration.asked_fields(spec), local)
+    end
+
+    def self.student_html(project, lang)
+      Kramdown::Document.new(student_markdown(project, lang)).to_html
+    end
+
+    ##
+    # Drop what only matters to the teacher: the date/version block at the top,
+    # internal parameters students do not type, and the SSH note on local hosts
+    # @param text (String) tidied Markdown
+    # @param typed (Array) fields students type at registration
+    # @param local (Boolean) every host of the test is this machine
+    def self.clean(text, typed, local)
+      lines = text.lines
+      if lines.first.to_s.start_with?("~~~")
+        close = lines[1..].index { _1.start_with?("~~~") }
+        lines = lines[(close + 2)..] unless close.nil?
+      end
+      lines = lines.reject { _1.start_with?(">") && _1.include?("SSH") } if local
+      output = []
+      index = 0
+      while index < lines.size
+        line = lines[index]
+        items = lines[(index + 1)..].take_while { _1.match?(/\A\s*\* [A-Za-z0-9_]+\s*\z/) || _1.strip.empty? }
+        if line.start_with?("#") && items.any? { _1.start_with?("*") } # A list of parameter names
+          kept = items.select { _1.start_with?("*") && typed.include?(_1.sub("*", "").strip) }
+          output << line << "\n" << kept.join << "\n" unless kept.empty?
+          index += items.size + 1
+          next
+        end
+        output << line
+        index += 1
+      end
+      output.join.sub(/\A\s+/, "")
     end
 
     ##

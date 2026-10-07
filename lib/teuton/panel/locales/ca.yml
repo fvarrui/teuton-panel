@@ -274,6 +274,10 @@ teacher:
     title: "Previsualització de l'enunciat"
     published: "Els alumnes poden veure aquest enunciat."
     hidden: "L'enunciat està ocult per als alumnes (vegeu Configuració)."
+    full: "Text complet"
+    as_students: "Com el veuen els alumnes"
+    full_note: "Sortida completa de teuton readme. Els alumnes reben una versió més neta, sense la línia de versió de Teuton ni els paràmetres que no escriuen."
+    student_note: "Això és el que veuen els alumnes."
   settings:
     title: "Configuració"
     students: "Zona d'alumnes"
