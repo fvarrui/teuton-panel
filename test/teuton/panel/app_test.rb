@@ -237,6 +237,16 @@ class AppTest < Test::Unit::TestCase
     assert_match "/teacher/students/AB3K/delete", last_response.body
   end
 
+  test "class summary of an empty class" do
+    FileUtils.rm_f(Dir.glob(File.join(@basedir, "test-sandbox", "config.d", "*.yaml")))
+    get "/teacher.json"
+    summary = JSON.parse(last_response.body)["summary"]
+    assert_nil summary["average"]
+    assert_equal 0, summary["total"]
+    get "/teacher"
+    assert_equal 200, last_response.status
+  end
+
   test "one menu tab is current" do
     current = -> { last_response.body.scan(/<a href="([^"]+)" class="current" aria-current/).flatten }
     get "/teacher/runs"
@@ -307,6 +317,13 @@ class AppTest < Test::Unit::TestCase
     states = JSON.parse(last_response.body).to_h { [_1["key"], _1["status"]] }
     assert_equal "needs_work", states["CD4M"]
     assert_equal "disabled", states["GH6P"]
+
+    rows = JSON.parse(last_response.body).reject { _1["disabled"] }
+    get "/teacher.json"
+    summary = JSON.parse(last_response.body)["summary"]
+    assert_equal rows.count { _1["grade"].to_f >= 50 }, summary["passed"]
+    assert_equal rows.count { _1["grade"].nil? }, summary["pending"]
+    assert_equal rows.size, summary["total"]
 
     get "/teacher/results"
     evaluated = last_response.body.scan(%r{href="/teacher/results/([^"?]+)"}).flatten

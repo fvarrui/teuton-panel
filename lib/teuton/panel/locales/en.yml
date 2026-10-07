@@ -245,6 +245,12 @@ teacher:
     failed: "failed"
     detail: "Run detail"
     output: "Teuton output"
+  summary:
+    title: "Class summary"
+    average: "Average grade"
+    passed: "Passed (50 or more)"
+    complete: "Complete (100)"
+    pending: "Not evaluated yet"
   results:
     title: "Results"
     intro: "Latest result of each student of %{test}"

@@ -34,6 +34,7 @@ An elegant educational app for adults: warm, lively, motivating, with clear prog
 - Forms: label above, 1.5 px border, 10 px radius, sunflower focus ring; errors in coral under the field.
 - `.notice` (info, success, warn, error) and `.empty` states with an icon and one helpful sentence.
 - `.grade` bar + value; `.badge` with a dot for states; `.score-big` for a student's own grade.
+- `.summary`: four class figures (average, passed, complete, not evaluated) on the teacher home, Results and the projector (`.dark`); disabled students are left out.
 - `.code-display` (big mono code on sunflower wash) after registration; `pre.cmd` (ink) for curl commands; `pre.log` for Teuton output.
 - Icons: inline SVG, 1.8 stroke, `currentColor` (`icon(name)` helper). No icon fonts or CDNs.
 

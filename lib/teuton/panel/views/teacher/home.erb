@@ -15,6 +15,9 @@
   </div>
 </div>
 
+<% if project && !rows.empty? %>
+  <%= erb :"teacher/_summary", layout: false, locals: {rows: rows, link: true, dark: false} %>
+<% end %>
 <div class="grid">
   <section class="card featured">
     <h2 class="section-title"><%= icon(:users) %> <%= h t("teacher.home.students") %></h2>

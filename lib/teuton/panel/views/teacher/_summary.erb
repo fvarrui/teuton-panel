@@ -1,0 +1,9 @@
+<%# Class figures: average, passed, complete, pending (active students only) %>
+<% summary = class_summary(rows) %>
+<% tag = link ? "a" : "div" %>
+<<%= tag %> class="summary <%= "dark" if dark %>" <%= %(href="/teacher/results") if link %> aria-label="<%= h t("teacher.summary.title") %>">
+  <div class="figure"><span class="value"><%= summary[:average].nil? ? "—" : grade_text(summary[:average]) %></span><span class="label"><%= h t("teacher.summary.average") %></span></div>
+  <div class="figure"><span class="value"><%= summary[:passed] %><small>/<%= summary[:total] %></small></span><span class="label"><%= h t("teacher.summary.passed") %></span></div>
+  <div class="figure"><span class="value"><%= summary[:complete] %></span><span class="label"><%= h t("teacher.summary.complete") %></span></div>
+  <div class="figure"><span class="value"><%= summary[:pending] %></span><span class="label"><%= h t("teacher.summary.pending") %></span></div>
+</<%= tag %>>

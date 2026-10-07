@@ -9,6 +9,7 @@
     </div>
     <a class="btn secondary" href="/teacher/results" style="color: #fff; border-color: #fff"><%= h t("teacher.results.exit_projector") %></a>
   </div>
+  <% unless rows.empty? %><%= erb :"teacher/_summary", layout: false, locals: {rows: rows, link: false, dark: true} %><% end %>
   <% if rows.empty? %>
     <div class="empty"><p><%= h t("teacher.students.empty") %></p></div>
   <% else %>
@@ -35,6 +36,7 @@
       <a class="btn secondary" href="/teacher/moodle.csv"><%= h t("teacher.results.moodle") %></a>
     </div>
   </div>
+  <% unless rows.empty? %><%= erb :"teacher/_summary", layout: false, locals: {rows: rows, link: false, dark: false} %><% end %>
   <section class="card">
     <% if rows.empty? %>
       <div class="empty"><%= icon(:chart, 40) %><p><%= h t("teacher.students.empty") %></p></div>

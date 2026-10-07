@@ -245,6 +245,12 @@ teacher:
     failed: "fallida"
     detail: "Detalle de la ejecución"
     output: "Salida de Teuton"
+  summary:
+    title: "Resumen de la clase"
+    average: "Nota media"
+    passed: "Aprobados (50 o más)"
+    complete: "Completos (100)"
+    pending: "Sin evaluar"
   results:
     title: "Resultados"
     intro: "Último resultado de cada alumno en %{test}"

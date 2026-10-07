@@ -80,6 +80,21 @@ module Teuton::Panel
       end
 
       ##
+      # Class figures from the active students' last results
+      # @return Hash average (nil without results), passed, complete, pending, total
+      def class_summary(rows)
+        active = rows.reject { _1[:disabled] }
+        grades = active.filter_map { _1[:result]&.dig("grade")&.to_f }
+        summary = {}
+        summary[:average] = grades.empty? ? nil : (grades.sum / grades.size).round(1)
+        summary[:passed] = grades.count { _1 >= 50 }
+        summary[:complete] = grades.count { _1 >= 100 }
+        summary[:pending] = active.count { _1[:result].nil? }
+        summary[:total] = active.size
+        summary
+      end
+
+      ##
       # Results page order: evaluated students first, best grade first
       def results_order(rows)
         rows.sort_by { [_1[:result].nil? ? 1 : 0, -_1[:result]&.dig("grade").to_f] }
@@ -103,7 +118,8 @@ module Teuton::Panel
       format!(%w[html json])
       status = {scheduler: scheduler.status, queue: queue.status, last: last_summary&.except("cases")}
       locals = {status: status, urls: Teuton::Panel.student_urls(config), rows: roster}
-      respond(:"teacher/home", locals, {test: project&.name, urls: locals[:urls], scheduler: status[:scheduler], queue: status[:queue]})
+      respond(:"teacher/home", locals, {test: project&.name, urls: locals[:urls], scheduler: status[:scheduler], queue: status[:queue],
+                                        summary: class_summary(locals[:rows])})
     end
 
     get "/teacher/tests" do
