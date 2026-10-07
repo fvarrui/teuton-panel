@@ -2,7 +2,7 @@
 <div class="page-head">
   <div>
     <h1><%= h t("students.personal.hello", name: student[:data]["tt_members"]) %></h1>
-    <p class="muted"><%= h t("students.personal.code_line", code: student[:code]) %></p>
+    <p class="muted"><%= h t("students.personal.code_line", code: student[:code]) %> · <a href="/students/forget"><%= h t("students.personal.not_you") %></a></p>
   </div>
   <div class="actions">
     <% if config[:student][:run] && !student[:disabled] %>

@@ -38,7 +38,11 @@
           </span>
         <% else %>
           <%= nav_link("/students", t("nav.home")) %>
-          <% if config[:student][:register] %><%= nav_link("/students/register", t("nav.register")) %><% end %>
+          <% if remembered_student %>
+            <%= nav_link("/students/#{remembered_student[:code]}", t("nav.my_page")) %>
+          <% elsif config[:student][:register] %>
+            <%= nav_link("/students/register", t("nav.register")) %>
+          <% end %>
           <% if config[:student][:readme] %><%= nav_link("/students/readme", t("nav.readme")) %><% end %>
         <% end %>
       </nav>

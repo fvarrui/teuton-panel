@@ -19,6 +19,7 @@ nav:
   sessions: "Sessions"
   settings: "Configuració"
   register: "Registra'm"
+  my_page: "La meva pàgina"
 langs:
   en: "Anglès"
   es: "Castellà"
@@ -113,6 +114,7 @@ students:
   personal:
     hello: "Hola, %{name}"
     code_line: "Codi personal: %{code}"
+    not_you: "No ets tu?"
     run_now: "Executa el meu test"
     disabled: "El teu professor ha pausat la teva avaluació de moment."
     updated: "Les teves dades s'han actualitzat. Els valors anteriors s'han substituït."

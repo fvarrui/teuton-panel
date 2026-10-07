@@ -19,6 +19,29 @@ module Teuton::Panel
         found
       end
 
+      ##
+      # Student whose code the browser remembers (cookie), or nil; an unknown code is forgotten
+      def remembered_student
+        return @remembered if defined?(@remembered)
+
+        code = request.cookies["code"].to_s
+        @remembered = (Students.code?(code) && !project.nil?) ? students.find(code) : nil
+        forget_student if @remembered.nil? && !code.empty?
+        @remembered
+      end
+
+      ##
+      # Remember the code in the browser: a shortcut, not a login (ADR-004)
+      def remember_student(code)
+        response.set_cookie("code", value: code, path: "/", max_age: 31_536_000, httponly: true, same_site: :lax)
+        @remembered = students.find(code)
+      end
+
+      def forget_student
+        response.delete_cookie("code", path: "/")
+        @remembered = nil
+      end
+
       def registration_fields
         Registration.asked_fields(Params.load(project))
       end
@@ -112,6 +135,7 @@ module Teuton::Panel
             {errors: reg.errors.map { |f, e| {field: f, error: e} }})
         end
         code = students.create(reg.data, client_ip)
+        remember_student(code) if @format == "html"
         url = "#{student_base_url}/#{code}"
         respond(:"students/registered", {code: code, url: url}, {code: code, url: url})
       end
@@ -125,6 +149,11 @@ module Teuton::Panel
       code = params["code"].to_s.strip.upcase
       redirect "/students/#{code}" if Students.code?(code)
 
+      redirect "/students"
+    end
+
+    get "/students/forget" do
+      forget_student
       redirect "/students"
     end
 
@@ -155,6 +184,7 @@ module Teuton::Panel
     get "/students/:code(.:format)?" do
       student_format!
       student = student!
+      remember_student(student[:code]) if @format == "html"
       result = public_result(store.get(student[:code]))
       respond(:"students/personal", {student: student, data: public_data(student), result: result, fields: registration_fields, notice: nil},
         {code: student[:code], members: student[:data]["tt_members"], disabled: student[:disabled], data: public_data(student), result: result})

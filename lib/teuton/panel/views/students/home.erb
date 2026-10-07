@@ -19,7 +19,7 @@
     <form method="get" action="/students/go">
       <div class="field">
         <label for="code"><%= h t("students.code") %></label>
-        <input type="text" id="code" name="code" maxlength="6" autocomplete="off" spellcheck="false" autocapitalize="characters" style="max-width: 10rem; text-transform: uppercase">
+        <input type="text" id="code" name="code" maxlength="6" autocomplete="off" spellcheck="false" autocapitalize="characters" style="max-width: 10rem; text-transform: uppercase" value="<%= h remembered_student&.dig(:code) %>">
       </div>
       <button class="btn" type="submit"><%= h t("students.home.open") %></button>
       <% if config[:student][:register] %><a class="btn secondary" href="/students/register"><%= h t("nav.register") %></a><% end %>

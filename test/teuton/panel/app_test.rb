@@ -258,6 +258,27 @@ class AppTest < Test::Unit::TestCase
     assert_no_match(%r{/teacher/settings#students}, last_response.body) # list is off now
   end
 
+  test "the browser remembers the student's code" do
+    get "/students", {}, REMOTE
+    assert_match "/students/register", last_response.body
+    get "/students/AB3K", {}, REMOTE
+    get "/students", {}, REMOTE
+    nav = last_response.body[%r{<nav class="nav".*?</nav>}m]
+    assert_match "href=\"/students/AB3K\"", nav # My page
+    assert_no_match(%r{/students/register}, nav)
+    assert_match "value=\"AB3K\"", last_response.body
+
+    get "/students/forget", {}, REMOTE
+    get "/students", {}, REMOTE
+    assert_match "/students/register", last_response.body[%r{<nav class="nav".*?</nav>}m]
+
+    set_cookie "code=ZZZZ"
+    get "/students", {}, REMOTE
+    assert_match "/students/register", last_response.body # unknown code ignored
+    get "/students/AB3K.txt", {}, REMOTE
+    assert_nil last_response.headers["Set-Cookie"]&.match(/code=/) # curl is unchanged
+  end
+
   test "one menu tab is current" do
     current = -> { last_response.body.scan(/<a href="([^"]+)" class="current" aria-current/).flatten }
     get "/teacher/runs"

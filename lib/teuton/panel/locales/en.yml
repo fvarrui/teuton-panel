@@ -19,6 +19,7 @@ nav:
   sessions: "Sessions"
   settings: "Settings"
   register: "Register"
+  my_page: "My page"
 langs:
   en: "English"
   es: "Spanish"
@@ -113,6 +114,7 @@ students:
   personal:
     hello: "Hi, %{name}"
     code_line: "Personal code: %{code}"
+    not_you: "Not you?"
     run_now: "Run my test"
     disabled: "Your teacher has paused your evaluation for now."
     updated: "Your details have been updated. The previous values were replaced."

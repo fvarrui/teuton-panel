@@ -19,6 +19,7 @@ nav:
   sessions: "Sesiones"
   settings: "Ajustes"
   register: "Registrarme"
+  my_page: "Mi página"
 langs:
   en: "Inglés"
   es: "Español"
@@ -113,6 +114,7 @@ students:
   personal:
     hello: "Hola, %{name}"
     code_line: "Código personal: %{code}"
+    not_you: "¿No eres tú?"
     run_now: "Ejecutar mi test"
     disabled: "Tu profesor ha pausado tu evaluación por ahora."
     updated: "Tus datos se han actualizado. Los valores anteriores se han sustituido."

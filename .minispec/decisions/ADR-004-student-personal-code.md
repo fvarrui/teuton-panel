@@ -2,7 +2,7 @@
 
 ## Decision
 
-On registration each student gets a short personal code (e.g. `K7QH`). Routes that act on "my" data carry it in the path: `/students/<code>`, `/students/<code>/run`, `/results`, `/history`, `/status`. The personal URL can be bookmarked; no cookie is needed. The source IP is recorded (`tt_source_ip`) but is no longer the identity. This supersedes the "identified by source IP" part of ADR-001.
+On registration each student gets a short personal code (e.g. `K7QH`). Routes that act on "my" data carry it in the path: `/students/<code>`, `/students/<code>/run`, `/results`, `/history`, `/status`. The personal URL can be bookmarked; no cookie is needed, though the browser may keep the code in a `code` cookie as a shortcut. The source IP is recorded (`tt_source_ip`) but is no longer the identity. This supersedes the "identified by source IP" part of ADR-001.
 
 ## Motivation
 
@@ -22,3 +22,4 @@ On registration each student gets a short personal code (e.g. `K7QH`). Routes th
 - `AUTO IP` still fills host fields with the request IP, so the registration form says which IP was detected and that registering from the evaluated machine fills it correctly.
 - Rate limits apply per code and per IP.
 - The code is a convenience, not strong authentication; acceptable inside a classroom LAN.
+- Opening a personal page or registering in a browser stores the code in a `code` cookie (one year, HttpOnly): the student menu then shows "My page" and the home fills in the code. It gives no more access than the URL; "Not you?" (`/students/forget`) clears it, and an unknown code in the cookie is cleared. `curl` never gets it.
