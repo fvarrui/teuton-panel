@@ -8,15 +8,15 @@ permalink: /teacher/
 
 # Teacher guide
 
-The teacher area is at `http://localhost:4567/teacher` and only answers your own computer (see [Start the panel]({{ site.baseurl }}/teacher/start/) to open it from another one). Its menu has one page per task:
+The teacher area is at `http://localhost:4567/teacher` and only answers your own computer (see [Start the panel]({{ site.baseurl }}/teacher/start/) to open it from another one). Its menu follows a class: **Home**, then **Prepare** (Tests, Registration fields, Statement), **Class** (Students, Run, Results, History), and finally Sessions and Settings. Opening the panel address without a path (`http://localhost:4567/`) on your computer also takes you here.
 
-{% include screenshot.html file="teacher-home" alt="Teacher home: students, runs and the student addresses" caption="The control room: how many students there are, whether a run is going on and where students connect." %}
+{% include screenshot.html file="teacher-home" alt="Teacher home: students, runs and the student addresses" caption="The control room: the class summary, how many students there are, whether a run is going on and where students connect." %}
 
 | Page | What you do there | Use cases |
 | --- | --- | --- |
 | [Home]({{ site.baseurl }}/teacher/start/) | See the state of the class and the student addresses | <span class="uc-id">T1</span> <span class="uc-id">T12</span> |
 | [Tests]({{ site.baseurl }}/teacher/tests/) | Choose the active test and check it | <span class="uc-id">T2</span> |
-| [Registration]({{ site.baseurl }}/teacher/registration/) | Decide what students fill in | <span class="uc-id">T3</span> |
+| [Registration fields]({{ site.baseurl }}/teacher/registration/) | Decide what students fill in, with your own labels and help | <span class="uc-id">T3</span> |
 | [Students]({{ site.baseurl }}/teacher/students/) | Fix, pause or remove registrations | <span class="uc-id">T4</span> |
 | [Run]({{ site.baseurl }}/teacher/runs/) and History | Evaluate the class once, several times or periodically | <span class="uc-id">T5</span> <span class="uc-id">T6</span> |
 | [Results]({{ site.baseurl }}/teacher/results/) | Follow the class, use the projector, export to Moodle | <span class="uc-id">T7</span> <span class="uc-id">T8</span> |

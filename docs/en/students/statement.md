@@ -11,7 +11,7 @@ permalink: /students/statement/
 Use case <span class="uc-id">S8</span>.
 {: .fs-3 }
 
-**Statement** (or `/students/readme`) shows what you have to do: the machines you need, the values you are asked for and every target of each group, with its weight.
+**Statement** (or `/students/readme`) shows what you have to do: the machines you need, the values you type at registration and every target of each group, with its weight.
 
 {% include screenshot.html file="students-readme" alt="Test statement" %}
 

@@ -11,7 +11,7 @@ permalink: /students/statement/
 Caso de uso <span class="uc-id">S8</span>.
 {: .fs-3 }
 
-**Enunciado** (o `/students/readme`) muestra lo que tienes que hacer: las máquinas que necesitas, los valores que se te piden y todos los objetivos de cada grupo, con su peso.
+**Enunciado** (o `/students/readme`) muestra lo que tienes que hacer: las máquinas que necesitas, los valores que escribes al registrarte y todos los objetivos de cada grupo, con su peso.
 
 {% include screenshot.html file="students-readme" alt="Enunciado del test" %}
 

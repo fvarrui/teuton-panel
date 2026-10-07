@@ -29,6 +29,8 @@ To add a language:
 3. Add a `langs.<code>` entry to every locale file and the switch link in `views/layout.erb`.
 4. Run `bundle exec rake`: `lang_test.rb` fails if any language misses a key.
 
+Use the same words everywhere: the GUI terms per language (case → student, target, run, pass, statement, grade states) are listed in `.minispec/core/glossary.md`.
+
 ## This documentation
 
 Pages live in `docs/<lang>/`, with `lang:` and the same `permalink` in every language. Navigation titles (`title`, `parent`) are translated, so `parent` must match the parent's title in the same language. A page missing in a language falls back to English. Add a language to `languages:` in `docs/_config.yml` and retake the screenshots with `bundle exec rake docs:screenshots` after adding it to `LANGS` in `docs/_scripts/screenshots.rb`.

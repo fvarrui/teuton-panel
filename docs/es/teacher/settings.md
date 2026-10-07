@@ -15,7 +15,7 @@ Caso de uso <span class="uc-id">T11</span>.
 1. TOC
 {:toc}
 
-**Ajustes** cambia el comportamiento del panel; cada cambio se guarda al momento en `teuton-panel.yaml`.
+**Ajustes** cambia el comportamiento del panel. Cada sección tiene su propio botón **Guardar**, y la confirmación aparece en la sección que has guardado; los cambios van al momento a `teuton-panel.yaml`.
 
 {% include screenshot.html file="teacher-settings" alt="Página de ajustes" %}
 
@@ -24,7 +24,7 @@ Caso de uso <span class="uc-id">T11</span>.
 | Opción | Cuando está activada |
 | --- | --- |
 | Registrarse | Los alumnos pueden registrarse y actualizar sus datos |
-| Ver quién está registrado | El inicio de alumnos lista a los registrados (solo nombres) |
+| Ver quién está registrado | El inicio de alumnos lista a los registrados (solo nombres, nunca códigos ni IPs). Está activada por defecto, y el inicio del profesor te lo recuerda mientras lo esté. |
 | Ejecutar su test | Los alumnos pueden ejecutar su propio case |
 | Ver su nota | Los alumnos ven su última nota |
 | Ver el resultado de cada objetivo | Los alumnos ven también qué objetivos han cumplido (sin comandos ni salidas) |
@@ -43,8 +43,8 @@ Elige cualquier combinación de **Páginas web**, **Texto plano** (`.txt`, para 
 - **Segundos entre ejecuciones del mismo alumno**: cuánto espera un alumno antes de volver a ejecutar (30 por defecto; 0 para no limitar).
 - **Idioma por defecto**: se usa cuando el navegador pide un idioma que el panel no tiene.
 - **Ejecuciones de alumnos a la vez**: cuántas ejecuciones de alumnos pueden ir en paralelo (se aplica al reiniciar el panel).
-- **Direcciones que se muestran a los alumnos**: déjalo vacío para mostrar todas las detectadas, o escribe la buena cuando el ordenador tiene adaptadores de más.
-- **Otras IPs de profesor**: ordenadores que pueden abrir el área del profesor además de este, separados por comas.
+- **Direcciones que se muestran a los alumnos**: déjalo vacío para mostrar todas las detectadas, o escribe la buena cuando el ordenador tiene adaptadores de más (por ejemplo, `192.168.1.10, 192.168.1.11`).
+- **Otras IPs de profesor**: ordenadores que pueden abrir el área del profesor además de este, separados por comas (por ejemplo, `192.168.1.20`).
 
 ## El fichero de configuración
 

@@ -32,12 +32,13 @@ Si hay varios tests, elige uno en [Tests]({{ site.baseurl }}/teacher/tests/).
 
 ## La sala de control
 
-Abre `http://localhost:4567/teacher`. La página de inicio muestra:
+Abre `http://localhost:4567/teacher` (o simplemente `http://localhost:4567/`: en tu ordenador, la dirección del panel te lleva al área del profesor). La página de inicio muestra:
 
 - el test activo, con botones para **Ejecutar** y para abrir el **Modo proyector**;
+- el **resumen de la clase**: nota media, cuántos han aprobado (50 o más), cuántos lo tienen completo (100) y cuántos no se han evaluado todavía; enlaza con Resultados;
 - cuántos alumnos hay registrados y cuántos se han evaluado;
 - si hay una ejecución en marcha, la última ejecución y la cola de ejecuciones de alumnos;
-- **dónde se conectan los alumnos**: una dirección por interfaz de red, con la orden `curl` para alumnos sin navegador.
+- **dónde se conectan los alumnos**: una dirección por interfaz de red, con la orden `curl` para alumnos sin navegador, y un recordatorio cuando los alumnos pueden ver quién está registrado.
 
 {% include screenshot.html file="teacher-home" alt="Página de inicio del profesor" %}
 

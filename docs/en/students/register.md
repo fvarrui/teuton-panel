@@ -17,7 +17,7 @@ Use cases <span class="uc-id">S1</span> register, <span class="uc-id">S2</span> 
 
 ## Register
 
-Open **Register** (or `/students/register`) and fill in the fields your teacher chose: usually your name, your email and some details of your machine.
+Open **Register** (or `/students/register`) and fill in the fields your teacher chose: usually your name, your email and some details of your machine. Under a field you may find a short help written by your teacher.
 
 {% include screenshot.html file="students-register" alt="Registration form" %}
 
@@ -39,7 +39,7 @@ When you register you get a **personal code** and your personal address:
 
 {% include screenshot.html file="students-registered" alt="Registration done: the personal code" %}
 
-**Keep the code**: you need it to run your test and see your results. If you lose it, ask your teacher, who can see every code. Your personal page is `/students/<code>`; you can bookmark it.
+**Keep the code**: you need it to run your test and see your results. If you lose it, ask your teacher, who can see every code. Your personal page is `/students/<code>`; you can bookmark it. The browser also remembers your code: the menu shows **My page** instead of **Register**, and the home fills in your code.
 
 ## Fix your data
 

@@ -100,19 +100,19 @@ begin
   end
 
   # Step 3: teacher pages
-  shot "teacher-home", "/teacher", 1050
+  shot "teacher-home", "/teacher", 1150
   shot "teacher-tests", "/teacher/tests?check=1", 1250
   shot "teacher-registration", "/teacher/registration", 1150
   shot "teacher-students", "/teacher/students", 900
-  shot "teacher-student-edit", "/teacher/students/D5PS", 1000
-  shot "teacher-run", "/teacher/run", 1250
+  shot "teacher-student-edit", "/teacher/students/D5PS", 1250
+  shot "teacher-run", "/teacher/run", 900
   shot "teacher-runs", "/teacher/runs", 750
   shot "teacher-run-detail", "/teacher/runs/20261007-094000-000-full", 1150
-  shot "teacher-results", "/teacher/results", 780
+  shot "teacher-results", "/teacher/results", 900
   shot "teacher-projector", "/teacher/results?projector=1", 720
   shot "teacher-result-detail", "/teacher/results/B3MQ", 1050
   shot "teacher-readme", "/teacher/readme", 1200
-  shot "teacher-settings", "/teacher/settings", 1350
+  shot "teacher-settings", "/teacher/settings", 1500
 
   # Step 4: student pages
   shot "students-home", "/students", 1050

@@ -15,7 +15,7 @@ Cas d'ús <span class="uc-id">T11</span>.
 1. TOC
 {:toc}
 
-**Configuració** canvia el comportament del panell; cada canvi es desa al moment a `teuton-panel.yaml`.
+**Configuració** canvia el comportament del panell. Cada secció té el seu propi botó **Desa**, i la confirmació apareix a la secció que has desat; els canvis es desen al moment a `teuton-panel.yaml`.
 
 {% include screenshot.html file="teacher-settings" alt="Pàgina de configuració" %}
 
@@ -24,7 +24,7 @@ Cas d'ús <span class="uc-id">T11</span>.
 | Opció | Quan està activada |
 | --- | --- |
 | Registrar-se | Els alumnes poden registrar-se i actualitzar les seves dades |
-| Veure qui està registrat | L'inici d'alumnes llista els registrats (només noms) |
+| Veure qui està registrat | L'inici d'alumnes llista els registrats (només noms, mai codis ni IP). Està activada per defecte, i l'inici del professor t'ho recorda mentre ho està. |
 | Executar el seu test | Els alumnes poden executar el seu propi case |
 | Veure la seva nota | Els alumnes veuen la seva última nota |
 | Veure el resultat de cada objectiu | Els alumnes veuen també quins objectius han complert (sense ordres ni sortides) |
@@ -43,8 +43,8 @@ Tria qualsevol combinació de **Pàgines web**, **Text pla** (`.txt`, per a `cur
 - **Segons entre execucions del mateix alumne**: quant espera un alumne abans de tornar a executar (30 per defecte; 0 per no limitar).
 - **Idioma per defecte**: es fa servir quan el navegador demana un idioma que el panell no té.
 - **Execucions d'alumnes alhora**: quantes execucions d'alumnes poden anar en paral·lel (s'aplica en reiniciar el panell).
-- **Adreces que es mostren als alumnes**: deixa-ho buit per mostrar totes les detectades, o escriu la bona quan l'ordinador té adaptadors de més.
-- **Altres IP de professor**: ordinadors que poden obrir l'àrea del professor a més d'aquest, separats per comes.
+- **Adreces que es mostren als alumnes**: deixa-ho buit per mostrar totes les detectades, o escriu la bona quan l'ordinador té adaptadors de més (per exemple, `192.168.1.10, 192.168.1.11`).
+- **Altres IP de professor**: ordinadors que poden obrir l'àrea del professor a més d'aquest, separats per comes (per exemple, `192.168.1.20`).
 
 ## El fitxer de configuració
 

@@ -17,7 +17,7 @@ Casos d'ús <span class="uc-id">S1</span> registrar-se, <span class="uc-id">S2</
 
 ## Registrar-se
 
-Obre **Registra'm** (o `/students/register`) i omple els camps que ha triat el teu professor: normalment el teu nom, el teu correu i alguna dada de la teva màquina.
+Obre **Registra'm** (o `/students/register`) i omple els camps que ha triat el teu professor: normalment el teu nom, el teu correu i alguna dada de la teva màquina. Sota un camp pots trobar una ajuda breu escrita pel teu professor.
 
 {% include screenshot.html file="students-register" alt="Formulari d'alta" %}
 
@@ -39,7 +39,7 @@ En registrar-te reps un **codi personal** i la teva adreça personal:
 
 {% include screenshot.html file="students-registered" alt="Alta completada: el codi personal" %}
 
-**Guarda el codi**: el necessites per executar el teu test i veure els teus resultats. Si el perds, demana'l al teu professor, que veu tots els codis. La teva pàgina personal és `/students/<codi>`; la pots desar als marcadors.
+**Guarda el codi**: el necessites per executar el teu test i veure els teus resultats. Si el perds, demana'l al teu professor, que veu tots els codis. La teva pàgina personal és `/students/<codi>`; la pots desar als marcadors. El navegador també recorda el teu codi: el menú mostra **La meva pàgina** en lloc de **Registra'm**, i l'inici omple el teu codi.
 
 ## Corregir les teves dades
 

@@ -8,15 +8,15 @@ permalink: /teacher/
 
 # Guia del professor
 
-L'àrea del professor és a `http://localhost:4567/teacher` i només respon al teu propi ordinador (a [Engegar el panell]({{ site.baseurl }}/teacher/start/) s'explica com obrir-la des d'un altre). El seu menú té una pàgina per tasca:
+L'àrea del professor és a `http://localhost:4567/teacher` i només respon al teu propi ordinador (a [Engegar el panell]({{ site.baseurl }}/teacher/start/) s'explica com obrir-la des d'un altre). El seu menú segueix una classe: **Inici**, després **Preparar** (Tests, Camps de l'alta, Enunciat), **Classe** (Alumnes, Executa, Resultats, Històric) i, finalment, Sessions i Configuració. Si obres l'adreça del panell sense ruta (`http://localhost:4567/`) al teu ordinador, també arribes aquí.
 
-{% include screenshot.html file="teacher-home" alt="Inici del professor: alumnes, execucions i adreces d'alumnes" caption="La sala de control: quants alumnes hi ha, si hi ha una execució en marxa i on es connecten els alumnes." %}
+{% include screenshot.html file="teacher-home" alt="Inici del professor: alumnes, execucions i adreces d'alumnes" caption="La sala de control: el resum de la classe, quants alumnes hi ha, si hi ha una execució en marxa i on es connecten els alumnes." %}
 
 | Pàgina | Què hi fas | Casos d'ús |
 | --- | --- | --- |
 | [Inici]({{ site.baseurl }}/teacher/start/) | Veure l'estat de la classe i les adreces d'alumnes | <span class="uc-id">T1</span> <span class="uc-id">T12</span> |
 | [Tests]({{ site.baseurl }}/teacher/tests/) | Triar el test actiu i revisar-lo | <span class="uc-id">T2</span> |
-| [Alta]({{ site.baseurl }}/teacher/registration/) | Decidir què omplen els alumnes | <span class="uc-id">T3</span> |
+| [Camps de l'alta]({{ site.baseurl }}/teacher/registration/) | Decidir què omplen els alumnes, amb les teves pròpies etiquetes i ajudes | <span class="uc-id">T3</span> |
 | [Alumnes]({{ site.baseurl }}/teacher/students/) | Corregir, pausar o esborrar registres | <span class="uc-id">T4</span> |
 | [Executa]({{ site.baseurl }}/teacher/runs/) i Històric | Avaluar la classe una vegada, diverses vegades o periòdicament | <span class="uc-id">T5</span> <span class="uc-id">T6</span> |
 | [Resultats]({{ site.baseurl }}/teacher/results/) | Seguir la classe, fer servir el projector, exportar a Moodle | <span class="uc-id">T7</span> <span class="uc-id">T8</span> |

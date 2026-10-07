@@ -50,7 +50,8 @@ Cada execució té una carpeta `.teuton-panel/tests/<test>/runs/<id>/` amb un `c
 
 ## Rutes
 
-- Àrea d'alumnes: `/students`, `/students/register`, `/students/readme`, `/students/<codi>`, `/students/<codi>/run`, `/results`, `/history`, `/status`; totes amb `.txt` i `.json`.
-- Àrea del professor: `/teacher`, `/teacher/tests`, `/teacher/registration`, `/teacher/students`, `/teacher/run`, `/teacher/runs`, `/teacher/results`, `/teacher/moodle.csv`, `/teacher/readme`, `/teacher/settings`, `/teacher/sessions`.
+- Arrel: `/` envia les adreces del professor a `/teacher`, els navegadors a `/students` i respon a `curl` amb l'ajuda en text pla.
+- Àrea d'alumnes: `/students`, `/students/register`, `/students/readme`, `/students/<codi>`, `/students/<codi>/run`, `/results`, `/history`, `/status`; totes amb `.txt` i `.json`. En un navegador, una execució segueix el patró Post/Redirect/Get: el POST la posa a la cua i redirigeix a `/students/<codi>/run?view=1`, que es recarrega sola fins que arriba el resultat. Una galeta `code` recorda el codi de l'alumne (`/students/forget` l'esborra).
+- Àrea del professor: `/teacher`, `/teacher/tests`, `/teacher/registration`, `/teacher/students`, `/teacher/run` (el seu estat viu en un iframe, `/teacher/run/status`, així que el formulari mai no es recarrega), `/teacher/runs`, `/teacher/results`, `/teacher/moodle.csv`, `/teacher/readme`, `/teacher/settings`, `/teacher/sessions`.
 
 El mapa complet de rutes és a `.minispec/core/architecture.md`.

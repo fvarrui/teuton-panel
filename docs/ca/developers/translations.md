@@ -29,6 +29,8 @@ Per afegir un idioma:
 3. Afegeix una entrada `langs.<codi>` a cada fitxer d'idioma i l'enllaç del selector a `views/layout.erb`.
 4. Executa `bundle exec rake`: `lang_test.rb` falla si a algun idioma li falta una clau.
 
+Fes servir les mateixes paraules a tot arreu: els termes de la interfície per idioma (case → alumne, objectiu, execució, passada, enunciat, estats de la nota) són a `.minispec/core/glossary.md`.
+
 ## Aquesta documentació
 
 Les pàgines són a `docs/<idioma>/`, amb `lang:` i la mateixa `permalink` en tots els idiomes. Els títols de navegació (`title`, `parent`) es tradueixen, així que `parent` ha de coincidir amb el títol del pare en el mateix idioma. Una pàgina que falta en un idioma es mostra en anglès. Afegeix l'idioma a `languages:` a `docs/_config.yml` i repeteix les captures amb `bundle exec rake docs:screenshots` després d'afegir-lo a `LANGS` a `docs/_scripts/screenshots.rb`.

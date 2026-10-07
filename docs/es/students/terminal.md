@@ -15,7 +15,7 @@ Caso de uso <span class="uc-id">S10</span>.
 1. TOC
 {:toc}
 
-¿Sin navegador? Todas las páginas de alumno existen también en texto plano: añade `.txt` a la dirección. Empieza por la ayuda:
+¿Sin navegador? Todas las páginas de alumno existen también en texto plano: añade `.txt` a la dirección. Empieza por la ayuda (`curl http://192.168.1.10:4567/` sin ruta también la imprime):
 
 ```bash
 curl "http://192.168.1.10:4567/students.txt?lang=es"
@@ -62,7 +62,7 @@ curl "http://192.168.1.10:4567/students/A2KP/run.txt?lang=es"
 ```
 
 ```
-¡Hecho! Estos son tus resultados:
+Tu ejecución ha terminado. Estos son tus resultados:
 Nota: 100/100
   [OK] Directory docs exists
   [OK] File docs/notes.txt exists

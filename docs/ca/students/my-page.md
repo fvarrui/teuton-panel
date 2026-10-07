@@ -17,7 +17,7 @@ Casos d'ús <span class="uc-id">S3</span> obrir la teva pàgina, <span class="uc
 
 ## Obrir la teva pàgina
 
-A l'inici d'alumnes, escriu el teu codi a **Ja estàs registrat?** i prem **Obre la meva pàgina**, o ves a `/students/<codi>`.
+A l'inici d'alumnes, escriu el teu codi a **Ja estàs registrat?** i prem **Obre la meva pàgina**, o ves a `/students/<codi>`. A partir d'aleshores, el navegador recorda el teu codi: fes servir **La meva pàgina** al menú per tornar-hi. En un ordinador compartit, prem **No ets tu?** al costat del teu codi perquè la persona següent no vegi la teva pàgina.
 
 {% include screenshot.html file="students-personal" alt="Pàgina personal" %}
 
@@ -25,7 +25,7 @@ La teva pàgina mostra la teva última nota, enllaços al teu històric, a l'est
 
 ## Executar el teu test
 
-Prem **Executa el meu test**. El panell avalua només la teva màquina i mostra el resultat en acabar (pot trigar uns segons):
+Prem **Executa el meu test**. El panell avalua només la teva màquina; mentre treballa, la pàgina ho indica i s'actualitza sola fins que arriba el resultat (pot trigar uns segons). Tornar a carregar la pàgina mai no engega una altra execució.
 
 {% include screenshot.html file="students-run" alt="Resultat de l'execució d'un alumne" %}
 
@@ -42,7 +42,7 @@ A vegades l'execució no comença, i la pàgina et diu per què:
 
 ## Els teus resultats
 
-**Els meus resultats** mostra la teva última nota i quan es va avaluar. Si el teu professor ho ha activat, veus també cada objectiu del test amb una marca, per saber què et falta:
+**Els meus resultats** mostra la teva última nota i quan es va avaluar. Si el teu professor ho ha activat, veus també cada objectiu del test amb una marca, per saber què et falta. **Torna a executar** engega una execució nova des d'aquí (o et diu quants segons has d'esperar encara):
 
 {% include screenshot.html file="students-results" alt="Resultats de l'alumne amb cada objectiu" %}
 

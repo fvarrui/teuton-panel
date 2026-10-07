@@ -11,7 +11,7 @@ permalink: /teacher/registration/
 Caso de uso <span class="uc-id">T3</span>.
 {: .fs-3 }
 
-**Alta** decide qué rellenan los alumnos al registrarse. Cada fila es un valor del case del alumno en Teuton (las claves que tu `start.rb` lee con `get(...)` y la configuración de las máquinas) y la forma de obtenerlo.
+**Campos del alta** decide qué rellenan los alumnos al registrarse. Cada fila es un valor del case del alumno en Teuton (las claves que tu `start.rb` lee con `get(...)` y la configuración de las máquinas) y la forma de obtenerlo.
 
 {% include screenshot.html file="teacher-registration" alt="Editor de los campos del alta" %}
 
@@ -23,11 +23,15 @@ Caso de uso <span class="uc-id">T3</span>.
 | **Automático: IP del alumno** (`AUTO IP`) | No se pregunta: la IP de la máquina desde la que se registra el alumno. |
 | **Valor fijo** | No se pregunta: el mismo valor para todos (por ejemplo, un usuario común o `localhost`). |
 
+- **Valor fijo** solo se usa con el modo *Valor fijo*; con los demás modos la columna aparece atenuada.
+- **Etiqueta para los alumnos** y **Ayuda para los alumnos** sustituyen al nombre del campo en el formulario de alta y en *Mis datos* (por ejemplo, `home` → etiqueta *Tu carpeta personal*, ayuda *El nombre de tu carpeta en homes/*). Sin etiqueta, los campos de nombre y correo dicen *Tu nombre* y *Tu correo*, y el resto muestran el nombre del campo de forma legible. Los alumnos nunca ven las claves tal cual.
 - Para añadir un campo, rellena la última fila vacía y pulsa **Guardar**.
 - Para quitar uno, marca **Quitar** y pulsa **Guardar**.
 - **Proponer desde teuton config** sustituye los campos por una propuesta hecha a partir de tu test: todos los valores que necesita, `tt_members` como nombre, `tt_moodle_id` como correo y las IPs de las máquinas como automáticas.
 
-Los campos se guardan en `teuton-panel-params.yaml`, junto al `config.yaml` del test, así que viajan con él.
+Los campos se guardan en `teuton-panel-params.yaml`, junto al `config.yaml` del test, así que viajan con él. Un campo con etiqueta o ayuda se escribe como `home: {mode: "ASK", label: "Tu carpeta personal", help: "..."}`; la forma corta `home: "ASK"` sigue funcionando.
+
+Las etiquetas y las ayudas siguen la misma regla de caracteres que los valores escritos (ver más abajo); la página te dice qué campo corregir.
 
 {: .warning }
 `AUTO IP` solo acierta si los alumnos se registran desde la máquina que se va a evaluar. Si se registran desde otro ordenador (por ejemplo, el navegador del anfitrión cuando la máquina evaluada es una VM), haz que el campo sea **Preguntar**, o corrige la IP en [Alumnos]({{ site.baseurl }}/teacher/students/).

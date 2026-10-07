@@ -123,6 +123,7 @@ legend { font-weight: 700; padding: 0 0.4rem; }
 .run-form:has(#mode-every:checked) .run-group.times { display: none; }
 .status-frame { width: 100%; height: 26rem; border: 0; display: block; }
 body.frame { background: var(--card); margin: 0; padding: 0.2rem; }
+body.frame form { margin: 0 0 1rem; }
 
 /* Registration fields: the fixed value only matters for fixed values, label and help only for asked fields */
 .reg-table input[type="text"] { min-width: 8rem; }

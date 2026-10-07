@@ -17,7 +17,7 @@ Casos d'ús <span class="uc-id">T5</span> executar el test, <span class="uc-id">
 
 ## Engegar una execució
 
-A **Executa**, tria un mode, els alumnes que vols avaluar i prem **Comença**.
+A **Executa**, tria un mode, els alumnes que vols avaluar i prem **Comença**. El formulari només mostra els camps del mode triat.
 
 {% include screenshot.html file="teacher-run" alt="Pàgina Executa" %}
 
@@ -33,7 +33,7 @@ A **Executa**, tria un mode, els alumnes que vols avaluar i prem **Comença**.
 
 ## Seguir una execució
 
-Mentre hi ha una execució activa, la pàgina s'actualitza cada 10 segons i mostra el mode, el número de passada, quan comença la següent i les execucions d'alumnes que esperen a la cua. **Atura** cancel·la la programació i atura el procés de Teuton en marxa.
+El quadre **Estat** s'actualitza sol i mostra el mode, el número de passada, quan comença la següent i les execucions d'alumnes que esperen a la cua. Només es recarrega el quadre d'estat, així que no perds res del que hagis escrit al formulari. Mentre hi ha una execució activa, el formulari se substitueix per un avís i **Atura** apareix al quadre d'estat: cancel·la la programació i atura el procés de Teuton en marxa.
 
 {% include screenshot.html file="teacher-run-active" alt="Una execució periòdica en marxa" %}
 

@@ -11,7 +11,7 @@ permalink: /students/statement/
 Cas d'ús <span class="uc-id">S8</span>.
 {: .fs-3 }
 
-**Enunciat** (o `/students/readme`) mostra el que has de fer: les màquines que necessites, els valors que se't demanen i tots els objectius de cada grup, amb el seu pes.
+**Enunciat** (o `/students/readme`) mostra el que has de fer: les màquines que necessites, els valors que escrius en registrar-te i tots els objectius de cada grup, amb el seu pes.
 
 {% include screenshot.html file="students-readme" alt="Enunciat del test" %}
 

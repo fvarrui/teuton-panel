@@ -15,7 +15,7 @@ Use case <span class="uc-id">T11</span>.
 1. TOC
 {:toc}
 
-**Settings** changes the panel's behaviour; every change is saved at once in `teuton-panel.yaml`.
+**Settings** changes the panel's behaviour. Each section has its own **Save** button, and the confirmation appears in the section you saved; changes go to `teuton-panel.yaml` at once.
 
 {% include screenshot.html file="teacher-settings" alt="Settings page" %}
 
@@ -24,7 +24,7 @@ Use case <span class="uc-id">T11</span>.
 | Option | When enabled |
 | --- | --- |
 | Register | Students can register and update their data |
-| See who is registered | The student home lists registered students (names only) |
+| See who is registered | The student home lists registered students (names only, never codes or IPs). It is on by default, and the teacher home reminds you while it is on. |
 | Run their test | Students can run their own case |
 | See their grade | Students see their latest grade |
 | See each target's result | Students also see which targets passed (no commands or outputs) |
@@ -43,8 +43,8 @@ Choose any combination of **Web pages**, **Plain text** (`.txt`, for `curl`) and
 - **Seconds between runs of the same student**: how long a student waits before running again (30 by default; 0 for no limit).
 - **Default language**: used when the browser asks for a language the panel does not have.
 - **Student runs at the same time**: how many student runs can go in parallel (applies after restarting the panel).
-- **Addresses shown to students**: leave it empty to show every detected address, or write the right one when the computer has extra adapters.
-- **Other teacher IPs**: computers that can open the teacher area besides this one, separated by commas.
+- **Addresses shown to students**: leave it empty to show every detected address, or write the right one when the computer has extra adapters (for example `192.168.1.10, 192.168.1.11`).
+- **Other teacher IPs**: computers that can open the teacher area besides this one, separated by commas (for example `192.168.1.20`).
 
 ## The settings file
 

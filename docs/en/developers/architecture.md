@@ -50,7 +50,8 @@ Every run gets a directory `.teuton-panel/tests/<test>/runs/<id>/` with a tempor
 
 ## Routes
 
-- Student area: `/students`, `/students/register`, `/students/readme`, `/students/<code>`, `/students/<code>/run`, `/results`, `/history`, `/status`; each with `.txt` and `.json`.
-- Teacher area: `/teacher`, `/teacher/tests`, `/teacher/registration`, `/teacher/students`, `/teacher/run`, `/teacher/runs`, `/teacher/results`, `/teacher/moodle.csv`, `/teacher/readme`, `/teacher/settings`, `/teacher/sessions`.
+- Root: `/` sends teacher addresses to `/teacher`, browsers to `/students` and answers `curl` with the plain-text help.
+- Student area: `/students`, `/students/register`, `/students/readme`, `/students/<code>`, `/students/<code>/run`, `/results`, `/history`, `/status`; each with `.txt` and `.json`. In a browser, a run follows Post/Redirect/Get: the POST queues it and redirects to `/students/<code>/run?view=1`, which reloads itself until the result arrives. A `code` cookie remembers the student's code (`/students/forget` clears it).
+- Teacher area: `/teacher`, `/teacher/tests`, `/teacher/registration`, `/teacher/students`, `/teacher/run` (its status lives in an iframe, `/teacher/run/status`, so the form is never reloaded), `/teacher/runs`, `/teacher/results`, `/teacher/moodle.csv`, `/teacher/readme`, `/teacher/settings`, `/teacher/sessions`.
 
 The complete route map is in `.minispec/core/architecture.md`.

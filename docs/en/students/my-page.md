@@ -17,7 +17,7 @@ Use cases <span class="uc-id">S3</span> open your page, <span class="uc-id">S4</
 
 ## Open your page
 
-On the student home, type your code under **Already registered?** and press **Open my page**, or go to `/students/<code>`.
+On the student home, type your code under **Already registered?** and press **Open my page**, or go to `/students/<code>`. After that, the browser remembers your code: use **My page** in the menu to come back. On a shared computer, press **Not you?** next to your code so the next person does not see your page.
 
 {% include screenshot.html file="students-personal" alt="Personal page" %}
 
@@ -25,7 +25,7 @@ Your page shows your latest grade, links to your history, connection status and 
 
 ## Run your test
 
-Press **Run my test**. The panel evaluates only your machine and shows the result when it finishes (it may take a few seconds):
+Press **Run my test**. The panel evaluates only your machine; while it works, the page says so and updates by itself until the result arrives (it may take a few seconds). Reloading the page never starts another run.
 
 {% include screenshot.html file="students-run" alt="Result of a student's run" %}
 
@@ -42,7 +42,7 @@ Sometimes the run does not start, and the page tells you why:
 
 ## Your results
 
-**My results** shows your latest grade and when it was evaluated. If your teacher enabled it, you also see each target of the test with a tick or a cross, so you know what is still missing:
+**My results** shows your latest grade and when it was evaluated. If your teacher enabled it, you also see each target of the test with a tick or a cross, so you know what is still missing. **Run again** starts a new run from here (or tells you how many seconds you still have to wait):
 
 {% include screenshot.html file="students-results" alt="Student results with each target" %}
 

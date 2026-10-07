@@ -11,7 +11,12 @@ permalink: /teacher/students/
 Cas d'ús <span class="uc-id">T4</span>.
 {: .fs-3 }
 
-**Alumnes** llista tots els registrats al test actiu i s'actualitza cada 15 segons: nom, codi personal, IP des de la qual es va registrar, hora, última nota i estat.
+**Alumnes** llista tots els registrats al test actiu i s'actualitza cada 15 segons: nom, codi personal, IP des de la qual es va registrar, hora del registre (amb el dia quan no és avui), última nota i estat.
+
+- Fes clic a **Alumne**, **Registre** o **Nota** a la capçalera per ordenar per aquesta columna.
+- **Mostra** filtra la taula: *Tots*, *Pendent* (encara sense avaluar), *Li falta feina* o *Desactivat*.
+
+L'ordre i el filtre es mantenen quan la pàgina s'actualitza.
 
 {% include screenshot.html file="teacher-students" alt="Pàgina d'alumnes" %}
 
@@ -19,7 +24,7 @@ Els codis personals només es mostren aquí. Si un alumne oblida el seu codi, bu
 
 ## Editar un alumne
 
-**Edita** obre tots els valors del case de l'alumne. Desa per corregir una IP equivocada, una errada al nom o qualsevol altre valor; la propera execució fa servir els valors nous.
+**Edita** obre tots els valors del case de l'alumne, amb les etiquetes que has triat a Camps de l'alta i la clau a sota. `tt_source_ip` (la IP des de la qual es va registrar) la posa el panell i no es pot canviar. Desa per corregir una IP equivocada, una errada al nom o qualsevol altre valor; la propera execució fa servir els valors nous.
 
 {% include screenshot.html file="teacher-student-edit" alt="Editar un alumne" %}
 
@@ -37,7 +42,7 @@ Als valors que canvies s'hi apliquen les mateixes regles que a l'alta (lletres, 
 
 ## Esborrar
 
-**Esborra** elimina el registre (el fitxer de l'alumne a `config.d/`). El seu codi deixa de funcionar; es pot tornar a registrar.
+**Esborra** és al final de la pàgina **Edita** de l'alumne, així que mai no queda al costat dels altres botons. Demana confirmació i elimina el registre (el fitxer de l'alumne a `config.d/`). El seu codi deixa de funcionar; es pot tornar a registrar. Els seus resultats anteriors continuen a l'històric d'execucions.
 
 ## Cases sense codi
 

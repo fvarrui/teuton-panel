@@ -11,7 +11,10 @@ permalink: /teacher/statement/
 Use case <span class="uc-id">T9</span>.
 {: .fs-3 }
 
-**Statement** shows exactly what students read at `/students/readme`: the statement Teuton generates from your test (`teuton readme`), with the required hosts, parameters and the targets of each group.
+**Statement** shows the statement Teuton generates from your test (`teuton readme`), with the required hosts, parameters and the targets of each group. Two views:
+
+- **Full text**: the whole output of `teuton readme`.
+- **As students see it**: what students read at `/students/readme`. It leaves out the Teuton version block at the top, lists only the parameters students type at registration, and drops the SSH note when every host of the test is `localhost`.
 
 {% include screenshot.html file="teacher-readme" alt="Statement preview" %}
 

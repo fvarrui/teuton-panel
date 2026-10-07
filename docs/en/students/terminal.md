@@ -15,7 +15,7 @@ Use case <span class="uc-id">S10</span>.
 1. TOC
 {:toc}
 
-No browser? Every student page also exists as plain text: add `.txt` to the address. Start with the help:
+No browser? Every student page also exists as plain text: add `.txt` to the address. Start with the help (`curl http://192.168.1.10:4567/` without a path prints it too):
 
 ```bash
 curl http://192.168.1.10:4567/students.txt
@@ -62,7 +62,7 @@ curl http://192.168.1.10:4567/students/A2KP/run.txt
 ```
 
 ```
-Done! These are your results:
+Your run has finished. These are your results:
 Grade: 100/100
   [OK] Directory docs exists
   [OK] File docs/notes.txt exists

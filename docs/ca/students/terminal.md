@@ -15,7 +15,7 @@ Cas d'ús <span class="uc-id">S10</span>.
 1. TOC
 {:toc}
 
-Sense navegador? Totes les pàgines d'alumne existeixen també en text pla: afegeix `.txt` a l'adreça. Comença per l'ajuda:
+Sense navegador? Totes les pàgines d'alumne existeixen també en text pla: afegeix `.txt` a l'adreça. Comença per l'ajuda (`curl http://192.168.1.10:4567/` sense ruta també la mostra):
 
 ```bash
 curl "http://192.168.1.10:4567/students.txt?lang=ca"
@@ -62,7 +62,7 @@ curl "http://192.168.1.10:4567/students/A2KP/run.txt?lang=ca"
 ```
 
 ```
-Fet! Aquests són els teus resultats:
+La teva execució ha acabat. Aquests són els teus resultats:
 Nota: 100/100
   [OK] Directory docs exists
   [OK] File docs/notes.txt exists

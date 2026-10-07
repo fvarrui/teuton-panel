@@ -17,7 +17,7 @@ Casos de uso <span class="uc-id">T5</span> ejecutar el test, <span class="uc-id"
 
 ## Lanzar una ejecución
 
-En **Ejecutar**, elige un modo, los alumnos que quieres evaluar y pulsa **Empezar**.
+En **Ejecutar**, elige un modo, los alumnos que quieres evaluar y pulsa **Empezar**. El formulario solo muestra los campos del modo elegido.
 
 {% include screenshot.html file="teacher-run" alt="Página Ejecutar" %}
 
@@ -33,7 +33,7 @@ En **Ejecutar**, elige un modo, los alumnos que quieres evaluar y pulsa **Empeza
 
 ## Seguir una ejecución
 
-Mientras hay una ejecución activa, la página se actualiza cada 10 segundos y muestra el modo, el número de pasada, cuándo empieza la siguiente y las ejecuciones de alumnos que esperan en cola. **Parar** cancela la programación y detiene el proceso de Teuton en marcha.
+El recuadro **Estado** se actualiza solo y muestra el modo, el número de pasada, cuándo empieza la siguiente y las ejecuciones de alumnos que esperan en cola. Solo se recarga el recuadro de estado, así que no se pierde nada de lo que escribas en el formulario. Mientras hay una ejecución activa, el formulario se sustituye por un aviso y **Parar** aparece en el recuadro de estado: cancela la programación y detiene el proceso de Teuton en marcha.
 
 {% include screenshot.html file="teacher-run-active" alt="Una ejecución periódica en marcha" %}
 

@@ -48,6 +48,10 @@ No. Students only see names in the registered list, and only their own code, gra
 - `teuton-panel-params.yaml`: registration fields (next to `config.yaml`).
 - `.teuton-panel/`: runs, results and archived sessions (base directory).
 
+## What opens the panel address without a path?
+
+It depends on who asks. On the teacher's computer (or an allowed teacher IP), `http://<panel>:4567/` opens the teacher area. A student's browser opens the student home, and `curl` prints the plain-text help, the same as `/students.txt`.
+
 ## How do I start a fresh class?
 
 **Sessions → Archive and start a new session**. Nothing is deleted; old sessions can be opened later.

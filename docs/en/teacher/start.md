@@ -32,12 +32,13 @@ With several tests, choose one in [Tests]({{ site.baseurl }}/teacher/tests/).
 
 ## The control room
 
-Open `http://localhost:4567/teacher`. The home page shows:
+Open `http://localhost:4567/teacher` (or just `http://localhost:4567/`: on your computer the panel address takes you to the teacher area). The home page shows:
 
 - the active test, with buttons to **Run** and to open the **Projector mode**;
+- the **class summary**: average grade, how many passed (50 or more), how many are complete (100) and how many have not been evaluated yet; it links to Results;
 - how many students are registered and how many have been evaluated;
 - whether a run is going on, the last run and the queue of student runs;
-- **where students connect**: one address per network interface, with the `curl` command for students without a browser.
+- **where students connect**: one address per network interface, with the `curl` command for students without a browser, and a reminder when students can see who is registered.
 
 {% include screenshot.html file="teacher-home" alt="Teacher home page" %}
 

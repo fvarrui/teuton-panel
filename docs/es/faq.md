@@ -48,6 +48,10 @@ No. Los alumnos solo ven nombres en la lista de registrados, y solo su propio c�
 - `teuton-panel-params.yaml`: campos del alta (junto a `config.yaml`).
 - `.teuton-panel/`: ejecuciones, resultados y sesiones archivadas (carpeta base).
 
+## ¿Qué abre la dirección del panel sin ruta?
+
+Depende de quién pregunte. En el ordenador del profesor (o desde una IP de profesor permitida), `http://<panel>:4567/` abre el área del profesor. El navegador de un alumno abre el inicio de alumnos, y `curl` imprime la ayuda en texto plano, igual que `/students.txt`.
+
 ## ¿Cómo empiezo una clase nueva?
 
 **Sesiones → Archivar y empezar una sesión nueva**. No se borra nada; las sesiones anteriores se pueden abrir más tarde.

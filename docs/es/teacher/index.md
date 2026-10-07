@@ -8,15 +8,15 @@ permalink: /teacher/
 
 # Guía del profesor
 
-El área del profesor está en `http://localhost:4567/teacher` y solo responde a tu propio ordenador (en [Arrancar el panel]({{ site.baseurl }}/teacher/start/) se explica cómo abrirla desde otro). Su menú tiene una página por tarea:
+El área del profesor está en `http://localhost:4567/teacher` y solo responde a tu propio ordenador (en [Arrancar el panel]({{ site.baseurl }}/teacher/start/) se explica cómo abrirla desde otro). Su menú sigue el ritmo de una clase: **Inicio**, después **Preparar** (Tests, Campos del alta, Enunciado), **Clase** (Alumnos, Ejecutar, Resultados, Histórico) y, por último, Sesiones y Ajustes. Abrir la dirección del panel sin ruta (`http://localhost:4567/`) en tu ordenador también te trae aquí.
 
-{% include screenshot.html file="teacher-home" alt="Inicio del profesor: alumnos, ejecuciones y direcciones de alumnos" caption="La sala de control: cuántos alumnos hay, si hay una ejecución en marcha y dónde se conectan los alumnos." %}
+{% include screenshot.html file="teacher-home" alt="Inicio del profesor: alumnos, ejecuciones y direcciones de alumnos" caption="La sala de control: el resumen de la clase, cuántos alumnos hay, si hay una ejecución en marcha y dónde se conectan los alumnos." %}
 
 | Página | Qué haces en ella | Casos de uso |
 | --- | --- | --- |
 | [Inicio]({{ site.baseurl }}/teacher/start/) | Ver el estado de la clase y las direcciones de alumnos | <span class="uc-id">T1</span> <span class="uc-id">T12</span> |
 | [Tests]({{ site.baseurl }}/teacher/tests/) | Elegir el test activo y revisarlo | <span class="uc-id">T2</span> |
-| [Alta]({{ site.baseurl }}/teacher/registration/) | Decidir qué rellenan los alumnos | <span class="uc-id">T3</span> |
+| [Campos del alta]({{ site.baseurl }}/teacher/registration/) | Decidir qué rellenan los alumnos, con tus propias etiquetas y ayudas | <span class="uc-id">T3</span> |
 | [Alumnos]({{ site.baseurl }}/teacher/students/) | Corregir, pausar o borrar registros | <span class="uc-id">T4</span> |
 | [Ejecutar]({{ site.baseurl }}/teacher/runs/) e Histórico | Evaluar la clase una vez, varias veces o periódicamente | <span class="uc-id">T5</span> <span class="uc-id">T6</span> |
 | [Resultados]({{ site.baseurl }}/teacher/results/) | Seguir la clase, usar el proyector, exportar a Moodle | <span class="uc-id">T7</span> <span class="uc-id">T8</span> |

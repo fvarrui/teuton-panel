@@ -11,7 +11,10 @@ permalink: /teacher/statement/
 Cas d'ús <span class="uc-id">T9</span>.
 {: .fs-3 }
 
-**Enunciat** mostra exactament el que llegeixen els alumnes a `/students/readme`: l'enunciat que Teuton genera a partir del teu test (`teuton readme`), amb les màquines necessàries, els paràmetres i els objectius de cada grup.
+**Enunciat** mostra l'enunciat que Teuton genera a partir del teu test (`teuton readme`), amb les màquines necessàries, els paràmetres i els objectius de cada grup. Té dues vistes:
+
+- **Text complet**: tota la sortida de `teuton readme`.
+- **Com el veuen els alumnes**: el que llegeixen els alumnes a `/students/readme`. Omet el bloc de la versió de Teuton de dalt de tot, només llista els paràmetres que els alumnes escriuen en registrar-se i treu la nota sobre SSH quan totes les màquines del test són `localhost`.
 
 {% include screenshot.html file="teacher-readme" alt="Previsualització de l'enunciat" %}
 

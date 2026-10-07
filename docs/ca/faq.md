@@ -48,6 +48,10 @@ No. Els alumnes només veuen noms a la llista de registrats, i només el seu pro
 - `teuton-panel-params.yaml`: camps de l'alta (al costat de `config.yaml`).
 - `.teuton-panel/`: execucions, resultats i sessions arxivades (carpeta base).
 
+## Què obre l'adreça del panell sense ruta?
+
+Depèn de qui la demani. A l'ordinador del professor (o a una IP de professor permesa), `http://<panell>:4567/` obre l'àrea del professor. El navegador d'un alumne obre l'inici d'alumnes, i `curl` imprimeix l'ajuda en text pla, la mateixa que `/students.txt`.
+
 ## Com començo una classe nova?
 
 **Sessions → Arxiva i comença una sessió nova**. No s'esborra res; les sessions anteriors es poden obrir més endavant.

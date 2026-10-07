@@ -17,7 +17,7 @@ Casos de uso <span class="uc-id">S1</span> registrarse, <span class="uc-id">S2</
 
 ## Registrarse
 
-Abre **Registrarme** (o `/students/register`) y rellena los campos que eligió tu profesor: normalmente tu nombre, tu correo y algún dato de tu máquina.
+Abre **Registrarme** (o `/students/register`) y rellena los campos que eligió tu profesor: normalmente tu nombre, tu correo y algún dato de tu máquina. Debajo de un campo puedes encontrar una breve ayuda escrita por tu profesor.
 
 {% include screenshot.html file="students-register" alt="Formulario de alta" %}
 
@@ -39,7 +39,7 @@ Al registrarte recibes un **código personal** y tu dirección personal:
 
 {% include screenshot.html file="students-registered" alt="Alta completada: el código personal" %}
 
-**Guarda el código**: lo necesitas para ejecutar tu test y ver tus resultados. Si lo pierdes, pídeselo a tu profesor, que ve todos los códigos. Tu página personal es `/students/<código>`; puedes guardarla en marcadores.
+**Guarda el código**: lo necesitas para ejecutar tu test y ver tus resultados. Si lo pierdes, pídeselo a tu profesor, que ve todos los códigos. Tu página personal es `/students/<código>`; puedes guardarla en marcadores. El navegador también recuerda tu código: el menú muestra **Mi página** en lugar de **Registrarme**, y el inicio rellena tu código.
 
 ## Corregir tus datos
 

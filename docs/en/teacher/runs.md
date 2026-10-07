@@ -17,7 +17,7 @@ Use cases <span class="uc-id">T5</span> run the test, <span class="uc-id">T6</sp
 
 ## Start a run
 
-On **Run**, choose a mode, the students to evaluate and press **Start**.
+On **Run**, choose a mode, the students to evaluate and press **Start**. The form only shows the fields of the chosen mode.
 
 {% include screenshot.html file="teacher-run" alt="Run page" %}
 
@@ -33,7 +33,7 @@ On **Run**, choose a mode, the students to evaluate and press **Start**.
 
 ## Follow a run
 
-While a run is active the page refreshes every 10 seconds and shows the mode, the pass number, when the next pass starts and the student runs waiting in the queue. **Stop** cancels the schedule and kills the Teuton process that is running.
+The **Status** box updates by itself and shows the mode, the pass number, when the next pass starts and the student runs waiting in the queue. Only the status box reloads, so nothing you type in the form is lost. While a run is active, the form is replaced by a notice and **Stop** appears in the status box: it cancels the schedule and kills the Teuton process that is running.
 
 {% include screenshot.html file="teacher-run-active" alt="A periodic run in progress" %}
 

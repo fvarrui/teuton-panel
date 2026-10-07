@@ -50,7 +50,8 @@ Cada ejecución tiene una carpeta `.teuton-panel/tests/<test>/runs/<id>/` con un
 
 ## Rutas
 
-- Área de alumnos: `/students`, `/students/register`, `/students/readme`, `/students/<código>`, `/students/<código>/run`, `/results`, `/history`, `/status`; todas con `.txt` y `.json`.
-- Área del profesor: `/teacher`, `/teacher/tests`, `/teacher/registration`, `/teacher/students`, `/teacher/run`, `/teacher/runs`, `/teacher/results`, `/teacher/moodle.csv`, `/teacher/readme`, `/teacher/settings`, `/teacher/sessions`.
+- Raíz: `/` envía las direcciones del profesor a `/teacher`, los navegadores a `/students` y responde a `curl` con la ayuda en texto plano.
+- Área de alumnos: `/students`, `/students/register`, `/students/readme`, `/students/<código>`, `/students/<código>/run`, `/results`, `/history`, `/status`; todas con `.txt` y `.json`. En un navegador, una ejecución sigue el patrón Post/Redirect/Get: el POST la pone en cola y redirige a `/students/<código>/run?view=1`, que se recarga sola hasta que llega el resultado. Una cookie `code` recuerda el código del alumno (`/students/forget` la borra).
+- Área del profesor: `/teacher`, `/teacher/tests`, `/teacher/registration`, `/teacher/students`, `/teacher/run` (su estado vive en un iframe, `/teacher/run/status`, así que el formulario nunca se recarga), `/teacher/runs`, `/teacher/results`, `/teacher/moodle.csv`, `/teacher/readme`, `/teacher/settings`, `/teacher/sessions`.
 
 El mapa completo de rutas está en `.minispec/core/architecture.md`.

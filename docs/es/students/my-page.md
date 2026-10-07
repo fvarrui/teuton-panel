@@ -17,7 +17,7 @@ Casos de uso <span class="uc-id">S3</span> abrir tu página, <span class="uc-id"
 
 ## Abrir tu página
 
-En el inicio de alumnos, escribe tu código en **¿Ya estás registrado?** y pulsa **Abrir mi página**, o ve a `/students/<código>`.
+En el inicio de alumnos, escribe tu código en **¿Ya estás registrado?** y pulsa **Abrir mi página**, o ve a `/students/<código>`. Después, el navegador recuerda tu código: usa **Mi página** en el menú para volver. En un ordenador compartido, pulsa **¿No eres tú?** junto a tu código para que la siguiente persona no vea tu página.
 
 {% include screenshot.html file="students-personal" alt="Página personal" %}
 
@@ -25,7 +25,7 @@ Tu página muestra tu última nota, enlaces a tu histórico, al estado de tu con
 
 ## Ejecutar tu test
 
-Pulsa **Ejecutar mi test**. El panel evalúa solo tu máquina y muestra el resultado al terminar (puede tardar unos segundos):
+Pulsa **Ejecutar mi test**. El panel evalúa solo tu máquina; mientras trabaja, la página lo indica y se actualiza sola hasta que llega el resultado (puede tardar unos segundos). Recargar la página nunca lanza otra ejecución.
 
 {% include screenshot.html file="students-run" alt="Resultado de la ejecución de un alumno" %}
 
@@ -42,7 +42,7 @@ A veces la ejecución no empieza, y la página te dice por qué:
 
 ## Tus resultados
 
-**Mis resultados** muestra tu última nota y cuándo se evaluó. Si tu profesor lo ha activado, ves también cada objetivo del test con una marca, para saber qué te falta:
+**Mis resultados** muestra tu última nota y cuándo se evaluó. Si tu profesor lo ha activado, ves también cada objetivo del test con una marca, para saber qué te falta. **Ejecutar de nuevo** lanza una ejecución nueva desde aquí (o te dice cuántos segundos te quedan por esperar):
 
 {% include screenshot.html file="students-results" alt="Resultados del alumno con cada objetivo" %}
 
