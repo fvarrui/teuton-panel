@@ -14,4 +14,5 @@
     <p class="muted"><%= h t("students.results.when", time: time_text(result["finished_at"])) %></p>
     <%= erb :"students/_targets", layout: false, locals: {result: result} %>
   <% end %>
+  <%= erb :"students/_run_again", layout: false, locals: {student: student} %>
 </section>

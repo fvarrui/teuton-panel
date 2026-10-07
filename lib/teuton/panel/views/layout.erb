@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title><%= h(@title ? "#{@title} · #{t("app.name")}" : t("app.name")) %></title>
   <link rel="stylesheet" href="/css/style.css">
-  <% if @refresh %><meta http-equiv="refresh" content="<%= @refresh %>"><% end %>
+  <% if @refresh %><meta http-equiv="refresh" content="<%= @refresh %><%= "; url=#{h @refresh_url}" if @refresh_url %>"><% end %>
 </head>
 <body class="<%= @body_class %>">
   <a class="skip" href="#content"><%= h t("app.skip") %></a>

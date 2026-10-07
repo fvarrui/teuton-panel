@@ -177,6 +177,10 @@ th a.sort:hover, th a.sort.current { color: var(--lagoon-dark); text-decoration:
 .badge.disabled { color: var(--slate); background: var(--slate-wash); }
 .score-big { font-family: var(--font-title); font-weight: 800; font-size: 4rem; line-height: 1; }
 .score-big small { font-size: 1.4rem; color: var(--ink-soft); }
+.score-big.low { color: var(--coral); }
+.score-big.mid { color: var(--lagoon-dark); }
+.score-big.high { color: var(--leaf); }
+.run-again { margin-top: 1rem; }
 .target-list { list-style: none; padding: 0; margin: 0; }
 .target-list li { display: flex; gap: 0.6rem; align-items: flex-start; padding: 0.45rem 0; border-bottom: 1px solid var(--line); }
 .target-list li:last-child { border-bottom: 0; }

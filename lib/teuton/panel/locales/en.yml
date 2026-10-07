@@ -126,7 +126,10 @@ students:
   run:
     title: "Run the test"
     back: "Back"
-    done: "Done! These are your results:"
+    done: "Your run has finished. These are your results:"
+    running: "Checking your machine... This page updates by itself."
+    again: "Run again"
+    again_in: "You can run again in %{wait} seconds."
     disabled: "Your teacher has paused your evaluation for now."
     next_pass: "The teacher is evaluating the whole class: you will be evaluated in the next pass at %{time}."
     too_soon: "Wait %{wait} seconds before running again."

@@ -8,6 +8,7 @@ module Teuton::Panel
     WAIT_SECONDS = 120 # How long a run request waits for its result
 
     set :panel_requests, {} # Last run request time by code and by IP
+    set :panel_run_states, {} # Outcome of the last browser run request by code
 
     helpers do
       ##
@@ -80,29 +81,65 @@ module Teuton::Panel
         settings.panel_requests["ip:#{client_ip}"] = Time.now
       end
 
+      ##
+      # Queue a student run unless something stops it
+      # @return [state, wait, job] state: disabled, next_pass, too_soon, busy or submitted
+      def submit_run(student)
+        code = student[:code]
+        return ["disabled", 0, nil] if student[:disabled]
+        return ["next_pass", 0, nil] if scheduler.active?
+
+        wait = too_soon(code)
+        return ["too_soon", wait, nil] if wait > 0
+
+        remember_request(code)
+        job = queue.submit(workspace, "student", [code], code) { |summary| store.update(summary) }
+        return ["busy", 0, nil] if job.nil?
+
+        ["submitted", 0, job]
+      end
+
+      ##
+      # Browser: POST queues and redirects to the state page (Post/Redirect/Get),
+      # GET ?view=1 shows the state. Otherwise (curl, plain GET) wait for the result.
       def run_request
         student_format!
         feature!(:run)
         student = student!
-        code = student[:code]
-        state = "done"
-        wait = 0
-        if student[:disabled]
-          state = "disabled"
-        elsif scheduler.active?
-          state = "next_pass"
-        elsif (wait = too_soon(code)) > 0
-          state = "too_soon"
-        else
-          remember_request(code)
-          job = queue.submit(workspace, "student", [code], code) { |summary| store.update(summary) }
-          if job.nil?
-            state = "busy"
-          else
-            summary = job[:done].pop(timeout: WAIT_SECONDS)
-            state = "queued" if summary.nil?
-          end
+        return run_post_html(student) if request.post? && @format == "html"
+        return run_view(student) if params["view"] && @format == "html"
+
+        state, wait, job = submit_run(student)
+        if state == "submitted"
+          summary = job[:done].pop(timeout: WAIT_SECONDS)
+          state = summary.nil? ? "queued" : "done"
         end
+        run_response(student, state, wait)
+      end
+
+      def run_post_html(student)
+        state, wait, _job = submit_run(student)
+        settings.panel_run_states[student[:code]] = {state: state, wait: wait}
+        redirect "/students/#{student[:code]}/run?view=1"
+      end
+
+      ##
+      # State of the last browser request, refreshed while the run is pending
+      def run_view(student)
+        code = student[:code]
+        state = (settings.panel_run_states[code] || {state: "done"})[:state]
+        state = if queue.busy?(code)
+          "running"
+        elsif %w[submitted busy queued].include?(state) || (state == "next_pass" && !scheduler.active?)
+          "done"
+        else
+          state
+        end
+        run_response(student, state, (state == "too_soon") ? too_soon(code) : 0)
+      end
+
+      def run_response(student, state, wait)
+        code = student[:code]
         next_at = scheduler.status[:next_at]
         result = (state == "done") ? public_result(store.get(code)) : nil
         state = "failed" if state == "done" && result.nil?

@@ -1,4 +1,9 @@
 <% @title = t("students.run.title") %>
+<%# While the run is pending the page reloads its state view (never the POST, never a new run) %>
+<% if %w[running queued next_pass].include?(state) %>
+  <% @refresh = (state == "next_pass") ? 10 : 3 %>
+  <% @refresh_url = "/students/#{student[:code]}/run?view=1" %>
+<% end %>
 <div class="page-head">
   <div>
     <h1><%= h t("students.run.title") %></h1>
@@ -8,10 +13,12 @@
 </div>
 <% if state == "done" %>
   <section class="card featured">
-    <div class="notice success" role="status"><%= h t("students.run.done") %></div>
-    <div class="score-big"><%= grade_text(result["grade"]) %><small>/100</small></div>
+    <div class="notice" role="status"><%= h t("students.run.done") %></div>
+    <div class="score-big <%= grade_class(result["grade"]) %>"><%= grade_text(result["grade"]) %><small>/100</small></div>
     <%= erb :"students/_targets", layout: false, locals: {result: result} %>
+    <%= erb :"students/_run_again", layout: false, locals: {student: student} %>
   </section>
 <% else %>
-  <div class="notice <%= %w[disabled failed].include?(state) ? "error" : "warn" %>"><%= h t("students.run.#{state}", wait: wait, time: next_at ? next_at.strftime("%H:%M:%S") : "") %></div>
+  <div class="notice <%= %w[disabled failed].include?(state) ? "error" : "warn" %>" role="status"><%= h t("students.run.#{state}", wait: wait, time: next_at ? next_at.strftime("%H:%M:%S") : "") %></div>
+  <% if state == "too_soon" %><%= erb :"students/_run_again", layout: false, locals: {student: student} %><% end %>
 <% end %>

@@ -28,8 +28,10 @@ class AppTest < Test::Unit::TestCase
     app.set(:panel_config, @config)
     app.set(:panel_queue, queue)
     app.set(:panel_scheduler, Teuton::Panel::Scheduler.new(queue))
-    app.set(:panel_stores, {})
-    app.set(:panel_requests, {})
+    # Sinatra merges hash settings, so clear them instead of setting {}
+    app.settings.panel_stores.clear
+    app.settings.panel_requests.clear
+    app.settings.panel_run_states.clear
   end
 
   def teardown
@@ -277,6 +279,27 @@ class AppTest < Test::Unit::TestCase
     assert_match "/students/register", last_response.body # unknown code ignored
     get "/students/AB3K.txt", {}, REMOTE
     assert_nil last_response.headers["Set-Cookie"]&.match(/code=/) # curl is unchanged
+  end
+
+  test "browser run: post, redirect and a state page that never runs again" do
+    post "/students/AB3K/run", {}, REMOTE
+    assert last_response.redirect?
+    assert_match "/students/AB3K/run?view=1", last_response.location
+    get "/students/AB3K/run?view=1", {}, REMOTE
+    if last_response.body.include?("http-equiv=\"refresh\"")
+      assert_match "url=/students/AB3K/run?view=1", last_response.body # pending: reloads the state view
+      100.times do
+        break unless app.settings.panel_queue.busy?("AB3K")
+
+        sleep 0.2
+      end
+      get "/students/AB3K/run?view=1", {}, REMOTE
+    end
+    assert_no_match(/http-equiv="refresh"/, last_response.body)
+    assert_match "100", last_response.body
+    get "/students/AB3K/run?view=1", {}, REMOTE # reloading the result queues nothing
+    assert_equal false, app.settings.panel_queue.busy?("AB3K")
+    assert_no_match(/class="run-again"/, last_response.body) # run again is too soon (30 s)
   end
 
   test "one menu tab is current" do

@@ -1,0 +1,11 @@
+<%# "Run again" when student runs are on; the wait left when it is too soon %>
+<% if config[:student][:run] && !student[:disabled] %>
+  <% wait = too_soon(student[:code]) %>
+  <% if wait > 0 %>
+    <p class="muted"><%= h t("students.run.again_in", wait: wait) %></p>
+  <% else %>
+    <form method="post" action="/students/<%= h student[:code] %>/run" class="run-again">
+      <button class="btn" type="submit"><%= icon(:play, 18) %> <%= h t("students.run.again") %></button>
+    </form>
+  <% end %>
+<% end %>

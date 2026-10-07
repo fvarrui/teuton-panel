@@ -126,7 +126,10 @@ students:
   run:
     title: "Ejecutar el test"
     back: "Volver"
-    done: "¡Hecho! Estos son tus resultados:"
+    done: "Tu ejecución ha terminado. Estos son tus resultados:"
+    running: "Revisando tu máquina... Esta página se actualiza sola."
+    again: "Ejecutar de nuevo"
+    again_in: "Podrás ejecutar de nuevo dentro de %{wait} segundos."
     disabled: "Tu profesor ha pausado tu evaluación por ahora."
     next_pass: "El profesor está evaluando a toda la clase: se te evaluará en la próxima pasada a las %{time}."
     too_soon: "Espera %{wait} segundos antes de volver a ejecutar."
