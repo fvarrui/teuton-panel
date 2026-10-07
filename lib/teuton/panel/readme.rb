@@ -2,6 +2,7 @@
 
 require "kramdown"
 require_relative "version"
+require_relative "lang"
 require_relative "runner"
 
 module Teuton::Panel
@@ -22,7 +23,7 @@ module Teuton::Panel
         cached = @cache[key]
         return cached[:text] if !cached.nil? && cached[:stamp] == stamp
 
-        text = mask(Runner.capture("readme", project, ["--lang=#{lang}"]))
+        text = mask(Runner.capture("readme", project, ["--lang=#{Lang::READMES[lang] || "en"}"]))
         @cache[key] = {stamp: stamp, text: text}
         text
       end

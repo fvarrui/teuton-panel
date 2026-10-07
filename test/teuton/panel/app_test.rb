@@ -76,6 +76,11 @@ class AppTest < Test::Unit::TestCase
     assert_match "Welcome to the lab", last_response.body
     get "/students?lang=es", {}, REMOTE
     assert_match "Bienvenido", last_response.body
+    clear_cookies
+    get "/students", {}, REMOTE.merge("HTTP_ACCEPT_LANGUAGE" => "ca-ES,ca;q=0.9")
+    assert_match "Benvingut al laboratori", last_response.body
+    get "/students/readme.md?lang=ca", {}, REMOTE
+    assert_match "Máquinas", last_response.body # Statement falls back to Spanish
   end
 
   test "register from curl, open the personal page and update data" do

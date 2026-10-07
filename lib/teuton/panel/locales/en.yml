@@ -19,6 +19,7 @@ nav:
 langs:
   en: "English"
   es: "Spanish"
+  ca: "Catalan"
 kinds:
   full: "Whole class"
   selection: "Selection"

@@ -5,9 +5,10 @@ require_relative "version"
 
 module Teuton::Panel
   ##
-  # GUI texts from locales/<lang>.yml (en, es)
+  # GUI texts from locales/<lang>.yml (en, es, ca)
   module Lang
-    LANGS = %w[en es]
+    LANGS = %w[en es ca]
+    READMES = {"en" => "en", "es" => "es", "ca" => "es"} # teuton readme has no Catalan
     DEFAULT = "en" # Fallback for missing keys
 
     def self.texts

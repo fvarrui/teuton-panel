@@ -10,9 +10,10 @@ class LangTest < Test::Unit::TestCase
     end
   end
 
-  test "en and es have the same keys" do
+  test "every language has the same keys" do
     texts = Teuton::Panel::Lang.texts
     assert_equal keys_of(texts["en"]).sort, keys_of(texts["es"]).sort
+    assert_equal keys_of(texts["en"]).sort, keys_of(texts["ca"]).sort
   end
 
   test "translate with variables" do
@@ -24,6 +25,7 @@ class LangTest < Test::Unit::TestCase
     assert_equal "es", Teuton::Panel::Lang.detect("es-ES,es;q=0.9,en;q=0.8", "en")
     assert_equal "en", Teuton::Panel::Lang.detect("en-US,en;q=0.9", "es")
     assert_equal "es", Teuton::Panel::Lang.detect("fr-FR,fr;q=0.9", "es")
+    assert_equal "ca", Teuton::Panel::Lang.detect("ca-ES,ca;q=0.9,es;q=0.8", "en")
     assert_equal "en", Teuton::Panel::Lang.detect(nil, "en")
   end
 end
