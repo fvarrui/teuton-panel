@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="<%= @lang %>">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= h t("app.name") %></title>
+  <link rel="stylesheet" href="/css/style.css">
+  <% if @refresh %><meta http-equiv="refresh" content="<%= @refresh %>"><% end %>
+</head>
+<body class="frame">
+  <%= yield %>
+</body>
+</html>

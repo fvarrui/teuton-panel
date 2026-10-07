@@ -176,6 +176,14 @@ module Teuton::Panel
       respond(:"teacher/run", locals, {scheduler: scheduler.status, queue: queue.status, last: summary&.except("cases")})
     end
 
+    # Live status of /teacher/run, loaded in an iframe so the form is never reloaded
+    get "/teacher/run/status" do
+      project!
+      summary = last_summary
+      erb :"teacher/run_status", layout: :frame,
+        locals: {status: scheduler.status, queue: queue.status, summary: summary, log: run_log(summary)}
+    end
+
     post "/teacher/run/start" do
       project!
       keys = params["keys"].is_a?(Array) ? params["keys"] : nil

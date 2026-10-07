@@ -15,7 +15,7 @@ App (teacher area | student area) → RunQueue → Runner: teuton subprocess in 
 - `project.rb` — `Project` (a test) and `Projects.all`; `teuton_config.rb` reads `config.yaml` and adds `tt_include` as text.
 - `params.rb` — registration fields file; `registration.rb` builds and validates a student's case values.
 - `students.rb` — `config.d/<code>.yaml` registry: codes, create, update, disable, delete.
-- `workspace.rb` — paths of a test inside the data dir; `runner.rb` — temp config, teuton subprocess, report parsing; `run_queue.rb` — teacher first and alone, students in parallel; `results_store.rb` — latest result per student, `moodle.csv`; `scheduler.rb` — once / times / every; `history.rb` — run summaries; `sessions.rb` — archive; `readme.rb` — masked `teuton readme`, kramdown.
+- `workspace.rb` — paths of a test inside the data dir; `runner.rb` — temp config, teuton subprocess, report parsing; `run_queue.rb` — teacher first and alone, students in parallel; `results_store.rb` — latest result per student, `moodle.csv`; `scheduler.rb` — once / times / every; `history.rb` — run summaries; `sessions.rb` — archive; `readme.rb` — masked `teuton readme`, tidied for Kramdown (fences, lists, `#required-hosts` id).
 - `lang.rb` + `locales/` — translations; `network.rb` — IP normalize, loopback, own IPs.
 - `app.rb` — Sinatra core: settings, helpers (`t`, `format!`, `respond`, `feature!`), area filters, errors; `app/teacher_routes.rb`, `app/student_routes.rb`, `app/view_helpers.rb` reopen `App`.
 - `views/` (HTML ERB with `layout.erb`), `views/txt/` (plain-text ERB), `public/` (CSS and OFL fonts).
@@ -31,7 +31,7 @@ App (teacher area | student area) → RunQueue → Runner: teuton subprocess in 
 
 Student area (switch in brackets): `GET /` → `/students`; `/students` [list] (`.txt` = curl help); `/students/register` GET/POST [register]; `/students/go?code=`; `/students/readme` (`.md`) [readme]; `/students/<code>` GET/POST [register]; `/students/<code>/run` GET/POST [run]; `/students/<code>/results` [results, feedback]; `/students/<code>/history` [history]; `/students/<code>/status` [status].
 
-Teacher area (POST for every change): `/teacher`; `/teacher/tests` + `POST select`; `/teacher/registration`; `/teacher/students`, `/<code>`, `POST /<code>`, `/<code>/disable`, `/<code>/delete`, `POST /assign`; `/teacher/run` + `POST start|stop`; `/teacher/runs`, `/<id>`; `/teacher/results` (`?projector=1`), `/<key>`; `/teacher/moodle.csv`; `/teacher/readme`; `/teacher/settings`; `/teacher/sessions`, `POST new`, `/<id>`, `/<id>/moodle.csv`.
+Teacher area (POST for every change): `/teacher`; `/teacher/tests` + `POST select`; `/teacher/registration`; `/teacher/students`, `/<code>`, `POST /<code>`, `/<code>/disable`, `/<code>/delete`, `POST /assign`; `/teacher/run` (`/status`: live part in an iframe) + `POST start|stop`; `/teacher/runs`, `/<id>`; `/teacher/results` (`?projector=1`), `/<key>`; `/teacher/moodle.csv`; `/teacher/readme`; `/teacher/settings`; `/teacher/sessions`, `POST new`, `/<id>`, `/<id>/moodle.csv`.
 
 Format by suffix: none/`.html` → HTML, `.txt` → text, `.json` → JSON (teacher routes: HTML and JSON only). Any route: `?lang=en|es` (remembered in a cookie). Disabled feature or format → 403; unknown route or code → 404 (translated).
 

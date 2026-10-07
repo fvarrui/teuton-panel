@@ -174,6 +174,36 @@ class AppTest < Test::Unit::TestCase
     assert_match "answer", last_response.body
   end
 
+  test "one menu tab is current" do
+    current = -> { last_response.body.scan(/<a href="([^"]+)" class="current" aria-current/).flatten }
+    get "/teacher/runs"
+    assert_equal ["/teacher/runs"], current.call
+    get "/teacher/run"
+    assert_equal ["/teacher/run"], current.call
+    get "/students/register", {}, REMOTE
+    assert_equal ["/students/register"], current.call
+    get "/students", {}, REMOTE
+    assert_equal ["/students"], current.call
+  end
+
+  test "run page keeps the form and refreshes only its status" do
+    get "/teacher/run"
+    assert_no_match(/http-equiv="refresh"/, last_response.body)
+    assert_match "run-group times", last_response.body
+    assert_match "/teacher/run/status", last_response.body
+    get "/teacher/run/status"
+    assert_no_match(/http-equiv="refresh"/, last_response.body)
+
+    post "/teacher/run/start", {"mode" => "every", "every" => "60"}
+    get "/teacher/run"
+    assert_no_match(%r{/teacher/run/start}, last_response.body) # no second start while a loop runs
+    get "/teacher/run/status"
+    assert_match "http-equiv=\"refresh\"", last_response.body
+    assert_match "/teacher/run/stop", last_response.body
+  ensure
+    app.settings.panel_scheduler.stop
+  end
+
   test "teacher pages render" do
     ["/teacher", "/teacher/tests", "/teacher/registration", "/teacher/students", "/teacher/students/AB3K",
       "/teacher/run", "/teacher/runs", "/teacher/results", "/teacher/results?projector=1", "/teacher/readme",

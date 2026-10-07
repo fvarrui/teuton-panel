@@ -26,7 +26,7 @@ An elegant educational app for adults: warm, lively, motivating, with clear prog
 
 ## Components
 
-- Top bar (ink): brand mark (sunflower square + server icon), area pill, nav, EN/ES switch.
+- Top bar (ink): brand mark (sunflower square + server icon), area pill, nav (one current tab, `aria-current`), EN/ES/CA switch.
 - Page head: `h1` + muted subtitle, actions on the right.
 - Card (`.card`, `.card.featured` with a lagoon top border); `.grid` auto-fit columns.
 - Student hero (lagoon block with a sunflower circle) and numbered `.steps` (register → run → results: a real sequence).
@@ -45,6 +45,7 @@ An elegant educational app for adults: warm, lively, motivating, with clear prog
 ## Rules
 
 - Nothing from the internet: fonts, icons and CSS are served by the panel (ADR-003).
+- A page with a form never reloads itself; its live part goes in an iframe with the bare `frame.erb` layout (e.g. `/teacher/run/status`).
 - Auto-refreshing pages use `<meta http-equiv="refresh">`; no entrance or scroll animations. Only the grade bar width and button colours transition, and only without `prefers-reduced-motion`.
 - Every student page must still make sense in lynx (plain HTML, labels, no JS needed).
 - Plain CSS, no framework, no build step.
