@@ -29,7 +29,7 @@
       <% result["targets"].each do |target| %>
         <tr>
           <td><span class="mark <%= "ok" if target["check"] %>"><%= target["check"] ? "&#10003;" : "&#10007;" %></span></td>
-          <td><span <%= %(title="#{h target["command"]}") unless target["command"].to_s.empty? %>><%= h target["description"] %></span><br><small class="muted"><%= h target["group"] %> · x<%= h target["weight"] %></small></td>
+          <td><span <%= %(title="#{h target["command"]}") unless projector || target["command"].to_s.empty? %>><%= h target["description"] %></span><br><small class="muted"><%= h target["group"] %> · x<%= h target["weight"] %></small></td>
           <% unless projector %>
             <td><%= h target["expected"] %></td>
             <td><code><%= h target["output"].to_s[0, 300] %></code></td>

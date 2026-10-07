@@ -94,7 +94,7 @@ check "T8.2", "Pablo shown as disabled", rows.find { _1["code"] == "G8SV" }&.dig
 r = req(:get, "/teacher/results?projector=1", ip: LOCAL)
 check "T8.3", "projector mode renders tiles", r.status == 200 && r.body.include?("tiles") && r.body.include?("Ana Garc")
 r = req(:get, "/teacher/results/B3MQ", ip: LOCAL)
-check "T8.4", "result detail shows commands", r.status == 200 && r.body.include?("shebang")
+check "T8.4", "result detail shows commands (tooltip)", r.status == 200 && r.body.include?("shebang")
 r = req(:get, "/teacher/results/B3MQ?projector=1", ip: LOCAL)
 check "T8.5", "projector detail hides commands and output", r.status == 200 && !r.body.include?("ruby -e")
 r = req(:get, "/teacher/moodle.csv", ip: LOCAL)

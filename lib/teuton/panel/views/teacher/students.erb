@@ -41,7 +41,7 @@
           <td class="nowrap"><%= h short_time(row[:time]) %></td>
           <td><%= grade_bar(row[:result]&.dig("grade"), row[:disabled]) %></td>
           <td><%= state_badge(row[:disabled], row[:result]) %></td>
-          <td class="actions nowrap">
+          <td class="nowrap"><div class="actions">
             <% if row[:code] %>
               <a class="btn small secondary" href="/teacher/students/<%= h row[:code] %>"><%= h t("teacher.students.edit") %></a>
               <form method="post" action="/teacher/students/<%= h row[:code] %>/disable" class="inline">
@@ -54,7 +54,7 @@
                 <button class="btn small secondary" type="submit"><%= h t("teacher.students.assign") %></button>
               </form>
             <% end %>
-          </td>
+          </div></td>
         </tr>
       <% end %>
     </tbody>

@@ -303,9 +303,9 @@ teacher:
     max_parallel: "Student runs at the same time"
     restart: "Takes effect after restarting the panel."
     addresses: "Addresses shown to students"
-    addresses_help: "Leave it empty to show every detected address; set it when the computer has extra adapters (e.g. VirtualBox). For example: 192.168.1.10, 192.168.1.11"
+    addresses_help: "Leave it empty to show every detected address; set it when the computer has extra adapters (e.g. VirtualBox). Example: 192.168.1.10, 192.168.1.11"
     teacher_allow: "Other teacher IPs"
-    teacher_allow_help: "Besides this computer, these IPs can open the teacher area (comma separated). For example: 192.168.1.20"
+    teacher_allow_help: "Besides this computer, these IPs can open the teacher area (comma separated). Example: 192.168.1.20"
   sessions:
     title: "Class sessions"
     intro: "Start each class clean and keep the previous ones."

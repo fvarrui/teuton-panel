@@ -303,9 +303,9 @@ teacher:
     max_parallel: "Ejecuciones de alumnos a la vez"
     restart: "Se aplica al reiniciar el panel."
     addresses: "Direcciones que se muestran a los alumnos"
-    addresses_help: "Déjalo vacío para mostrar todas las detectadas; úsalo si el ordenador tiene adaptadores de más (por ejemplo, de VirtualBox). Por ejemplo: 192.168.1.10, 192.168.1.11"
+    addresses_help: "Déjalo vacío para mostrar todas las detectadas; úsalo si el ordenador tiene adaptadores de más (por ejemplo, de VirtualBox). Ejemplo: 192.168.1.10, 192.168.1.11"
     teacher_allow: "Otras IPs de profesor"
-    teacher_allow_help: "Además de este ordenador, estas IPs pueden abrir la zona del profesor (separadas por comas). Por ejemplo: 192.168.1.20"
+    teacher_allow_help: "Además de este ordenador, estas IPs pueden abrir la zona del profesor (separadas por comas). Ejemplo: 192.168.1.20"
   sessions:
     title: "Sesiones de clase"
     intro: "Empieza cada clase limpia y conserva las anteriores."
