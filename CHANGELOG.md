@@ -1,4 +1,4 @@
-## [Unreleased]
+## [0.1.0] - 2026-10-07
 
 - [FEATURE] Web panel on Sinatra/WEBrick: teacher area (localhost, own IPs, allow-list) and student area (LAN).
 - [FEATURE] Student registration with personal codes into Teuton's `config.d/`; fields in `teuton-panel-params.yaml`.
@@ -9,7 +9,3 @@
 - [FEATURE] Test statement from `teuton readme`, without passwords.
 - [FIX] Gem loading order, packaging (`bin/teuton-panel`) and tests.
 - [UPDATE] Depend on `teuton ~> 3.0`, `kramdown` and `webrick`; drop `puma` and `tty-prompt`.
-
-## [0.1.0] - 2026-06-02
-
-- Initial release
