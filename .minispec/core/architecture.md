@@ -49,5 +49,5 @@ Format by suffix: none/`.html` → HTML, `.txt` → text, `.json` → JSON (teac
 - `lib/teuton/panel/` — gem code (see above).
 - `test/` — test-unit tests; `runner_test.rb` and `app_test.rb` run the real teuton on the `teuton-sandbox` test.
 - `samples/linux-files-basics/` — demo challenge with invented students and history (`reset.rb`); `test/usecases/run.rb` (`rake usecases`) runs every use case against it.
-- `docs/` — documentation site (Jekyll + Just the Docs + jekyll-polyglot, its own Gemfile; builds on Linux or Docker, not on RubyInstaller): pages in `en/`, `es/`, `ca/` with shared permalinks, screenshots in `assets/images/<lang>/` taken by `docs/_scripts/screenshots.rb`.
+- `docs/` — documentation site (Jekyll + Just the Docs + jekyll-polyglot, its own Gemfile; builds on Linux or Docker, not on RubyInstaller): pages in `en/`, `es/`, `ca/` with shared permalinks, screenshots in `assets/images/<lang>/` taken by `docs/_scripts/screenshots.rb`. Published to GitHub Pages on version tags (`v*`) or by hand, so it documents the latest release, not `main`.
 - In the user's base dir: `teuton-panel.yaml`; next to each test `teuton-panel-params.yaml` and `config.d/`; data dir `.teuton-panel/` (`tests/<slug>/runs`, `results.json`, `archive/`).

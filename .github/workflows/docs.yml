@@ -1,11 +1,10 @@
 name: Documentation
 
+# The site documents the latest release: publish on version tags only.
+# Run it by hand to fix a typo between releases.
 on:
   push:
-    branches: [main]
-    paths:
-      - "docs/**"
-      - ".github/workflows/docs.yml"
+    tags: ["v*"]
   workflow_dispatch:
 
 permissions:

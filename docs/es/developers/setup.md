@@ -58,7 +58,7 @@ docker run --rm -p 4000:4000 -v "${PWD}/docs:/site" -w /site ruby:3.3 \
   bash -c "bundle install && bundle exec jekyll serve --host 0.0.0.0"
 ```
 
-Después abre `http://localhost:4000/teuton-panel/`. GitHub Actions construye y publica la web en cada push a `main` (`.github/workflows/docs.yml`).
+Después abre `http://localhost:4000/teuton-panel/`. GitHub Actions construye y publica la web al subir una etiqueta de versión (`v*`), así que siempre documenta la última versión publicada (`.github/workflows/docs.yml`). Para publicar una corrección entre versiones, lanza a mano el workflow *Documentation* desde la pestaña Actions o con `gh workflow run docs.yml`.
 
 Las páginas están en `docs/en/`, `docs/es/` y `docs/ca/`; una misma página tiene la misma `permalink` en todos los idiomas. Las capturas están en `docs/assets/images/<idioma>/` y se incluyen así:
 
