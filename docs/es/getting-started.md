@@ -41,7 +41,7 @@ El panel comprueba que Teuton 3 est√° instalado, crea su fichero de configuraci√
 
 ```
 ------------------------------------------------------------
-teuton-panel 0.1.1
+teuton-panel 0.2.0
 Base dir    : /home/profesor/tests
 Active test : network-basics
 Teacher     : http://localhost:4567/teacher

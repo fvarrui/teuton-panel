@@ -49,7 +49,7 @@ The panel looks for every directory with a `start.rb` under `PATH/TO/TESTS` (the
 
 ```
 ------------------------------------------------------------
-teuton-panel 0.1.0
+teuton-panel 0.2.0
 Base dir    : /home/teacher/tests
 Active test : network-basics
 Teacher     : http://localhost:4567/teacher

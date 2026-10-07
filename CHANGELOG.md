@@ -1,3 +1,12 @@
+## [0.2.0] - 2026-10-07
+
+- [FEATURE] Catalan GUI (`ca`), chosen from `Accept-Language`, `?lang=ca` or the default language; the test statement falls back to Spanish because `teuton readme` only writes English and Spanish.
+- [FEATURE] Settings: addresses shown to students (`:server: :addresses:`), for when the detected IPs are not the ones students should use.
+- [UPDATE] Quieter run logs: Teuton runs without Ruby warnings, and an empty log is no longer shown.
+- [UPDATE] Compact navigation bar.
+- [DOC] Documentation site in English, Spanish and Catalan with teacher and student guides, every use case, FAQ, developer section and screenshots: https://fvarrui.github.io/teuton-panel/
+- [ADD] `rake docs:screenshots` retakes the documentation screenshots.
+
 ## [0.1.1] - 2026-10-07
 
 - [FIX] Validate values typed by students (and edited by the teacher): letters, digits, spaces and `. _ - @ : /`, 100 characters at most; typed values reach the test's commands.
