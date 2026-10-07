@@ -138,6 +138,7 @@ class AppTest < Test::Unit::TestCase
   test "readme as markdown and html" do
     get "/students/readme.md", {}, REMOTE
     assert_equal 200, last_response.status
+    assert_no_match(/{#/, last_response.body)
     assert_match "test-sandbox", last_response.body
     get "/students/readme", {}, REMOTE
     assert_match "<h1", last_response.body

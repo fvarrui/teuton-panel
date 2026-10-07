@@ -215,7 +215,8 @@ module Teuton::Panel
       feature!(:readme)
       project!
       markdown = Readme.student_markdown(project, @lang)
-      respond(:"students/readme", {html: Kramdown::Document.new(markdown).to_html, markdown: markdown}, {markdown: markdown})
+      plain = markdown.gsub(" {#required-hosts}", "") # Kramdown id: only for the HTML
+      respond(:"students/readme", {html: Kramdown::Document.new(markdown).to_html, markdown: plain}, {markdown: plain})
     end
 
     get "/students/:code(.:format)?" do
