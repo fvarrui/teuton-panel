@@ -174,6 +174,26 @@ class AppTest < Test::Unit::TestCase
     assert_match "answer", last_response.body
   end
 
+  test "root path by area" do
+    get "/"
+    assert_equal 302, last_response.status
+    assert_match %r{/teacher\z}, last_response.location
+    get "/", {}, REMOTE.merge("HTTP_ACCEPT" => "text/html,application/xhtml+xml")
+    assert_match %r{/students\z}, last_response.location
+    assert_match "/students", last_response.body # curl without -L sees where to go
+    get "/", {}, REMOTE.merge("HTTP_ACCEPT" => "*/*")
+    assert_equal 200, last_response.status
+    assert_match "/run.txt", last_response.body
+    get "/.json", {}, REMOTE
+    assert_equal "test-sandbox", JSON.parse(last_response.body)["test"]
+
+    @config.update(student: {formats: []})
+    get "/"
+    assert_match %r{/teacher\z}, last_response.location
+    get "/", {}, REMOTE
+    assert_equal 403, last_response.status
+  end
+
   test "one menu tab is current" do
     current = -> { last_response.body.scan(/<a href="([^"]+)" class="current" aria-current/).flatten }
     get "/teacher/runs"

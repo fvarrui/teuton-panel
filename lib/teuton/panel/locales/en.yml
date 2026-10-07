@@ -4,6 +4,7 @@ app:
   student_area: "Students"
   menu: "Main menu"
   skip: "Skip to content"
+  moved: "Go to %{url}"
 nav:
   home: "Home"
   tests: "Tests"

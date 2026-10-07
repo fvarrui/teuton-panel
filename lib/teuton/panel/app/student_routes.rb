@@ -87,6 +87,18 @@ module Teuton::Panel
         respond(:"students/run", locals, {code: code, state: state, wait: wait, next_at: next_at&.to_s, result: result})
       end
 
+      ##
+      # Student home (/students, and / for curl)
+      # @param format (String|nil) html, txt or json
+      def student_home(format)
+        student_area!
+        params["format"] = format
+        student_format!
+        list = (config[:student][:list] && !project.nil?) ? students.all : nil
+        members = list&.map { {"members" => _1[:data]["tt_members"].to_s, "registered_at" => _1[:time].to_s} }
+        respond(:"students/home", {members: members}, {test: project&.name, members: members})
+      end
+
       def register_student
         feature!(:register)
         project!
@@ -106,10 +118,7 @@ module Teuton::Panel
     end
 
     get "/students(.:format)?" do
-      student_format!
-      list = (config[:student][:list] && !project.nil?) ? students.all : nil
-      members = list&.map { {"members" => _1[:data]["tt_members"].to_s, "registered_at" => _1[:time].to_s} }
-      respond(:"students/home", {members: members}, {test: project&.name, members: members})
+      student_home(params["format"])
     end
 
     get "/students/go" do

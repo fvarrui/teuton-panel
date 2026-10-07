@@ -29,7 +29,7 @@ App (teacher area | student area) → RunQueue → Runner: teuton subprocess in 
 
 ## Routes
 
-Student area (switch in brackets): `GET /` → `/students`; `/students` [list] (`.txt` = curl help); `/students/register` GET/POST [register]; `/students/go?code=`; `/students/readme` (`.md`) [readme]; `/students/<code>` GET/POST [register]; `/students/<code>/run` GET/POST [run]; `/students/<code>/results` [results, feedback]; `/students/<code>/history` [history]; `/students/<code>/status` [status].
+Student area (switch in brackets): `GET /` → `/teacher` for teacher addresses, `/students` for browsers, the `.txt` help for curl (`/.txt`, `/.json` too); redirects carry a one-line text body; `/students` [list] (`.txt` = curl help); `/students/register` GET/POST [register]; `/students/go?code=`; `/students/readme` (`.md`) [readme]; `/students/<code>` GET/POST [register]; `/students/<code>/run` GET/POST [run]; `/students/<code>/results` [results, feedback]; `/students/<code>/history` [history]; `/students/<code>/status` [status].
 
 Teacher area (POST for every change): `/teacher`; `/teacher/tests` + `POST select`; `/teacher/registration`; `/teacher/students`, `/<code>`, `POST /<code>`, `/<code>/disable`, `/<code>/delete`, `POST /assign`; `/teacher/run` (`/status`: live part in an iframe) + `POST start|stop`; `/teacher/runs`, `/<id>`; `/teacher/results` (`?projector=1`), `/<key>`; `/teacher/moodle.csv`; `/teacher/readme`; `/teacher/settings`; `/teacher/sessions`, `POST new`, `/<id>`, `/<id>/moodle.csv`.
 

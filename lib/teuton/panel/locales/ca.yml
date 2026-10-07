@@ -4,6 +4,7 @@ app:
   student_area: "Alumnat"
   menu: "Menú principal"
   skip: "Salta al contingut"
+  moved: "Vés a %{url}"
 nav:
   home: "Inici"
   tests: "Tests"

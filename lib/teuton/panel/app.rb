@@ -107,6 +107,15 @@ module Teuton::Panel
         halt 403, {"Content-Type" => "text/plain; charset=utf-8"}, t("errors.format_disabled", formats: enabled) + "\n"
       end
 
+      ##
+      # Student area: closed when the teacher enabled no format
+      def student_area!
+        @area = "students"
+        return unless config[:student][:formats].empty?
+
+        halt 403, {"Content-Type" => "text/plain; charset=utf-8"}, t("errors.student_area_closed") + "\n"
+      end
+
       def feature!(name)
         return if config[:student][name]
 
@@ -141,6 +150,14 @@ module Teuton::Panel
         respond(:error, {status: status, message: message}, {status: status, error: message})
       end
 
+      ##
+      # Redirect with a one-line text body, so curl without -L still shows the way
+      # @param path (String)
+      def redirect_with_text(path)
+        target = uri(path)
+        halt 302, {"Location" => target, "Content-Type" => "text/plain; charset=utf-8"}, t("app.moved", url: target) + "\n"
+      end
+
       def student_base_url
         "#{request.scheme}://#{request.host_with_port}/students"
       end
@@ -171,14 +188,20 @@ module Teuton::Panel
     end
 
     before "/students*" do
-      @area = "students"
-      if config[:student][:formats].empty?
-        halt 403, {"Content-Type" => "text/plain; charset=utf-8"}, t("errors.student_area_closed") + "\n"
-      end
+      student_area!
     end
 
+    # Root: the teacher goes to the teacher area, browsers to the student area
+    # and curl (no text/html in Accept) gets the plain-text student help
     get "/" do
-      redirect "/students"
+      redirect_with_text("/teacher") if teacher_ip?
+      redirect_with_text("/students") if request.env["HTTP_ACCEPT"].to_s.include?("text/html")
+
+      student_home("txt")
+    end
+
+    get "/.:format" do
+      student_home(params["format"])
     end
 
     not_found do
