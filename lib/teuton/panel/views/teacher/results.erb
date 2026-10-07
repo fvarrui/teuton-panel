@@ -13,7 +13,7 @@
     <div class="empty"><p><%= h t("teacher.students.empty") %></p></div>
   <% else %>
     <div class="tiles">
-      <% rows.sort_by { [_1[:result].nil? ? 1 : 0, -_1[:result]&.dig("grade").to_f] }.each do |row| %>
+      <% results_order(rows).each do |row| %>
         <% css, text = row_state(row[:disabled], row[:result]) %>
         <% tile = (row[:result] && %w[ok passed fail].include?(css)) ? grade_class(row[:result]["grade"]) : css %>
         <div class="tile <%= tile %>">
@@ -42,7 +42,7 @@
     <div class="table-wrap"><table>
       <thead><tr><th><%= h t("table.student") %></th><th><%= h t("table.grade") %></th><th><%= h t("table.state") %></th><th><%= h t("table.when") %></th><th></th></tr></thead>
       <tbody>
-        <% rows.sort_by { [_1[:result].nil? ? 1 : 0, -_1[:result]&.dig("grade").to_f] }.each do |row| %>
+        <% results_order(rows).each do |row| %>
           <tr class="<%= "disabled" if row[:disabled] %>">
             <td><strong><%= h row[:data]["tt_members"] %></strong></td>
             <td><%= grade_bar(row[:result]&.dig("grade"), row[:disabled]) %></td>

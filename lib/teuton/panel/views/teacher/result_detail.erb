@@ -5,7 +5,11 @@
     <h1><%= h row[:data]["tt_members"] %></h1>
     <p class="muted"><%= h time_text(result&.dig("finished_at")) %></p>
   </div>
-  <a class="btn secondary" href="/teacher/results"><%= h t("students.run.back") %></a>
+  <div class="actions">
+    <% if previous %><a class="btn secondary" href="/teacher/results/<%= h previous[:key] %>" rel="prev">&larr; <%= h t("teacher.results.previous") %></a><% end %>
+    <% if following %><a class="btn secondary" href="/teacher/results/<%= h following[:key] %>" rel="next"><%= h t("teacher.results.next") %> &rarr;</a><% end %>
+    <a class="btn secondary" href="/teacher/results"><%= h t("students.run.back") %></a>
+  </div>
 </div>
 <% if result.nil? %>
   <section class="card"><p class="muted"><%= h t("students.results.none") %></p></section>
@@ -20,14 +24,13 @@
 </section>
 <section class="card">
   <div class="table-wrap"><table>
-    <thead><tr><th></th><th><%= h t("teacher.results.target") %></th><% unless projector %><th><%= h t("teacher.results.command") %></th><th><%= h t("teacher.results.expected") %></th><th><%= h t("teacher.results.output") %></th><% end %></tr></thead>
+    <thead><tr><th></th><th><%= h t("teacher.results.target") %></th><% unless projector %><th><%= h t("teacher.results.expected") %></th><th><%= h t("teacher.results.output") %></th><% end %></tr></thead>
     <tbody>
       <% result["targets"].each do |target| %>
         <tr>
           <td><span class="mark <%= "ok" if target["check"] %>"><%= target["check"] ? "&#10003;" : "&#10007;" %></span></td>
-          <td><%= h target["description"] %><br><small class="muted"><%= h target["group"] %> · x<%= h target["weight"] %></small></td>
+          <td><span <%= %(title="#{h target["command"]}") unless target["command"].to_s.empty? %>><%= h target["description"] %></span><br><small class="muted"><%= h target["group"] %> · x<%= h target["weight"] %></small></td>
           <% unless projector %>
-            <td><code><%= h target["command"] %></code></td>
             <td><%= h target["expected"] %></td>
             <td><code><%= h target["output"].to_s[0, 300] %></code></td>
           <% end %>

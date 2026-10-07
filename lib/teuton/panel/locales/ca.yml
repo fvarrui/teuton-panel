@@ -253,7 +253,8 @@ teacher:
     moodle: "Descarrega moodle.csv"
     detail: "Detall"
     target: "Objectiu"
-    command: "Ordre"
+    previous: "Anterior"
+    next: "Següent"
     expected: "Esperat"
     output: "Sortida"
   readme:

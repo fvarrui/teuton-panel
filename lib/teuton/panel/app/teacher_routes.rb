@@ -80,6 +80,12 @@ module Teuton::Panel
       end
 
       ##
+      # Results page order: evaluated students first, best grade first
+      def results_order(rows)
+        rows.sort_by { [_1[:result].nil? ? 1 : 0, -_1[:result]&.dig("grade").to_f] }
+      end
+
+      ##
       # Time of today as HH:MM:SS, older days with the locale's short date
       def short_time(time)
         return "-" if time.nil?
@@ -274,10 +280,14 @@ module Teuton::Panel
     get "/teacher/results/:key" do
       format!(%w[html])
       project!
-      row = roster.find { _1[:key] == params["key"] }
+      evaluated = results_order(roster).reject { _1[:result].nil? }
+      index = evaluated.index { _1[:key] == params["key"] }
+      row = index.nil? ? roster.find { _1[:key] == params["key"] } : evaluated[index]
       halt 404, error_body(404, t("errors.not_found")) if row.nil?
 
-      erb :"teacher/result_detail", locals: {row: row, projector: params["projector"] == "1"}
+      previous = (index.nil? || index.zero?) ? nil : evaluated[index - 1]
+      following = index.nil? ? nil : evaluated[index + 1]
+      erb :"teacher/result_detail", locals: {row: row, previous: previous, following: following, projector: params["projector"] == "1"}
     end
 
     get "/teacher/moodle.csv" do

@@ -253,7 +253,8 @@ teacher:
     moodle: "Download moodle.csv"
     detail: "Detail"
     target: "Target"
-    command: "Command"
+    previous: "Previous"
+    next: "Next"
     expected: "Expected"
     output: "Output"
   readme:

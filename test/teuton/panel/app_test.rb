@@ -308,6 +308,14 @@ class AppTest < Test::Unit::TestCase
     assert_equal "needs_work", states["CD4M"]
     assert_equal "disabled", states["GH6P"]
 
+    get "/teacher/results"
+    evaluated = last_response.body.scan(%r{href="/teacher/results/([^"?]+)"}).flatten
+    get "/teacher/results/#{evaluated.first}"
+    assert_no_match(/rel="prev"/, last_response.body)
+    assert_match "/teacher/results/#{evaluated[1]}\" rel=\"next\"", last_response.body
+    get "/teacher/results/#{evaluated.last}"
+    assert_no_match(/rel="next"/, last_response.body)
+
     post "/teacher/sessions/new", {"label" => "Group A"}
     get "/teacher/results.json"
     assert_equal [], JSON.parse(last_response.body)
