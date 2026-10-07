@@ -1,3 +1,25 @@
+## [0.3.0] - 2026-10-07
+
+Usability review of the teacher and student areas.
+
+- [FEATURE] `/` takes each visitor to the right place: the teacher to `/teacher`, browsers to `/students`, `curl` to the plain-text help (`/.txt` and `/.json` too).
+- [FEATURE] Teacher menu grouped by task: Home, Prepare (Tests, Registration fields, Statement), Class (Students, Run, Results, History), Sessions, Settings.
+- [FEATURE] Labels and help for registration fields (`field: {mode:, label:, help:}` in `teuton-panel-params.yaml`); students never see the keys; `tt_source_ip` is read-only for the teacher.
+- [FEATURE] Grade states Complete (100), Passed (50–99) and Needs work (< 50), with the same colours in badges and bars; JSON rows carry a `status` value.
+- [FEATURE] Class summary (average, passed, complete, not evaluated) on the teacher home, Results and the projector; also in `/teacher.json`.
+- [FEATURE] Students table: one line per student, sorting and filters, registration day for older registrations; Delete moved to the edit page.
+- [FEATURE] Result detail with Previous/Next; the shortened command moves to a tooltip.
+- [FEATURE] Run form shows only the fields of the chosen mode; while a loop runs, Stop sits in the status box.
+- [FEATURE] The browser remembers the student's code: My page in the menu, code filled in on the home, Not you? to forget it.
+- [FEATURE] Student runs in the browser show their progress and never run twice on reload (Post/Redirect/Get); Run again button; neutral finished message.
+- [FEATURE] Cleaner statement for students (no Teuton version block, only typed parameters, no SSH note on local hosts); the teacher can preview both versions.
+- [UPDATE] Settings: a Save button per section, no IP placeholders that look like values, help for the run interval and the registered list; the teacher home reminds when students can see who is registered.
+- [FIX] Only one menu tab is marked as current.
+- [FIX] Statement lists, header block and HOST1 link render correctly.
+- [FIX] The run page no longer reloads while the teacher fills in the form (live status in an iframe).
+- [FIX] Spanish and Catalan teacher pages without English or Teuton jargon.
+- [DOC] Guides, FAQ and screenshots updated in English, Spanish and Catalan.
+
 ## [0.2.0] - 2026-10-07
 
 - [FEATURE] Catalan GUI (`ca`), chosen from `Accept-Language`, `?lang=ca` or the default language; the test statement falls back to Spanish because `teuton readme` only writes English and Spanish.
