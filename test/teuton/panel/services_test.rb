@@ -101,4 +101,39 @@ class ServicesTest < Test::Unit::TestCase
     assert_no_match(/s3cr3t/, masked)
     assert_match "host1_ip", masked
   end
+
+  # Shape of `teuton readme --lang=es` output (Teuton 3.0)
+  README = <<~TEXT
+    ```
+    Fecha  : 2026-10-07 21:34:35 +0100
+    Teuton : 3.0.1
+    ```
+
+    # Test: demo
+
+    ### Máquinas que se necesitan
+
+    | ID  | Host | Configuration |
+    | --- | ---- | ------------- |
+    | 1 | HOST1 |  |
+
+    ### Parámetros de necesarios
+    * home
+    * host1_ip
+
+    ## Files and directories
+
+    Ir a la máquina [HOST1](#required-hosts), y hacer lo siguiente:
+    * (x1.0) Directory docs exists.
+    * (x1.0) File docs/notes.txt exists.
+    * (x2.0) docs/notes.txt has exactly 3 lines.
+  TEXT
+
+  test "readme lists, header block and hosts anchor render" do
+    html = Kramdown::Document.new(Teuton::Panel::Readme.tidy(README)).to_html
+    assert_equal 2, html.scan("<ul>").size
+    assert_equal 5, html.scan("<li>").size
+    assert_match 'id="required-hosts"', html
+    assert_match "<pre><code>Fecha", html
+  end
 end

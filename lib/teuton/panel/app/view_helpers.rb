@@ -81,9 +81,16 @@ module Teuton::Panel
         "off"
       end
 
+      ##
+      # Menu link, marked when the request is that page or one below it
+      # (area homes only match themselves, /teacher/run does not match /teacher/runs)
       def nav_link(path, label)
-        current = (request.path_info == path || (path != "/teacher" && request.path_info.start_with?(path))) ? "current" : ""
-        %(<a href="#{path}" class="#{current}">#{h label}</a>)
+        here = request.path_info
+        current = (here == path)
+        current = true if !%w[/teacher /students].include?(path) && here.start_with?("#{path}/")
+        return %(<a href="#{path}">#{h label}</a>) unless current
+
+        %(<a href="#{path}" class="current" aria-current="page">#{h label}</a>)
       end
 
       def lang_link(code)
