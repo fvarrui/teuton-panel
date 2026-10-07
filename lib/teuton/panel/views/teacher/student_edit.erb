@@ -9,10 +9,18 @@
 <% unless errors.empty? %><div class="notice error"><%= h t("teacher.students.own_ip") %></div><% end %>
 <section class="card featured">
   <form method="post" action="/teacher/students/<%= h student[:code] %>">
+    <% spec = Teuton::Panel::Params.load(project) %>
+    <% details = Teuton::Panel::Params.details(project) %>
     <% data.each do |field, value| %>
+      <% readonly = Teuton::Panel::App::READONLY_FIELDS.include?(field) %>
       <div class="field <%= "error" if errors.include?(field) %>">
-        <label for="d-<%= h field %>"><%= h field %></label>
-        <input type="text" id="d-<%= h field %>" name="data[<%= h field %>]" value="<%= h value %>">
+        <label for="d-<%= h field %>"><%= h field_label(field, spec[field], details[field]) %></label>
+        <% if readonly %>
+          <input type="text" id="d-<%= h field %>" value="<%= h value %>" readonly>
+        <% else %>
+          <input type="text" id="d-<%= h field %>" name="data[<%= h field %>]" value="<%= h value %>">
+        <% end %>
+        <small translate="no"><%= h field %><%= " · #{t("teacher.students.readonly")}" if readonly %></small>
       </div>
     <% end %>
     <button class="btn" type="submit"><%= h t("teacher.save") %></button>

@@ -42,7 +42,7 @@ Global key in Teuton's `config.yaml` naming a directory (usually `config.d/`). E
 
 ## Registration params
 
-`teuton-panel-params.yaml` next to a test's `config.yaml`: the registration fields and how each is filled (`ASK`, `AS NAME`, `AS EMAIL`, `AUTO IP`, fixed value). Called `tt_include_params` in early notes (`docs/`); kept out of `config.yaml` because Teuton 3.0.0 crashes on hash values in `global`.
+`teuton-panel-params.yaml` next to a test's `config.yaml`: the registration fields and how each is filled (`ASK`, `AS NAME`, `AS EMAIL`, `AUTO IP`, fixed value), optionally with a label and help for students (`field: {mode:, label:, help:}`); students never see the keys. Called `tt_include_params` in early notes (`docs/`); kept out of `config.yaml` because Teuton 3.0.0 crashes on hash values in `global`.
 
 ## `tt_source_ip`
 

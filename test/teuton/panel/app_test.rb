@@ -194,6 +194,36 @@ class AppTest < Test::Unit::TestCase
     assert_equal 403, last_response.status
   end
 
+  test "field labels and help replace the keys" do
+    project = Teuton::Panel::Projects.all(@basedir).first
+    post "/teacher/registration", {"fields" => {
+      "0" => {"name" => "tt_members", "mode" => "AS NAME"},
+      "1" => {"name" => "answer", "mode" => "ASK", "label" => "Your answer", "help" => "A number from 1 to 9"}
+    }}
+    assert last_response.redirect?
+    text = File.read(Teuton::Panel::Params.filepath(project))
+    assert_match "tt_members: \"AS NAME\"", text # short form without label
+    assert_equal({"tt_members" => "AS NAME", "answer" => "ASK"}, Teuton::Panel::Params.load(project))
+    assert_equal "Your answer", Teuton::Panel::Params.details(project)["answer"]["label"]
+
+    get "/students/register", {}, REMOTE
+    assert_match "Your answer", last_response.body
+    assert_match "A number from 1 to 9", last_response.body
+    assert_no_match(%r{<small>tt_members</small>}, last_response.body)
+
+    post "/teacher/registration", {"fields" => {"0" => {"name" => "answer", "mode" => "ASK", "label" => "<b>"}}}
+    assert_equal 422, last_response.status
+  end
+
+  test "teacher cannot change tt_source_ip" do
+    file = File.join(@basedir, "test-sandbox", "config.d", "AB3K.yaml")
+    data = YAML.load_file(file).reject { |k, _v| k.start_with?("tt_panel_") }
+    before = data["tt_source_ip"]
+    post "/teacher/students/AB3K", {"data" => data.merge("tt_source_ip" => "10.9.9.9")}
+    assert last_response.redirect?
+    assert_equal before, YAML.load_file(file)["tt_source_ip"]
+  end
+
   test "one menu tab is current" do
     current = -> { last_response.body.scan(/<a href="([^"]+)" class="current" aria-current/).flatten }
     get "/teacher/runs"

@@ -1,5 +1,6 @@
 <% @title = t("students.register.title") %>
 <% spec = Teuton::Panel::Params.load(project) %>
+<% details = Teuton::Panel::Params.details(project) %>
 <div class="page-head">
   <div>
     <h1><%= h t("students.register.title") %></h1>
@@ -17,9 +18,10 @@
     <% fields.each do |field| %>
       <% error = errors.find { _1[0] == field } %>
       <div class="field <%= "error" if error %>">
-        <label for="f-<%= h field %>"><%= h field_label(field, spec[field]) %></label>
+        <label for="f-<%= h field %>"><%= h field_label(field, spec[field], details[field]) %></label>
         <input type="<%= field_type(field, spec[field]) %>" autocomplete="<%= field_autocomplete(field, spec[field]) %>" spellcheck="false" id="f-<%= h field %>" name="<%= h field %>" value="<%= h(values[field]) unless field.include?("password") %>" required>
-        <small><%= h(error ? t("errors.field_#{error[1]}") : field) %></small>
+        <% hint = error ? t("errors.field_#{error[1]}") : details.dig(field, "help").to_s %>
+        <% unless hint.empty? %><small><%= h hint %></small><% end %>
       </div>
     <% end %>
     <button class="btn" type="submit"><%= icon(:spark, 18) %> <%= h t("students.register.submit") %></button>

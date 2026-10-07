@@ -44,12 +44,14 @@
   <h2 class="section-title"><%= icon(:form) %> <%= h t("students.personal.my_data") %></h2>
   <% if config[:student][:register] %>
     <% spec = Teuton::Panel::Params.load(project) %>
+    <% details = Teuton::Panel::Params.details(project) %>
     <form method="post" action="/students/<%= h student[:code] %>">
       <% fields.each do |field| %>
         <div class="field">
-          <label for="f-<%= h field %>"><%= h field_label(field, spec[field]) %></label>
+          <label for="f-<%= h field %>"><%= h field_label(field, spec[field], details[field]) %></label>
           <input type="<%= field_type(field, spec[field]) %>" autocomplete="<%= field_autocomplete(field, spec[field]) %>" spellcheck="false" id="f-<%= h field %>" name="<%= h field %>" value="<%= h(data[field]) unless field.include?("password") %>" <%= "required" unless field.include?("password") %>>
-          <small><%= h(field.include?("password") ? t("students.personal.password_keep") : field) %></small>
+          <% hint = field.include?("password") ? t("students.personal.password_keep") : details.dig(field, "help").to_s %>
+          <% unless hint.empty? %><small><%= h hint %></small><% end %>
         </div>
       <% end %>
       <button class="btn secondary" type="submit"><%= h t("students.personal.save") %></button>

@@ -2,8 +2,9 @@
 
 <%- if errors.empty? -%>
 <%= t("students.register.fields") %>
+<%- details = Teuton::Panel::Params.details(project) -%>
 <%- fields.each do |field| -%>
-  <%= field %>
+  <%= field %> (<%= field_label(field, Teuton::Panel::Params.load(project)[field], details[field]) %>)
 <%- end -%>
 
   curl "<%= student_base_url %>/register.txt?<%= fields.map { "#{_1}=..." }.join("&") %>"

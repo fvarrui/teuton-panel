@@ -80,7 +80,12 @@ module Teuton::Panel
         %(<span class="badge #{css}">#{h text}</span>)
       end
 
-      def field_label(field, mode)
+      ##
+      # Label of a registration field: the teacher's text, a default for name and
+      # email, or the key made readable
+      def field_label(field, mode, info = nil)
+        label = info.to_h["label"].to_s
+        return label unless label.empty?
         return t("fields.name") if mode == "AS NAME"
         return t("fields.email") if mode == "AS EMAIL"
 

@@ -6,15 +6,17 @@
   </div>
 </div>
 <% if saved %><div class="notice success" role="status"><%= h t("teacher.saved") %></div><% end %>
+<% unless errors.empty? %><div class="notice error" role="alert"><%= h t("teacher.registration.bad_text", fields: errors.join(", ")) %></div><% end %>
 <section class="card featured">
   <form method="post" action="/teacher/registration">
-    <div class="table-wrap"><table>
-      <thead><tr><th><%= h t("teacher.registration.field") %></th><th><%= h t("teacher.registration.mode") %></th><th><%= h t("teacher.registration.value") %></th><th><%= h t("teacher.registration.remove") %></th></tr></thead>
+    <div class="table-wrap"><table class="reg-table">
+      <thead><tr><th><%= h t("teacher.registration.field") %></th><th><%= h t("teacher.registration.mode") %></th><th><%= h t("teacher.registration.value") %></th><th><%= h t("teacher.registration.label") %></th><th><%= h t("teacher.registration.help") %></th><th><%= h t("teacher.registration.remove") %></th></tr></thead>
       <tbody>
         <% rows = params_spec.to_a + [["", "ASK"]] %>
         <% rows.each_with_index do |(field, mode), i| %>
           <% fixed = Teuton::Panel::Params.fixed?(mode) %>
-          <tr>
+          <% info = details[field] || {} %>
+          <tr class="<%= "error" if errors.include?(field) %>">
             <td><input type="text" name="fields[<%= i %>][name]" value="<%= h field %>" placeholder="<%= h t("teacher.registration.new_field") %>" aria-label="<%= h t("teacher.registration.field") %>"></td>
             <td>
               <select name="fields[<%= i %>][mode]" aria-label="<%= h t("teacher.registration.mode") %>">
@@ -23,7 +25,9 @@
                 <% end %>
               </select>
             </td>
-            <td><input type="text" name="fields[<%= i %>][value]" value="<%= h(fixed ? mode : "") %>" aria-label="<%= h t("teacher.registration.value") %>"></td>
+            <td class="reg-value"><input type="text" name="fields[<%= i %>][value]" value="<%= h(fixed ? mode : "") %>" aria-label="<%= h t("teacher.registration.value") %>"></td>
+            <td class="reg-text"><input type="text" name="fields[<%= i %>][label]" value="<%= h info["label"] %>" aria-label="<%= h t("teacher.registration.label") %>"></td>
+            <td class="reg-text"><input type="text" name="fields[<%= i %>][help]" value="<%= h info["help"] %>" aria-label="<%= h t("teacher.registration.help") %>"></td>
             <td><% unless field.empty? %><input type="checkbox" name="fields[<%= i %>][delete]" value="1" aria-label="<%= h t("teacher.registration.remove") %>"><% end %></td>
           </tr>
         <% end %>
@@ -41,5 +45,6 @@
     <li><%= h t("teacher.registration.help_ask") %></li>
     <li><%= h t("teacher.registration.help_auto") %></li>
     <li><%= h t("teacher.registration.help_fixed") %></li>
+    <li><%= h t("teacher.registration.help_label") %></li>
   </ul>
 </section>

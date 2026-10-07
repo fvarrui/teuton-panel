@@ -7,6 +7,8 @@ require_relative "../scheduler"
 module Teuton::Panel
   # Teacher area: /teacher/... (localhost and allowed IPs only)
   class App < Sinatra::Base
+    READONLY_FIELDS = %w[tt_source_ip] # Shown on the student edit page, never changed there
+
     helpers do
       ##
       # Every case of the active test with its latest result, for tables
@@ -89,12 +91,15 @@ module Teuton::Panel
     get "/teacher/registration" do
       format!(%w[html])
       project!
-      erb :"teacher/registration", locals: {params_spec: Params.load(project), saved: params["saved"]}
+      erb :"teacher/registration", locals: {params_spec: Params.load(project), details: Params.details(project),
+                                            saved: params["saved"], errors: []}
     end
 
     post "/teacher/registration" do
       project!
       spec = {}
+      details = {}
+      errors = []
       (params["fields"] || {}).each_value do |row|
         field = row["name"].to_s.strip.gsub(/[^A-Za-z0-9_]/, "")
         next if field.empty? || row["delete"]
@@ -102,9 +107,16 @@ module Teuton::Panel
         mode = row["mode"].to_s
         mode = row["value"].to_s if mode == "FIXED"
         spec[field] = mode
+        details[field] = {"label" => row["label"].to_s.strip, "help" => row["help"].to_s.strip}
+        # Label and help are shown to students: same characters as typed values
+        errors << field unless details[field].values.all? { Registration.value_error("label", _1).nil? }
+      end
+      unless errors.empty?
+        status 422
+        return erb :"teacher/registration", locals: {params_spec: spec, details: details, saved: nil, errors: errors}
       end
       spec = Params.propose(Runner.capture("config", project)) if params["propose"]
-      Params.save(project, spec)
+      Params.save(project, spec, details)
       redirect "/teacher/registration?saved=1"
     end
 
@@ -141,6 +153,7 @@ module Teuton::Panel
       errors = []
       editable_data(student[:data]).each do |field, current|
         value = params.dig("data", field).to_s.strip
+        value = current.to_s if READONLY_FIELDS.include?(field) # Set by the panel, kept as it is
         values[field] = value
         next if value == current.to_s # Keeping a value is always allowed
 

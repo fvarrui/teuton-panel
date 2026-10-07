@@ -6,7 +6,8 @@ require_relative "version"
 module Teuton::Panel
   ##
   # Registration fields in teuton-panel-params.yaml (next to config.yaml):
-  # field name => ASK | AS NAME | AS EMAIL | AUTO IP | fixed value
+  # field name => ASK | AS NAME | AS EMAIL | AUTO IP | fixed value, or the
+  # extended form field => {mode: ..., label: ..., help: ...}
   module Params
     FILENAME = "teuton-panel-params.yaml"
     MODES = ["ASK", "AS NAME", "AS EMAIL", "AUTO IP"]
@@ -24,23 +25,48 @@ module Teuton::Panel
     # @param project (Project)
     # @return Hash field => mode (string keys, insertion order)
     def self.load(project)
-      return {} unless exists?(project)
+      read(project).to_h { |k, v| [k.to_s, v.is_a?(Hash) ? v["mode"].to_s : v.to_s] }
+    end
 
-      data = YAML.safe_load_file(filepath(project)) || {}
-      data.to_h { |k, v| [k.to_s, v.to_s] }
-    rescue => e
-      warn "[WARN] Params.load: #{e} <#{filepath(project)}>"
-      {}
+    ##
+    # Label and help the teacher wrote for each field
+    # @param project (Project)
+    # @return Hash field => {"label" => String, "help" => String}
+    def self.details(project)
+      read(project).to_h do |k, v|
+        info = v.is_a?(Hash) ? v : {}
+        [k.to_s, {"label" => info["label"].to_s, "help" => info["help"].to_s}]
+      end
     end
 
     ##
     # @param project (Project)
     # @param params (Hash) field => mode
-    def self.save(project, params)
+    # @param details (Hash) field => {"label", "help"}; fields without them use the short form
+    def self.save(project, params, details = {})
       lines = ["# Registration fields for teuton-panel and how each one is filled:\n"]
       lines << "# ASK (free text), AS NAME, AS EMAIL, AUTO IP (request IP) or a fixed value.\n"
-      params.each { |field, mode| lines << "#{field}: #{mode.to_s.inspect}\n" }
+      lines << "# Optional label and help for students: field: {mode: ASK, label: \"...\", help: \"...\"}\n"
+      params.each do |field, mode|
+        info = details[field] || {}
+        label = info["label"].to_s
+        help = info["help"].to_s
+        lines << if label.empty? && help.empty?
+          "#{field}: #{mode.to_s.inspect}\n"
+        else
+          "#{field}: {mode: #{mode.to_s.inspect}, label: #{label.inspect}, help: #{help.inspect}}\n"
+        end
+      end
       File.write(filepath(project), lines.join)
+    end
+
+    def self.read(project)
+      return {} unless exists?(project)
+
+      YAML.safe_load_file(filepath(project)) || {}
+    rescue => e
+      warn "[WARN] Params.load: #{e} <#{filepath(project)}>"
+      {}
     end
 
     def self.asked?(mode)

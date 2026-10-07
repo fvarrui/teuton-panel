@@ -124,6 +124,13 @@ legend { font-weight: 700; padding: 0 0.4rem; }
 .status-frame { width: 100%; height: 26rem; border: 0; display: block; }
 body.frame { background: var(--card); margin: 0; padding: 0.2rem; }
 
+/* Registration fields: the fixed value only matters for fixed values, label and help only for asked fields */
+.reg-table input[type="text"], .reg-table select { min-width: 8rem; }
+.reg-table tr:not(:has(option[value="FIXED"]:checked)) .reg-value input,
+.reg-table tr:has(option[value="FIXED"]:checked) .reg-text input,
+.reg-table tr:has(option[value="AUTO IP"]:checked) .reg-text input { opacity: 0.35; }
+.reg-table tr.error input { border-color: var(--coral); }
+
 /* Notices and empty states */
 .notice { border-radius: var(--radius-small); padding: 0.8rem 1rem; margin-bottom: 1.25rem; border-left: 5px solid var(--lagoon); background: var(--lagoon-wash); }
 .notice.success { border-color: var(--leaf); background: var(--leaf-wash); }
