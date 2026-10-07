@@ -19,15 +19,23 @@
       <nav class="nav" aria-label="<%= h t("app.menu") %>">
         <% if @area == "teacher" %>
           <%= nav_link("/teacher", t("nav.home")) %>
-          <%= nav_link("/teacher/tests", t("nav.tests")) %>
-          <%= nav_link("/teacher/students", t("nav.students")) %>
-          <%= nav_link("/teacher/run", t("nav.run")) %>
-          <%= nav_link("/teacher/results", t("nav.results")) %>
-          <%= nav_link("/teacher/runs", t("nav.history")) %>
-          <%= nav_link("/teacher/registration", t("nav.registration")) %>
-          <%= nav_link("/teacher/readme", t("nav.readme")) %>
-          <%= nav_link("/teacher/sessions", t("nav.sessions")) %>
-          <%= nav_link("/teacher/settings", t("nav.settings")) %>
+          <span class="nav-group" role="group" aria-label="<%= h t("nav.prepare") %>">
+            <span class="nav-label" aria-hidden="true"><%= h t("nav.prepare") %></span>
+            <%= nav_link("/teacher/tests", t("nav.tests")) %>
+            <%= nav_link("/teacher/registration", t("nav.registration")) %>
+            <%= nav_link("/teacher/readme", t("nav.readme")) %>
+          </span>
+          <span class="nav-group" role="group" aria-label="<%= h t("nav.class") %>">
+            <span class="nav-label" aria-hidden="true"><%= h t("nav.class") %></span>
+            <%= nav_link("/teacher/students", t("nav.students")) %>
+            <%= nav_link("/teacher/run", t("nav.run")) %>
+            <%= nav_link("/teacher/results", t("nav.results")) %>
+            <%= nav_link("/teacher/runs", t("nav.history")) %>
+          </span>
+          <span class="nav-group">
+            <%= nav_link("/teacher/sessions", t("nav.sessions")) %>
+            <%= nav_link("/teacher/settings", t("nav.settings")) %>
+          </span>
         <% else %>
           <%= nav_link("/students", t("nav.home")) %>
           <% if config[:student][:register] %><%= nav_link("/students/register", t("nav.register")) %><% end %>

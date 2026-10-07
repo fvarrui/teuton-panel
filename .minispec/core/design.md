@@ -26,7 +26,7 @@ An elegant educational app for adults: warm, lively, motivating, with clear prog
 
 ## Components
 
-- Top bar (ink): brand mark (sunflower square + server icon), area pill, nav (one current tab, `aria-current`), EN/ES/CA switch.
+- Top bar (ink): brand mark (sunflower square + server icon), area pill, nav (one current tab, `aria-current`; teacher entries grouped as Prepare · Class · Sessions/Settings with small labels), EN/ES/CA switch.
 - Page head: `h1` + muted subtitle, actions on the right.
 - Card (`.card`, `.card.featured` with a lagoon top border); `.grid` auto-fit columns.
 - Student hero (lagoon block with a sunflower circle) and numbered `.steps` (register → run → results: a real sequence).
