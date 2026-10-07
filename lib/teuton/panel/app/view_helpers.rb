@@ -17,15 +17,27 @@ module Teuton::Panel
       spark: '<path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5L18 18M6 18l2.5-2.5M15.5 8.5L18 6"/>'
     }
 
+    # State => [badge css class, locale key]
+    STATE_VIEWS = {
+      "disabled" => ["disabled", "status.disabled"],
+      "pending" => ["pending", "status.pending"],
+      "connection" => ["conn", "status.conn_error"],
+      "copy" => ["fail", "status.copy"],
+      "needs_work" => ["fail", "status.low"],
+      "passed" => ["passed", "status.passed"],
+      "complete" => ["ok", "status.complete"]
+    }
+
     helpers do
       def icon(name, size = 22)
         paths = ICONS[name.to_sym]
         %(<svg width="#{size}" height="#{size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">#{paths}</svg>)
       end
 
+      # Same three bands as the state badges: needs work, passed, complete
       def grade_class(grade)
         return "low" if grade.to_f < 50
-        return "mid" if grade.to_f < 80
+        return "mid" if grade.to_f < 100
 
         "high"
       end
@@ -44,15 +56,23 @@ module Teuton::Panel
       end
 
       ##
+      # Machine value of the state of a roster row or a result (also in JSON)
+      def state_key(disabled, result)
+        return "disabled" if disabled
+        return "pending" if result.nil?
+        return "connection" unless result["conn_status"].to_h.empty?
+        return "copy" if result["unique_fault"].to_i > 0
+        return "needs_work" if result["grade"].to_f < 50
+        return "passed" if result["grade"].to_f < 100
+
+        "complete"
+      end
+
+      ##
       # [css class, text] for a roster row or a result
       def row_state(disabled, result)
-        return ["disabled", t("status.disabled")] if disabled
-        return ["pending", t("status.pending")] if result.nil?
-        return ["conn", t("status.conn_error")] unless result["conn_status"].to_h.empty?
-        return ["fail", t("status.copy")] if result["unique_fault"].to_i > 0
-        return ["fail", t("status.low")] if result["grade"].to_f < 50
-
-        ["ok", t("status.ok")]
+        css, key = STATE_VIEWS[state_key(disabled, result)]
+        [css, t(key)]
       end
 
       def state_badge(disabled, result)

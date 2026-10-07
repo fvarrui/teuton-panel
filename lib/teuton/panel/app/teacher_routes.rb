@@ -52,6 +52,7 @@ module Teuton::Panel
         rows.map do |row|
           result = row[:result]
           {key: row[:key], code: row[:code], members: row[:data]["tt_members"].to_s, disabled: row[:disabled],
+           status: state_key(row[:disabled], result),
            grade: result&.dig("grade"), connection: result.nil? ? nil : result["conn_status"],
            unique_fault: result.nil? ? false : result["unique_fault"].to_i > 0, finished_at: result&.dig("finished_at")}
         end

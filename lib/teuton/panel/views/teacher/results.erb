@@ -15,8 +15,7 @@
     <div class="tiles">
       <% rows.sort_by { [_1[:result].nil? ? 1 : 0, -_1[:result]&.dig("grade").to_f] }.each do |row| %>
         <% css, text = row_state(row[:disabled], row[:result]) %>
-        <% tile = (css == "ok") ? grade_class(row[:result]["grade"]) : css %>
-        <% tile = grade_class(row[:result]["grade"]) if css == "fail" && row[:result] %>
+        <% tile = (row[:result] && %w[ok passed fail].include?(css)) ? grade_class(row[:result]["grade"]) : css %>
         <div class="tile <%= tile %>">
           <div class="name"><%= h row[:data]["tt_members"] %></div>
           <div class="value"><%= row[:result] ? grade_text(row[:result]["grade"]) : "—" %></div>

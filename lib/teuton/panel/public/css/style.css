@@ -150,11 +150,12 @@ tr.disabled td { color: var(--slate); }
 .grade-value { font-family: var(--font-title); font-weight: 800; font-size: 1.15rem; min-width: 3.2rem; text-align: right; }
 .grade-bar { flex: 1; height: 10px; border-radius: 999px; background: var(--slate-wash); overflow: hidden; }
 .grade-bar span { display: block; height: 100%; border-radius: 999px; background: var(--leaf); }
-.grade.mid .grade-bar span { background: var(--sun); }
+.grade.mid .grade-bar span { background: var(--lagoon); }
 .grade.low .grade-bar span { background: var(--coral); }
 .badge { display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.85rem; font-weight: 700; padding: 0.15rem 0.6rem; border-radius: 999px; white-space: nowrap; }
 .badge::before { content: ""; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: currentColor; }
 .badge.ok { color: var(--leaf); background: var(--leaf-wash); }
+.badge.passed { color: var(--lagoon-dark); background: var(--lagoon-wash); }
 .badge.fail { color: var(--coral); background: var(--coral-wash); }
 .badge.pending { color: var(--amber); background: var(--amber-wash); }
 .badge.conn { color: var(--plum); background: var(--plum-wash); }
@@ -174,7 +175,7 @@ body.projector .page-head h1 { color: #fff; font-size: 2.4rem; }
 body.projector .muted { color: #b9c2d6; }
 .tiles { display: grid; gap: 0.9rem; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
 .tile { background: #2a3654; border-radius: var(--radius); padding: 0.9rem 1rem; border-left: 8px solid var(--leaf); }
-.tile.mid { border-left-color: var(--sun); }
+.tile.mid { border-left-color: #3aa6a9; }
 .tile.low { border-left-color: #e26a5f; }
 .tile.pending { border-left-color: #8792a8; }
 .tile.conn { border-left-color: #b583d6; }

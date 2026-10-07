@@ -13,7 +13,7 @@ An elegant educational app for adults: warm, lively, motivating, with clear prog
 - Sunflower `--sun #f2b33d` (accent, focus ring, code display); wash `#fdf1d8`.
 - Paper `--paper #f4f6fa` (page), card `#ffffff`, line `#dde3ec`.
 - Meaning (text colour / wash): pass leaf `#237a47 / #e2f3e8`, fail coral `#b8392f / #fbe6e3`, pending amber `#8a5a00 / #fcefd2`, connection error plum `#7a3fa0 / #f1e7f8`, disabled slate `#5b6578 / #eceff4`.
-- Grades: ≥ 80 leaf, 50–79 sunflower, < 50 coral (`grade_class`).
+- Grades and states share three bands: 100 leaf "Complete", 50–99 lagoon "Passed", < 50 coral "Needs work" (`grade_class`, `state_key`). Sunflower is never a grade colour, so it cannot be read as "pending" (amber).
 - Text on lagoon is white; text on sunflower is ink. Keep 4.5:1 contrast.
 
 ## Typography

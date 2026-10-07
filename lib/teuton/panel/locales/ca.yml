@@ -35,7 +35,8 @@ fields:
   name: "El teu nom"
   email: "El teu correu"
 status:
-  ok: "Fet"
+  passed: "Aprovat"
+  complete: "Complet"
   pending: "Pendent"
   disabled: "Desactivat"
   conn_error: "Problema de connexió"

@@ -35,7 +35,8 @@ fields:
   name: "Your name"
   email: "Your email"
 status:
-  ok: "Done"
+  passed: "Passed"
+  complete: "Complete"
   pending: "Pending"
   disabled: "Disabled"
   conn_error: "Connection problem"

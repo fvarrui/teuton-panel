@@ -261,6 +261,9 @@ class AppTest < Test::Unit::TestCase
     grades = JSON.parse(last_response.body).to_h { [_1["key"], _1["grade"]] }
     assert_equal 33.0, grades["CD4M"]
     assert_nil grades["GH6P"]
+    states = JSON.parse(last_response.body).to_h { [_1["key"], _1["status"]] }
+    assert_equal "needs_work", states["CD4M"]
+    assert_equal "disabled", states["GH6P"]
 
     post "/teacher/sessions/new", {"label" => "Group A"}
     get "/teacher/results.json"
