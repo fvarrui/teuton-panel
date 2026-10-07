@@ -334,7 +334,8 @@ module Teuton::Panel
       language = Lang::LANGS.include?(params["language"]) ? params["language"] : config[:language]
       config.update(student: student, teacher: {allow: allow}, language: language, server: {addresses: addresses},
         runs: {max_parallel: [params["max_parallel"].to_i, 1].max})
-      redirect "/teacher/settings?saved=1"
+      section = %w[students panel].include?(params["section"]) ? params["section"] : "students"
+      redirect "/teacher/settings?saved=#{section}##{section}"
     end
 
     get "/teacher/sessions" do

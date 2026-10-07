@@ -247,6 +247,17 @@ class AppTest < Test::Unit::TestCase
     assert_equal 200, last_response.status
   end
 
+  test "settings saved per section and the registered-list hint" do
+    get "/teacher"
+    assert_match "/teacher/settings#students", last_response.body
+    get "/teacher/settings"
+    assert_no_match(/placeholder="192/, last_response.body)
+    post "/teacher/settings", {"section" => "panel", "student" => {"run" => "1"}, "formats" => ["html"], "language" => "es", "max_parallel" => "2"}
+    assert_match "saved=panel#panel", last_response.location
+    get "/teacher"
+    assert_no_match(%r{/teacher/settings#students}, last_response.body) # list is off now
+  end
+
   test "one menu tab is current" do
     current = -> { last_response.body.scan(/<a href="([^"]+)" class="current" aria-current/).flatten }
     get "/teacher/runs"

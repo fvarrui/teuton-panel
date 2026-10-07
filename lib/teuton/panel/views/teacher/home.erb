@@ -52,4 +52,7 @@
     <p><a href="<%= h url %>"><%= h url %></a></p>
     <pre class="cmd" translate="no"><span class="prompt">$ </span>curl <%= h url %>.txt</pre>
   <% end %>
+  <% if config[:student][:list] %>
+    <p class="muted"><%= h t("teacher.home.list_hint") %> <a href="/teacher/settings#students"><%= h t("teacher.home.list_change") %></a></p>
+  <% end %>
 </section>
