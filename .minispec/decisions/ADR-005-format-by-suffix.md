@@ -9,7 +9,7 @@ Every route renders on the server and chooses its format by URL suffix, like Red
 - Students use `curl` from terminal-only machines; plain text (`/students/K7QH/results.txt`) is readable for beginners, JSON is not.
 - The suffix is explicit, visible in the URL and easy to type; no headers to remember.
 - JSON on the same routes gives a real API for scripts or a future CLI client without a second codebase.
-- A SPA would need a JS framework and a build step (against ADR-003) and would break terminal browsers such as lynx (`docs/demo.md`).
+- A SPA would need a JS framework and a build step (against ADR-003) and would break terminal browsers such as lynx (`docs/en/developers/notes/demo.md`).
 
 ## Consequences
 

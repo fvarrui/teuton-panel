@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-`teuton-panel` is a Ruby gem that serves a web panel for [Teuton](https://github.com/teuton-software/teuton), the infrastructure-testing tool used by sysadmin teachers to evaluate students' machines. A teacher starts it on a classroom LAN: the teacher area answers only the teacher's machine (plus allowed IPs), the student area is reachable from the network and students are identified by a personal code (ADR-001, ADR-004). Teuton runs the tests; the panel always calls the `teuton` 3.x command as a subprocess and reads its JSON reports (ADR-002, which also lists Teuton 3.0.0 bugs to work around). User documentation is in `README.md`; the classroom use case that motivates it is in `docs/`.
+`teuton-panel` is a Ruby gem that serves a web panel for [Teuton](https://github.com/teuton-software/teuton), the infrastructure-testing tool used by sysadmin teachers to evaluate students' machines. A teacher starts it on a classroom LAN: the teacher area answers only the teacher's machine (plus allowed IPs), the student area is reachable from the network and students are identified by a personal code (ADR-001, ADR-004). Teuton runs the tests; the panel always calls the `teuton` 3.x command as a subprocess and reads its JSON reports (ADR-002, which also lists Teuton 3.0.0 bugs to work around). User documentation: `README.md` and the Jekyll site in `docs/` (en/es/ca, published to GitHub Pages by `.github/workflows/docs.yml`); the original design notes are in `docs/en/developers/notes/`.
 
 ## Commands
 
@@ -20,6 +20,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 | `bundle exec rake standard:fix` | Auto-fix lint offenses |
 | `ruby .claude/skills/teuton-sandbox/scripts/create_sandbox.rb` | Sample localhost test in `tmp/sandbox` |
 | `ruby teuton-panel up tmp/sandbox` | Start the panel from the source tree (WEBrick on `0.0.0.0:4567`) |
+| `bundle exec rake docs:screenshots` | Retake the documentation screenshots in en/es/ca (headless Chrome/Edge) |
 | `gem build teuton-panel.gemspec` | Build the gem (installed executable: `bin/teuton-panel`) |
 | `bin/console` | IRB with the gem loaded |
 
@@ -31,7 +32,7 @@ Gotchas: in ERB views use full constant names (`Teuton::Panel::Params`); route p
 
 ## Language
 
-Everything in this repo is written in English: code, identifiers, comments, routes/endpoints, CLI messages, commit messages, this file, `.minispec/` (content and headings) and any new documentation. This applies regardless of the language the user chats in. The web GUI is multi-language (English and Spanish, chosen per request from `Accept-Language`): user-facing strings always come from the locale files, never hard-coded in one language.
+Everything in this repo is written in English: code, identifiers, comments, routes/endpoints, CLI messages, commit messages, this file, `.minispec/` (content and headings) and any new documentation. The documentation site is the exception: it is written in English (the source) and kept translated in `docs/es/` and `docs/ca/`; change the three versions together. This applies regardless of the language the user chats in. The web GUI is multi-language (English, Spanish and Catalan, chosen per request from `Accept-Language`): user-facing strings always come from the locale files, never hard-coded in one language.
 
 ## Code style
 

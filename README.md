@@ -2,6 +2,8 @@
 
 A web panel for [Teuton](https://github.com/teuton-software/teuton) that a teacher runs on a classroom network. Students register their machines from a browser or a terminal, the panel runs Teuton for the whole class or for one student, and everybody sees the results: the teacher on a dashboard ready for the projector, each student on their own page.
 
+**Documentation** (English, Spanish and Catalan), with teacher and student guides, screenshots and every use case: <https://fvarrui.github.io/teuton-panel/>
+
 Teuton does the testing; teuton-panel only drives it. It calls the `teuton` command and reads the JSON reports it writes, so any Teuton 3 test works without changes.
 
 ## Features
@@ -10,7 +12,7 @@ Teuton does the testing; teuton-panel only drives it. It calls the `teuton` comm
 - **Student area** (from the classroom network): register and get a personal code, run their own test, see their grade, history and connection status, and read the test statement.
 - **Browser or terminal**: every student page also exists as plain text (`.txt`, for `curl`) and JSON (`.json`).
 - **The teacher decides**: each student feature and each format can be switched on and off; with no format enabled the student area is closed.
-- **English and Spanish**: chosen from the browser's language, or with `?lang=en` / `?lang=es`.
+- **English, Spanish and Catalan**: chosen from the browser's language, or with `?lang=en`, `?lang=es` or `?lang=ca`.
 - **Offline**: no internet needed; fonts and styles are served by the panel.
 - **Safe by default**: students never see other students' data or any password, and the teacher area answers only the teacher's computer.
 
@@ -178,7 +180,7 @@ ruby samples/linux-files-basics/reset.rb   # richer demo with invented students 
 ruby teuton-panel up tmp/sandbox            # development launcher
 ```
 
-Some tests run the real `teuton` command on the sandbox test, so the full suite takes a minute or two. Design notes and decisions live in `.minispec/` and `docs/`.
+Some tests run the real `teuton` command on the sandbox test, so the full suite takes a minute or two. Decisions live in `.minispec/`; the documentation site (Jekyll, in `docs/`) explains how to build it and retake its screenshots (`bundle exec rake docs:screenshots`).
 
 ## License
 

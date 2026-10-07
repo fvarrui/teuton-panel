@@ -7,7 +7,7 @@ The panel listens on all interfaces. Teacher routes only answer loopback request
 ## Motivation
 
 - The panel usually runs on the teacher's machine in a classroom network; the teacher works on that machine and projects it.
-- Some teachers run it on a small server and manage it from their laptop (`docs/history.md`); an allow-list of teacher IPs covers that without passwords.
+- Some teachers run it on a small server and manage it from their laptop (`docs/en/developers/notes/history.md`); an allow-list of teacher IPs covers that without passwords.
 - Students must reach registration, their own run and results from their machines, often only with a terminal (`curl`).
 - No login system: classroom LAN plus a teacher allow-list is enough protection and keeps setup at zero.
 

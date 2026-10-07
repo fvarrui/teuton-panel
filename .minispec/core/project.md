@@ -36,4 +36,4 @@ Let the teacher use Teuton in class without touching the server during the sessi
 ## Background
 
 - Supersedes the Java desktop `teuton-panel` v1 (archived as `teuton-software/deprecated-teuton-panel-v1`), `teuton-server`/`teuton-client` (TCP) and the removed `teuton config --server` form. Teuton's `docs/devel/todo.md` §5.1 assigns that work to this gem.
-- Reference use case and feature notes: `docs/history.md`, `docs/demo.md`, `docs/todo.md`.
+- Reference use case and feature notes: `docs/en/developers/notes/` (history, demo, todo).

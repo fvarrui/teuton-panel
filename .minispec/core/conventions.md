@@ -1,7 +1,7 @@
 # Conventions
 
-- Everything in this repo is written in English: code, identifiers, comments, routes/endpoints, CLI messages, commits, `CLAUDE.md`, `.minispec/` and documentation (including `docs/`).
-- The web GUI is multi-language (English and Spanish). Every string the browser or `curl` shows comes from the locale files through a translation helper; never hard-code user-facing text in one language.
+- Everything in this repo is written in English: code, identifiers, comments, routes/endpoints, CLI messages, commits, `CLAUDE.md`, `.minispec/` and documentation. The documentation site is written in English (`docs/en/`) and kept translated in `docs/es/` and `docs/ca/`: change the three versions together and retake screenshots after visual changes.
+- The web GUI is multi-language (English, Spanish and Catalan). Every string the browser or `curl` shows comes from the locale files through a translation helper; never hard-code user-facing text in one language.
 - Language per request from `Accept-Language`; fallback to the panel config's default language.
 - Teacher routes live under `/teacher/...`; student routes under `/students/...`, with personal routes as `/students/<code>/...` (no query strings to quote in a shell). The full route map is in `architecture.md`.
 - Only GET and POST. Actions that change data use POST, except `GET /students/<code>/run`, kept for plain `curl`.
