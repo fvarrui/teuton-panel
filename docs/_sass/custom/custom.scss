@@ -1,18 +1,124 @@
-// Screenshots and language switch
+// Teuton Panel look for the documentation (same fonts, palette and components as the app)
+
+// Fonts: the panel's OFL fonts, served by this site (licenses next to them)
+@font-face { font-family: "Atkinson Hyperlegible"; src: url("../fonts/atkinson-hyperlegible-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Atkinson Hyperlegible"; src: url("../fonts/atkinson-hyperlegible-latin-400-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: "Atkinson Hyperlegible"; src: url("../fonts/atkinson-hyperlegible-latin-700-normal.woff2") format("woff2"); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: "Bricolage Grotesque"; src: url("../fonts/bricolage-grotesque-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+@font-face { font-family: "Bricolage Grotesque"; src: url("../fonts/bricolage-grotesque-latin-800-normal.woff2") format("woff2"); font-weight: 800; font-display: swap; }
+@font-face { font-family: "JetBrains Mono"; src: url("../fonts/jetbrains-mono-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+
+$ink: #1f2a44;
+$ink-soft: #4a5571;
+$lagoon: #0f7c80;
+$lagoon-dark: #0b5f62;
+$lagoon-wash: #e3f2f1;
+$sun: #f2b33d;
+$sun-wash: #fdf1d8;
+$line: #dde3ec;
+$title-font: "Bricolage Grotesque", "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+
+body { font-size: 1.0625rem; }
+:focus-visible { outline: 3px solid $sun; outline-offset: 2px; }
+
+// Titles
+.main-content {
+  h1, h2, h3, h4, h5, h6 { font-family: $title-font; color: $ink; text-wrap: balance; }
+  h1 { font-weight: 800; letter-spacing: -0.01em; }
+  h2, h3 { font-weight: 600; }
+  h4 { text-transform: none; letter-spacing: 0; font-size: 1rem; }
+  a { text-underline-offset: 3px; }
+}
+
+// Sidebar: ink, like the panel's top bar
+.side-bar {
+  border-right: 0;
+
+  .site-header { border-bottom: 1px solid rgba(255, 255, 255, 0.12); }
+  .site-title {
+    color: #fff;
+    font-family: $title-font;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    &:hover { background-image: none; color: #fff; }
+  }
+  .site-button { color: #fff; .icon { color: #fff; } }
+  .site-footer { color: #a3adc2; a { color: #d8deea; } }
+}
+
+.brand-mark {
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  background: $sun;
+  color: $ink;
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+}
+
+.nav-list .nav-list-item {
+  .nav-list-link {
+    color: #d8deea;
+    border-radius: 8px;
+    &:hover { background-image: none; background: rgba(255, 255, 255, 0.08); color: #fff; }
+    &.active { background-image: none; background: rgba(255, 255, 255, 0.14); color: #fff; font-weight: 700; }
+  }
+  .nav-list-expander { color: #a3adc2; &:hover { background-image: none; background: rgba(255, 255, 255, 0.08); } }
+}
+
+// Header: white bar with search, links and language switch
+.main-header, .main-header .aux-nav, .main-header .search { background: #fff !important; }
+.main-header { border-bottom: 1px solid $line; }
+.search-input { background: #fff; }
+.aux-nav .aux-nav-list-item a, .aux-nav-list-link { color: $lagoon-dark; }
+
+// Content: tables, code and callouts as in the panel
+.table-wrapper { border: 1px solid $line; border-radius: 14px; box-shadow: 0 1px 2px rgba(31, 42, 68, 0.06), 0 6px 18px rgba(31, 42, 68, 0.06); }
+th { color: $ink-soft; font-size: 0.85rem; font-weight: 700; text-align: left; border-bottom: 2px solid $line !important; }
+td, th { border-color: $line; }
+
+code { border: 0; border-radius: 5px; }
+div.highlighter-rouge, figure.highlight { border-radius: 8px; }
+
+.main-content blockquote { border-left: 4px solid $sun; background: $sun-wash; padding: 0.6rem 1rem; border-radius: 8px; }
+
+.btn-primary { border-radius: 10px; }
+
+// Mermaid diagrams sit in a card (the theme renders them inside pre > code)
+.main-content pre:has(> code.language-mermaid) {
+  background: #fff;
+  border: 1px solid $line;
+  border-radius: 14px;
+  padding: 1rem;
+  margin: 0.5rem 0 1.5rem;
+  white-space: normal;
+  line-height: 1.2;
+}
+
+.main-content code.language-mermaid {
+  display: block;
+  text-align: center;
+  font-family: inherit;
+}
+
+// Screenshots, language switch and use case ids
 .screenshot {
   margin: 1.25rem 0 1.75rem;
 
   img {
     display: block;
     max-width: 100%;
-    border: 1px solid #dde3ec;
+    border: 1px solid $line;
     border-radius: 10px;
     box-shadow: 0 6px 18px rgba(31, 42, 68, 0.08);
   }
 
   figcaption {
     font-size: 0.85rem;
-    color: #4a5571;
+    color: $ink-soft;
     margin-top: 0.4rem;
   }
 }
@@ -24,21 +130,25 @@
   padding: 0 1rem;
 
   a {
-    font-weight: 600;
+    font-weight: 700;
     font-size: 0.85rem;
-    color: #4a5571;
+    color: $ink-soft;
     text-decoration: none;
 
     &.current {
-      color: #0f7c80;
+      color: $lagoon;
       text-decoration: underline;
+      text-underline-offset: 3px;
     }
   }
 }
 
 .uc-id {
-  font-family: "SFMono-Regular", Consolas, monospace;
-  font-size: 0.85em;
-  color: #0b5f62;
+  font-family: "JetBrains Mono", Consolas, monospace;
+  font-size: 0.8em;
+  color: $lagoon-dark;
+  background: $lagoon-wash;
+  border-radius: 999px;
+  padding: 0.05rem 0.45rem;
   white-space: nowrap;
 }

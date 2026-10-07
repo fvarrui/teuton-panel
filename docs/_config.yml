@@ -19,6 +19,10 @@ aux_links:
   "GitHub": "https://github.com/dvarrui/teuton-panel"
 aux_links_new_tab: true
 search_enabled: true
+
+# Mermaid diagrams (```mermaid blocks), rendered in the browser
+mermaid:
+  version: "11"
 heading_anchors: true
 back_to_top: true
 back_to_top_text: "↑"

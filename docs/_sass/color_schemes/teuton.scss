@@ -1,7 +1,19 @@
-// Teuton Panel colours (same palette as the app, .minispec/core/design.md)
-$link-color: #0b5f62;
-$btn-primary-color: #0f7c80;
-$sidebar-color: #f4f6fa;
+// Teuton Panel look: same palette and fonts as the app (.minispec/core/design.md)
+$body-font-family: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+$mono-font-family: "JetBrains Mono", Consolas, "Courier New", monospace;
+$body-line-height: 1.5;
+$content-line-height: 1.65;
+
+$body-background-color: #f4f6fa; // paper
+$sidebar-color: #1f2a44; // ink, like the panel's top bar
+$search-background-color: #ffffff;
+$table-background-color: #ffffff;
+$code-background-color: #eceff4; // slate wash
+$border-color: #dde3ec; // line
 $body-heading-color: #1f2a44;
-$body-text-color: #2b3550;
-$nav-child-link-color: #4a5571;
+$body-text-color: #26304a;
+$link-color: #0b5f62; // lagoon dark
+$nav-child-link-color: #d8deea;
+$btn-primary-color: #0f7c80; // lagoon
+$base-button-color: #ffffff;
+$feedback-color: #e3f2f1;

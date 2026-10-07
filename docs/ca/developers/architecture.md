@@ -14,9 +14,58 @@ permalink: /developers/architecture/
 
 ## Flux
 
+### Arrencada
+
+`teuton-panel up DIR` comprova Teuton, busca els tests, carrega la configuració i arrenca l'aplicació web:
+
+```mermaid
+flowchart LR
+  bin([bin/teuton-panel]) --> cli[CLI<br/>Thor]
+  cli --> up["Teuton::Panel.up"]
+  up --> check["Comprovar teuton 3.x"]
+  up --> tests["Buscar tests<br/>(start.rb)"]
+  up --> config["Carregar<br/>teuton-panel.yaml"]
+  up --> queue["RunQueue +<br/>Scheduler"]
+  check & tests & config & queue --> app[("App<br/>Sinatra · WEBrick")]
 ```
-bin/teuton-panel → CLI (Thor) → Teuton::Panel.up → comprovar teuton, Projects, Config, RunQueue, Scheduler → App (Sinatra/WEBrick)
-App (àrea del professor | àrea d'alumnes) → RunQueue → Runner: subprocés teuton a la seva carpeta → informes JSON → ResultsStore → vistes
+
+### Peticions i execucions
+
+Cada pàgina llegeix el magatzem de resultats; les execucions passen per la cua, i cadascuna és un subprocés de Teuton a la seva pròpia carpeta:
+
+```mermaid
+flowchart TB
+  teacher(["Professor<br/>(localhost)"]) --> tarea["Àrea del professor<br/>/teacher"]
+  student(["Alumne<br/>(navegador o curl)"]) --> sarea["Àrea d'alumnes<br/>/students"]
+  tarea & sarea --> queue[RunQueue]
+  queue --> runner["Runner"]
+  runner --> teuton[["teuton run<br/>(subprocés)"]]
+  teuton --> rundir[("Carpeta de l'execució<br/>informes JSON")]
+  rundir --> store[("ResultsStore")]
+  store --> views["Vistes<br/>HTML · txt · JSON"]
+```
+
+### Una execució d'un alumne al navegador
+
+Post/Redirect/Get: el POST posa l'execució a la cua i la pàgina d'estat es recarrega sola, de manera que recarregar mai executa el test dues vegades.
+
+```mermaid
+sequenceDiagram
+  participant B as Navegador
+  participant P as Panell
+  participant Q as RunQueue
+  participant T as teuton
+  B->>P: POST /students/CODE/run
+  P->>Q: execució a la cua
+  P-->>B: 302 → /run?view=1
+  Q->>T: teuton run
+  loop ×N
+    B->>P: GET /run?view=1 (cada 3 s)
+    P-->>B: Revisant…
+  end
+  T-->>P: summary.json
+  B->>P: GET /run?view=1
+  P-->>B: Nota i objectius
 ```
 
 ## Peces principals (`lib/teuton/panel/`)

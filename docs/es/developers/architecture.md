@@ -14,9 +14,58 @@ permalink: /developers/architecture/
 
 ## Flujo
 
+### Arranque
+
+`teuton-panel up DIR` comprueba Teuton, busca los tests, carga los ajustes y arranca la aplicación web:
+
+```mermaid
+flowchart LR
+  bin([bin/teuton-panel]) --> cli[CLI<br/>Thor]
+  cli --> up["Teuton::Panel.up"]
+  up --> check["Comprobar teuton 3.x"]
+  up --> tests["Buscar tests<br/>(start.rb)"]
+  up --> config["Cargar<br/>teuton-panel.yaml"]
+  up --> queue["RunQueue +<br/>Scheduler"]
+  check & tests & config & queue --> app[("App<br/>Sinatra · WEBrick")]
 ```
-bin/teuton-panel → CLI (Thor) → Teuton::Panel.up → comprobar teuton, Projects, Config, RunQueue, Scheduler → App (Sinatra/WEBrick)
-App (área del profesor | área de alumnos) → RunQueue → Runner: subproceso teuton en su carpeta → informes JSON → ResultsStore → vistas
+
+### Peticiones y ejecuciones
+
+Cada página lee el almacén de resultados; las ejecuciones pasan por la cola, y cada una es un subproceso de Teuton en su propia carpeta:
+
+```mermaid
+flowchart TB
+  teacher(["Profesor<br/>(localhost)"]) --> tarea["Área del profesor<br/>/teacher"]
+  student(["Alumno<br/>(navegador o curl)"]) --> sarea["Área de alumnos<br/>/students"]
+  tarea & sarea --> queue[RunQueue]
+  queue --> runner["Runner"]
+  runner --> teuton[["teuton run<br/>(subproceso)"]]
+  teuton --> rundir[("Carpeta de la ejecución<br/>informes JSON")]
+  rundir --> store[("ResultsStore")]
+  store --> views["Vistas<br/>HTML · txt · JSON"]
+```
+
+### Una ejecución de un alumno en el navegador
+
+Post/Redirect/Get: el POST encola la ejecución y la página de estado se recarga sola, así que recargar nunca ejecuta el test dos veces.
+
+```mermaid
+sequenceDiagram
+  participant B as Navegador
+  participant P as Panel
+  participant Q as RunQueue
+  participant T as teuton
+  B->>P: POST /students/CODE/run
+  P->>Q: ejecución en cola
+  P-->>B: 302 → /run?view=1
+  Q->>T: teuton run
+  loop ×N
+    B->>P: GET /run?view=1 (cada 3 s)
+    P-->>B: Revisando…
+  end
+  T-->>P: summary.json
+  B->>P: GET /run?view=1
+  P-->>B: Nota y objetivos
 ```
 
 ## Piezas principales (`lib/teuton/panel/`)

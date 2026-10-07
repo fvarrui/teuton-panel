@@ -14,9 +14,58 @@ permalink: /developers/architecture/
 
 ## Flow
 
+### Start
+
+`teuton-panel up DIR` checks Teuton, finds the tests, loads the settings and starts the web app:
+
+```mermaid
+flowchart LR
+  bin([bin/teuton-panel]) --> cli[CLI<br/>Thor]
+  cli --> up["Teuton::Panel.up"]
+  up --> check["Check teuton 3.x"]
+  up --> tests["Find tests<br/>(start.rb)"]
+  up --> config["Load<br/>teuton-panel.yaml"]
+  up --> queue["RunQueue +<br/>Scheduler"]
+  check & tests & config & queue --> app[("App<br/>Sinatra · WEBrick")]
 ```
-bin/teuton-panel → CLI (Thor) → Teuton::Panel.up → check teuton, Projects, Config, RunQueue, Scheduler → App (Sinatra/WEBrick)
-App (teacher area | student area) → RunQueue → Runner: teuton subprocess in its own run dir → JSON reports → ResultsStore → views
+
+### Requests and runs
+
+Every page reads the results store; runs go through the queue, and each one is a Teuton subprocess in its own directory:
+
+```mermaid
+flowchart TB
+  teacher(["Teacher<br/>(localhost)"]) --> tarea["Teacher area<br/>/teacher"]
+  student(["Student<br/>(browser or curl)"]) --> sarea["Student area<br/>/students"]
+  tarea & sarea --> queue[RunQueue]
+  queue --> runner["Runner"]
+  runner --> teuton[["teuton run<br/>(subprocess)"]]
+  teuton --> rundir[("Run directory<br/>JSON reports")]
+  rundir --> store[("ResultsStore")]
+  store --> views["Views<br/>HTML · txt · JSON"]
+```
+
+### A student run in the browser
+
+Post/Redirect/Get: the POST queues the run and the state page reloads itself, so reloading never runs the test twice.
+
+```mermaid
+sequenceDiagram
+  participant B as Browser
+  participant P as Panel
+  participant Q as RunQueue
+  participant T as teuton
+  B->>P: POST /students/CODE/run
+  P->>Q: run queued
+  P-->>B: 302 → /run?view=1
+  Q->>T: teuton run
+  loop ×N
+    B->>P: GET /run?view=1 (every 3 s)
+    P-->>B: Running…
+  end
+  T-->>P: summary.json
+  B->>P: GET /run?view=1
+  P-->>B: Grade and targets
 ```
 
 ## Main pieces (`lib/teuton/panel/`)

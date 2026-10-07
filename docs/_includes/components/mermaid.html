@@ -1,0 +1,14 @@
+{%- comment -%}
+  Replaces the theme's loader: each diagram is rendered with its own id
+  (mermaid.run uses time-based ids that can collide and mix the diagrams' styles).
+{%- endcomment -%}
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@{{ site.mermaid.version }}/dist/mermaid.esm.min.mjs';
+
+  mermaid.initialize({% include mermaid_config.js %});
+  const blocks = document.querySelectorAll('code.language-mermaid');
+  for (const [index, block] of blocks.entries()) {
+    const { svg } = await mermaid.render(`diagram-${index + 1}`, block.textContent);
+    block.innerHTML = svg;
+  }
+</script>
