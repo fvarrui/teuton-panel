@@ -79,3 +79,11 @@ The registrations, results and runs of one class period. "New session" archives 
 ## `conn_status`
 
 Per-host connection error of a case in Teuton's resume (e.g. `host_unreachable`, `error_authentication_failed`).
+
+## GUI terms (en / es / ca)
+
+- Case → student / alumno / alumne (only English keeps "case" for hand-written entries of `config.yaml`).
+- Target → target / objetivo / objectiu.
+- Run → run / ejecución / execució; pass (of a loop) → pass / pasada / passada.
+- Statement (`teuton readme`) → statement / enunciado / enunciat.
+- Grade states → Complete / Completo / Complet (100), Passed / Aprobado / Aprovat (50–99), Needs work / Le falta trabajo / Li falta feina (< 50).

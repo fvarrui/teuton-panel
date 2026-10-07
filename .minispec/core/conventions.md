@@ -18,7 +18,7 @@
 - Route patterns with a suffix use `(.:format)?` (not `.?:format?`, which also matches `/runs` as `/run` + `s`).
 - ERB views live outside the module scope: reference panel constants with their full name (`Teuton::Panel::Params`).
 - Plain-text views (`views/txt/`) render with ERB trim mode `-`: control lines are written `<%- ... -%>`.
-- Every user-facing string is in both `en.yml` and `es.yml`; `lang_test.rb` fails when the keys differ.
+- Every user-facing string is in `en.yml`, `es.yml` and `ca.yml`; `lang_test.rb` fails when the keys differ. Words follow the GUI terms in `glossary.md`.
 - Values typed by students (and edited by the teacher) pass `Registration.value_error`: letters, digits, space and `. _ - @ : /`, at most 100 characters; passwords only have the length limit. Tests put typed values into commands, so never relax this without a reason recorded in an ADR.
 - Student-supplied values are always escaped in HTML (`h`); JSON and text never include passwords, other students' codes or report `config` sections.
 - Markdown: one line per paragraph and list item, no horizontal rules between sections.
