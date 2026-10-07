@@ -1,5 +1,12 @@
 # teuton-panel
 
+[![Release](https://img.shields.io/github/v/release/fvarrui/teuton-panel?label=release)](https://github.com/fvarrui/teuton-panel/releases/latest)
+[![Documentation](https://github.com/fvarrui/teuton-panel/actions/workflows/docs.yml/badge.svg)](https://fvarrui.github.io/teuton-panel/)
+[![Ruby](https://img.shields.io/badge/ruby-%3E%3D%203.2-CC342D?logo=ruby&logoColor=white)](https://www.ruby-lang.org/)
+[![Teuton](https://img.shields.io/badge/teuton-3.x-2E7D32)](https://github.com/teuton-software/teuton)
+[![Languages](https://img.shields.io/badge/languages-en%20%7C%20es%20%7C%20ca-8E44AD)](https://fvarrui.github.io/teuton-panel/)
+[![License: MPL 2.0](https://img.shields.io/badge/license-MPL%202.0-blue)](LICENSE)
+
 A web panel for [Teuton](https://github.com/teuton-software/teuton) that a teacher runs on a classroom network. Students register their machines from a browser or a terminal, the panel runs Teuton for the whole class or for one student, and everybody sees the results: the teacher on a dashboard ready for the projector, each student on their own page.
 
 **Documentation** (English, Spanish and Catalan), with teacher and student guides, screenshots and every use case: <https://fvarrui.github.io/teuton-panel/>
