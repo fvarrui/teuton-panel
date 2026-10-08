@@ -48,7 +48,7 @@ Invoke-WebRequest https://github.com/fvarrui/teuton-panel/releases/latest/downlo
 gem install teuton-panel.gem
 ```
 
-`gem install` does not accept a URL: download the file first. The `latest` link always gives the newest release, so the same two lines also update the panel. For a specific version, use its own file, for example `https://github.com/fvarrui/teuton-panel/releases/download/v0.3.1/teuton-panel-0.3.1.gem`.
+`gem install` does not accept a URL: download the file first. The `latest` link always gives the newest release, so the same two lines also update the panel. For a specific version, use its own file, for example `https://github.com/fvarrui/teuton-panel/releases/download/v0.3.2/teuton-panel-0.3.2.gem`.
 
 From the source code:
 
@@ -70,7 +70,7 @@ The panel looks for every directory with a `start.rb` under `PATH/TO/TESTS` (the
 
 ```
 ------------------------------------------------------------
-teuton-panel 0.3.1
+teuton-panel 0.3.2
 Base dir    : /home/teacher/tests
 Active test : network-basics
 Teacher     : http://localhost:4567/teacher

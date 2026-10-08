@@ -1,3 +1,9 @@
+## [0.3.2] - 2026-10-08
+
+- [FEATURE] Run page: pick students from a table with their grade, state and last evaluation; filters show and tick a group (pending, needs work, passed, connection problem); sort by name or grade; optional select-all box and "N selected" counter.
+- [UPDATE] Run page: compact status box on top, form at full width; Teuton's output stays in the run detail.
+- [DOC] Compact code blocks with a copy button; install commands use the stable `releases/latest/download/teuton-panel.gem` link.
+
 ## [0.3.1] - 2026-10-08
 
 - [ADD] teuton-panel logo: three stacked panels in Teuton's colours with a white T. In the panel's top bar, student home, projector header and favicon (SVG, with PNG fallbacks), and in the documentation and the README.
