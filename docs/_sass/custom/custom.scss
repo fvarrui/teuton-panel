@@ -152,3 +152,18 @@ div.highlighter-rouge, figure.highlight { border-radius: 8px; }
 }
 
 .home-logo { display: block; width: 180px; height: auto; margin: 0 0 0.5rem; }
+
+// Compact code blocks: less padding, light border, smaller text
+div.highlighter-rouge, figure.highlight { margin-bottom: 0.75rem; border-radius: 8px; }
+div.highlighter-rouge div.highlight, figure.highlight pre {
+  padding: 0.5rem 0.8rem !important;
+  border: 1px solid $line !important;
+  border-radius: 8px;
+}
+div.highlighter-rouge pre.highlight code, figure.highlight pre code {
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+div.highlighter-rouge > button, figure.highlight > button { padding: 0.45rem !important; }
+div.highlighter-rouge pre.highlight, figure.highlight pre, .main-content pre { font-size: 0.8rem; line-height: 1.5 !important; margin: 0; }
+div.highlighter-rouge pre.highlight code, figure.highlight pre code { font-size: inherit !important; line-height: inherit !important; }

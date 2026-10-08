@@ -38,17 +38,17 @@ teuton-panel is not published on RubyGems yet, so `gem install teuton-panel` doe
 
 ```bash
 # Linux / macOS
-curl -LO https://github.com/fvarrui/teuton-panel/releases/download/v0.3.1/teuton-panel-0.3.1.gem
-gem install teuton-panel-0.3.1.gem
+curl -LO https://github.com/fvarrui/teuton-panel/releases/latest/download/teuton-panel.gem
+gem install teuton-panel.gem
 ```
 
 ```powershell
 # Windows (PowerShell)
-Invoke-WebRequest https://github.com/fvarrui/teuton-panel/releases/download/v0.3.1/teuton-panel-0.3.1.gem -OutFile teuton-panel-0.3.1.gem
-gem install teuton-panel-0.3.1.gem
+Invoke-WebRequest https://github.com/fvarrui/teuton-panel/releases/latest/download/teuton-panel.gem -OutFile teuton-panel.gem
+gem install teuton-panel.gem
 ```
 
-`gem install` does not accept a URL: download the file first. For another version, change the number in both lines. To update, install the new release the same way.
+`gem install` does not accept a URL: download the file first. The `latest` link always gives the newest release, so the same two lines also update the panel. For a specific version, use its own file, for example `https://github.com/fvarrui/teuton-panel/releases/download/v0.3.1/teuton-panel-0.3.1.gem`.
 
 From the source code:
 

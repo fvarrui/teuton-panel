@@ -24,17 +24,17 @@ teuton-panel todavía no está publicado en RubyGems, así que `gem install teut
 
 ```bash
 # Linux / macOS
-curl -LO https://github.com/fvarrui/teuton-panel/releases/download/v0.3.1/teuton-panel-0.3.1.gem
-gem install teuton-panel-0.3.1.gem
+curl -LO https://github.com/fvarrui/teuton-panel/releases/latest/download/teuton-panel.gem
+gem install teuton-panel.gem
 ```
 
 ```powershell
 # Windows (PowerShell)
-Invoke-WebRequest https://github.com/fvarrui/teuton-panel/releases/download/v0.3.1/teuton-panel-0.3.1.gem -OutFile teuton-panel-0.3.1.gem
-gem install teuton-panel-0.3.1.gem
+Invoke-WebRequest https://github.com/fvarrui/teuton-panel/releases/latest/download/teuton-panel.gem -OutFile teuton-panel.gem
+gem install teuton-panel.gem
 ```
 
-`gem install` no acepta una URL: primero hay que descargar el fichero. Para otra versión, cambia el número en las dos líneas o descarga el fichero desde la [página de releases](https://github.com/fvarrui/teuton-panel/releases). Para actualizar, instala la release nueva de la misma forma.
+`gem install` no acepta una URL: primero hay que descargar el fichero. El enlace `latest` siempre da la release más reciente, así que las mismas dos líneas sirven también para actualizar el panel. Para una versión concreta, descarga su fichero desde la [página de releases](https://github.com/fvarrui/teuton-panel/releases) (`teuton-panel-<versión>.gem`).
 
 {: .note }
 Si después de instalar no se encuentra el comando `teuton-panel`, la carpeta de ejecutables de las gemas no está en tu `PATH`. Búscala con `gem env` ("EXECUTABLE DIRECTORY") y añádela.
