@@ -27,7 +27,9 @@ En **Ejecutar**, elige un modo, los alumnos que quieres evaluar y pulsa **Empeza
 | **Varias veces** | Cuántas veces, segundos entre ejecuciones | N pasadas, una detrás de otra. |
 | **Cada pocos segundos** | Cada (segundos, mínimo 10), hasta (opcional) | Una pasada cada T segundos hasta que pulses **Parar** o llegue la hora de **Hasta**. |
 
-- **Alumnos**: están marcados todos los alumnos activos; desmarca algunos para evaluar solo una selección. Los desactivados no se pueden marcar.
+- **Alumnos**: una tabla con la nota, el estado y cuándo se evaluó por última vez a cada alumno. Están marcados todos los alumnos activos; desmarca algunos para evaluar solo una selección. Los desactivados aparecen en gris al final y no se pueden marcar.
+- **Mostrar** filtra la tabla y marca solo a esos alumnos: *Todos*, *Pendiente* (aún sin evaluar), *Le falta trabajo*, *Aprobado* (de 50 a 99) o *Problema de conexión*. **Empezar** evalúa exactamente las filas marcadas, así que "Le falta trabajo" + **Empezar** evalúa solo a los alumnos que van por detrás.
+- Haz clic en **Alumno** o **Nota** en la cabecera para ordenar. La casilla de la cabecera marca o desmarca todas las filas que se ven, y el contador junto a **Empezar** dice cuántos hay seleccionados (las dos cosas necesitan JavaScript; sin él, marca las filas una a una).
 - Nunca empieza una pasada mientras la anterior sigue en marcha.
 - Los ajustes que uses se recuerdan para la próxima vez.
 

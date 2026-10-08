@@ -242,8 +242,11 @@ teacher:
     exitcode: "codi de sortida %{code}"
     open: "Obre"
     failed: "Teuton no ha generat informes. Llegeix la sortida de sota."
+    failed_open: "Teuton no ha generat informes. Obre l'execució per llegir-ne la sortida."
     in_progress: "Hi ha una execució en marxa. Atura-la des de l'estat per començar-ne una altra."
     status_frame: "Estat de les execucions"
+    selected: "%{count} seleccionats"
+    select_all: "Selecciona tots els alumnes mostrats"
   runs:
     title: "Històric d'execucions"
     intro: "Totes les execucions de la sessió actual."

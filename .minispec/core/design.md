@@ -53,4 +53,5 @@ Taken from the Teuton logo (green shield, grey-green helm, steel tunic), toned d
 - A page with a form never reloads itself; its live part goes in an iframe with the bare `frame.erb` layout (e.g. `/teacher/run/status`).
 - Auto-refreshing pages use `<meta http-equiv="refresh">`; no entrance or scroll animations. Only the grade bar width and button colours transition, and only without `prefers-reduced-motion`.
 - Every student page must still make sense in lynx (plain HTML, labels, no JS needed).
+- Teacher pages may add a few lines of inline JavaScript as an optional shortcut (the run picker's select-all box and counter); the page must work the same without it (ADR-003).
 - Plain CSS, no framework, no build step.

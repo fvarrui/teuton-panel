@@ -10,6 +10,8 @@ module Teuton::Panel
     READONLY_FIELDS = %w[tt_source_ip] # Shown on the student edit page, never changed there
     STUDENT_SORTS = %w[name grade registered]
     STUDENT_FILTERS = %w[all pending needs_work disabled]
+    RUN_FILTERS = %w[all pending needs_work passed connection] # Who to evaluate; disabled students cannot run
+    RUN_SORTS = %w[name grade]
 
     helpers do
       ##
@@ -66,7 +68,7 @@ module Teuton::Panel
       # Students table rows in the chosen order and filter (unknown values: as they come)
       # @param rows (Array) roster rows
       # @param sort (String) "", name, grade or registered
-      # @param show (String) all, pending, needs_work or disabled
+      # @param show (String) all or a state_key value (pending, needs_work, passed, connection, disabled)
       def sort_and_filter(rows, sort, show)
         rows = rows.select { state_key(_1[:disabled], _1[:result]) == show } unless show == "all"
         if sort == "name"
@@ -238,7 +240,12 @@ module Teuton::Panel
       format!(%w[html json])
       project!
       summary = last_summary
-      locals = {rows: roster, status: scheduler.status, queue: queue.status, settings_used: scheduler.settings,
+      rows = roster
+      sort = RUN_SORTS.include?(params["sort"]) ? params["sort"] : ""
+      show = RUN_FILTERS.include?(params["show"]) ? params["show"] : "all"
+      picked = sort_and_filter(rows.reject { _1[:disabled] }, sort, show)
+      picked += rows.select { _1[:disabled] } if show == "all" # Shown last, greyed, not selectable
+      locals = {rows: picked, sort: sort, show: show, status: scheduler.status, queue: queue.status, settings_used: scheduler.settings,
                 summary: summary, log: run_log(summary)}
       respond(:"teacher/run", locals, {scheduler: scheduler.status, queue: queue.status, last: summary&.except("cases")})
     end
@@ -247,8 +254,7 @@ module Teuton::Panel
     get "/teacher/run/status" do
       project!
       summary = last_summary
-      erb :"teacher/run_status", layout: :frame,
-        locals: {status: scheduler.status, queue: queue.status, summary: summary, log: run_log(summary)}
+      erb :"teacher/run_status", layout: :frame, locals: {status: scheduler.status, queue: queue.status, summary: summary}
     end
 
     post "/teacher/run/start" do

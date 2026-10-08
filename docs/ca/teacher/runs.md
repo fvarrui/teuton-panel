@@ -27,7 +27,9 @@ A **Executa**, tria un mode, els alumnes que vols avaluar i prem **Comença**. E
 | **Diverses vegades** | Quantes vegades, segons entre execucions | N passades, una darrere l'altra. |
 | **Cada pocs segons** | Cada (segons, mínim 10), fins a (opcional) | Una passada cada T segons fins que premis **Atura** o arribi l'hora de **Fins a**. |
 
-- **Alumnes**: estan marcats tots els alumnes actius; desmarca'n alguns per avaluar només una selecció. Els desactivats no es poden marcar.
+- **Alumnes**: una taula amb la nota, l'estat i quan es va avaluar per darrera vegada cada alumne. Estan marcats tots els alumnes actius; desmarca'n alguns per avaluar només una selecció. Els desactivats apareixen en gris al final i no es poden marcar.
+- **Mostra** filtra la taula i marca només aquests alumnes: *Tots*, *Pendent* (encara sense avaluar), *Li falta feina*, *Aprovat* (de 50 a 99) o *Problema de connexió*. **Comença** avalua exactament les files marcades, així que "Li falta feina" + **Comença** avalua només els alumnes que van endarrerits.
+- Fes clic a **Alumne** o **Nota** a la capçalera per ordenar. La casella de la capçalera marca o desmarca totes les files que es veuen, i el comptador al costat de **Comença** diu quants n'hi ha de seleccionats (totes dues coses necessiten JavaScript; sense, marca les files una a una).
 - Mai no comença una passada mentre l'anterior encara està en marxa.
 - Els ajustos que facis servir es recorden per a la propera vegada.
 

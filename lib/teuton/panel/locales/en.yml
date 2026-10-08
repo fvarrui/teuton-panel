@@ -242,8 +242,11 @@ teacher:
     exitcode: "exit code %{code}"
     open: "Open"
     failed: "Teuton did not produce reports. Read the output below."
+    failed_open: "Teuton did not produce reports. Open the run to read its output."
     in_progress: "A run is in progress. Stop it in the status box to start a new one."
     status_frame: "Run status"
+    selected: "%{count} selected"
+    select_all: "Select every student shown"
   runs:
     title: "Run history"
     intro: "Every run of the current session."

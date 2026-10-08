@@ -1,22 +1,26 @@
 <%# Live part of /teacher/run, shown in an iframe that reloads itself while something runs %>
 <% @refresh = 5 if status[:active] || queue[:running].any? || queue[:waiting].any? %>
-<% if status[:active] %>
-  <p><span class="badge ok"><%= h t("teacher.run.active_#{status[:mode]}") %></span> <%= h t("teacher.run.pass", pass: status[:pass]) %></p>
-  <% if status[:next_at] %><p><%= h t("teacher.run.next_pass", time: status[:next_at].strftime("%H:%M:%S")) %></p><% end %>
-  <form method="post" action="/teacher/run/stop" target="_top">
-    <button class="btn danger" type="submit"><%= h t("teacher.run.stop") %></button>
-  </form>
-<% else %>
-  <p><span class="badge disabled"><%= h t("teacher.run.idle") %></span></p>
-<% end %>
-<p class="muted"><%= h t("teacher.home.queue", running: queue[:running].size, waiting: queue[:waiting].size) %></p>
-<% queue[:running].each do |job| %>
-  <p><span class="badge pending"><%= h t("kinds.#{job[:kind]}") %><%= job[:code] ? " · #{job[:code]}" : "" %></span></p>
-<% end %>
-<% if summary %>
-  <h3><%= h t("teacher.run.last") %></h3>
-  <p class="muted"><%= h time_text(summary["finished_at"]) %> · <%= h t("kinds.#{summary["kind"]}") %> · <%= h t("teacher.run.exitcode", code: summary["exitcode"]) %>
-    · <a href="/teacher/runs/<%= h summary["id"] %>" target="_top"><%= h t("teacher.run.open") %></a></p>
-  <% unless summary["ok"] %><div class="notice error"><%= h t("teacher.run.failed") %></div><% end %>
-  <% unless log.strip.empty? %><pre class="log"><%= h log %></pre><% end %>
-<% end %>
+<div class="run-status">
+  <p>
+    <% if status[:active] %>
+      <span class="badge ok"><%= h t("teacher.run.active_#{status[:mode]}") %></span> <%= h t("teacher.run.pass", pass: status[:pass]) %>
+      <% if status[:next_at] %> · <%= h t("teacher.run.next_pass", time: status[:next_at].strftime("%H:%M:%S")) %><% end %>
+    <% else %>
+      <span class="badge disabled"><%= h t("teacher.run.idle") %></span>
+    <% end %>
+    <span class="muted"> · <%= h t("teacher.home.queue", running: queue[:running].size, waiting: queue[:waiting].size) %></span>
+    <% queue[:running].each do |job| %>
+      <span class="badge pending"><%= h t("kinds.#{job[:kind]}") %><%= job[:code] ? " · #{job[:code]}" : "" %></span>
+    <% end %>
+  </p>
+  <% if status[:active] %>
+    <form method="post" action="/teacher/run/stop" target="_top">
+      <button class="btn danger small" type="submit"><%= h t("teacher.run.stop") %></button>
+    </form>
+  <% end %>
+  <% if summary %>
+    <p class="muted"><strong><%= h t("teacher.run.last") %>:</strong> <%= h time_text(summary["finished_at"]) %> · <%= h t("kinds.#{summary["kind"]}") %> · <%= h t("teacher.run.exitcode", code: summary["exitcode"]) %>
+      · <a href="/teacher/runs/<%= h summary["id"] %>" target="_top"><%= h t("teacher.run.open") %></a></p>
+    <% unless summary["ok"] %><div class="notice error"><%= h t("teacher.run.failed_open") %></div><% end %>
+  <% end %>
+</div>

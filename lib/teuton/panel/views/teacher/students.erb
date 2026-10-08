@@ -1,6 +1,6 @@
 <% @title = t("nav.students") %>
 <% @refresh = 15 %>
-<% link = ->(s, f) { "/teacher/students?" + [("sort=#{s}" unless s.empty?), ("show=#{f}" unless f == "all")].compact.join("&") } %>
+<% link = ->(s, f) { query = [("sort=#{s}" unless s.empty?), ("show=#{f}" unless f == "all")].compact.join("&"); query.empty? ? "/teacher/students" : "/teacher/students?#{query}" } %>
 <div class="page-head">
   <div>
     <h1><%= h t("nav.students") %></h1>

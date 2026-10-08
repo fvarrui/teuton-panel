@@ -304,7 +304,7 @@ class AppTest < Test::Unit::TestCase
   end
 
   test "one menu tab is current" do
-    current = -> { last_response.body.scan(/<a href="([^"]+)" class="current" aria-current/).flatten }
+    current = -> { last_response.body.scan(/<a href="([^"]+)" class="current" aria-current="page"/).flatten }
     get "/teacher/runs"
     assert_equal ["/teacher/runs"], current.call
     get "/teacher/run"
@@ -313,6 +313,17 @@ class AppTest < Test::Unit::TestCase
     assert_equal ["/students/register"], current.call
     get "/students", {}, REMOTE
     assert_equal ["/students"], current.call
+  end
+
+  test "run picker lists students with filters and ignores unknown values" do
+    get "/teacher/run?show=bogus&sort=bogus"
+    assert_equal 200, last_response.status
+    assert_match "pick-table", last_response.body
+    assert_match 'value="AB3K" id="pick-AB3K" checked', last_response.body
+    assert_match "GH6P", last_response.body # disabled, shown greyed
+    assert_no_match(/value="GH6P"/, last_response.body) # but not selectable
+    get "/teacher/run?show=connection"
+    assert_no_match(/name="keys\[\]" value=/, last_response.body) # nobody with connection problems yet
   end
 
   test "run page keeps the form and refreshes only its status" do
@@ -388,6 +399,23 @@ class AppTest < Test::Unit::TestCase
     assert_match "/teacher/results/#{evaluated[1]}\" rel=\"next\"", last_response.body
     get "/teacher/results/#{evaluated.last}"
     assert_no_match(/rel="next"/, last_response.body)
+
+    # Run picker: the needs-work filter lists only those students, ticked, and runs exactly them
+    needs_work = states.select { |_key, state| state == "needs_work" }.keys
+    get "/teacher/run?show=needs_work&sort=grade"
+    picked = last_response.body.scan(/name="keys\[\]" value="([^"]+)"/).flatten
+    assert_equal needs_work.sort, picked.sort
+    assert_no_match(/value="GH6P"/, last_response.body) # disabled students only under "All"
+    post "/teacher/run/start", {"mode" => "once", "keys" => picked}
+    100.times do
+      break unless scheduler.active?
+
+      sleep 0.2
+    end
+    project = Teuton::Panel::Projects.all(@basedir).first
+    last = Teuton::Panel::History.runs(Teuton::Panel::Workspace.new(@config, project).runs_dir).first
+    assert_equal "selection", last["kind"]
+    assert_equal needs_work.sort, last["cases"].map { _1["key"] }.sort
 
     post "/teacher/sessions/new", {"label" => "Group A"}
     get "/teacher/results.json"

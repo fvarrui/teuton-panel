@@ -242,8 +242,11 @@ teacher:
     exitcode: "código de salida %{code}"
     open: "Abrir"
     failed: "Teuton no ha generado informes. Lee la salida de abajo."
+    failed_open: "Teuton no ha generado informes. Abre la ejecución para leer su salida."
     in_progress: "Hay una ejecución en marcha. Párala desde el estado para empezar otra."
     status_frame: "Estado de las ejecuciones"
+    selected: "%{count} seleccionados"
+    select_all: "Seleccionar a todos los alumnos mostrados"
   runs:
     title: "Histórico de ejecuciones"
     intro: "Todas las ejecuciones de la sesión actual."

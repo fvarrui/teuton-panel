@@ -27,7 +27,9 @@ On **Run**, choose a mode, the students to evaluate and press **Start**. The for
 | **Several times** | How many times, seconds between runs | N passes, one after another. |
 | **Every few seconds** | Every (seconds, minimum 10), until (optional) | A pass every T seconds until you press **Stop** or the time in **Until** is reached. |
 
-- **Students**: every enabled student is ticked; untick some to evaluate only a selection. Disabled students cannot be ticked.
+- **Students**: a table with each student's grade, state and when they were last evaluated. Every enabled student is ticked; untick some to evaluate only a selection. Disabled students appear greyed at the end and cannot be ticked.
+- **Show** filters the table and ticks only those students: *All*, *Pending* (not evaluated yet), *Needs work*, *Passed* (50 to 99) or *Connection problem*. **Start** evaluates exactly the ticked rows, so "Needs work" + **Start** evaluates only the students who are behind.
+- Click **Student** or **Grade** in the header to sort. The box in the header ticks or unticks every row shown, and the counter next to **Start** says how many are selected (both need JavaScript; without it, tick the rows one by one).
 - A new pass never starts while the previous one is still running.
 - The settings you use are remembered for the next time.
 
