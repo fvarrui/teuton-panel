@@ -34,14 +34,26 @@ Teuton does the testing; teuton-panel only drives it. It calls the `teuton` comm
 
 ## Installation
 
+teuton-panel is not published on RubyGems yet, so `gem install teuton-panel` does not work. Install the `.gem` file attached to the [latest release](https://github.com/fvarrui/teuton-panel/releases/latest); its dependencies (`teuton`, `sinatra`…) come from RubyGems as usual:
+
 ```bash
-gem install teuton-panel
+# Linux / macOS
+curl -LO https://github.com/fvarrui/teuton-panel/releases/download/v0.3.1/teuton-panel-0.3.1.gem
+gem install teuton-panel-0.3.1.gem
 ```
+
+```powershell
+# Windows (PowerShell)
+Invoke-WebRequest https://github.com/fvarrui/teuton-panel/releases/download/v0.3.1/teuton-panel-0.3.1.gem -OutFile teuton-panel-0.3.1.gem
+gem install teuton-panel-0.3.1.gem
+```
+
+`gem install` does not accept a URL: download the file first. For another version, change the number in both lines. To update, install the new release the same way.
 
 From the source code:
 
 ```bash
-git clone https://github.com/dvarrui/teuton-panel
+git clone https://github.com/fvarrui/teuton-panel
 cd teuton-panel
 bundle install
 gem build teuton-panel.gemspec
@@ -58,7 +70,7 @@ The panel looks for every directory with a `start.rb` under `PATH/TO/TESTS` (the
 
 ```
 ------------------------------------------------------------
-teuton-panel 0.3.0
+teuton-panel 0.3.1
 Base dir    : /home/teacher/tests
 Active test : network-basics
 Teacher     : http://localhost:4567/teacher

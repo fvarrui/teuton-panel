@@ -20,11 +20,21 @@ permalink: /getting-started/
 
 ## Instal·lació
 
+teuton-panel encara no està publicat a RubyGems, així que `gem install teuton-panel` no funciona. Instal·la el fitxer `.gem` adjunt a la [darrera release](https://github.com/fvarrui/teuton-panel/releases/latest); les seves dependències (`teuton`, `sinatra`…) es descarreguen de RubyGems com sempre:
+
 ```bash
-gem install teuton-panel
+# Linux / macOS
+curl -LO https://github.com/fvarrui/teuton-panel/releases/download/v0.3.1/teuton-panel-0.3.1.gem
+gem install teuton-panel-0.3.1.gem
 ```
 
-També pots descarregar el fitxer `.gem` de la [pàgina de releases](https://github.com/fvarrui/teuton-panel/releases) i instal·lar-lo amb `gem install teuton-panel-<versió>.gem`.
+```powershell
+# Windows (PowerShell)
+Invoke-WebRequest https://github.com/fvarrui/teuton-panel/releases/download/v0.3.1/teuton-panel-0.3.1.gem -OutFile teuton-panel-0.3.1.gem
+gem install teuton-panel-0.3.1.gem
+```
+
+`gem install` no accepta una URL: primer cal descarregar el fitxer. Per a una altra versió, canvia el número a les dues línies o descarrega el fitxer des de la [pàgina de releases](https://github.com/fvarrui/teuton-panel/releases). Per actualitzar, instal·la la release nova de la mateixa manera.
 
 {: .note }
 Si després d'instal·lar no es troba l'ordre `teuton-panel`, la carpeta d'executables de les gemmes no és al teu `PATH`. Busca-la amb `gem env` ("EXECUTABLE DIRECTORY") i afegeix-la.
@@ -41,7 +51,7 @@ El panell comprova que Teuton 3 està instal·lat, crea el seu fitxer de configu
 
 ```
 ------------------------------------------------------------
-teuton-panel 0.3.0
+teuton-panel 0.3.1
 Base dir    : /home/professor/tests
 Active test : network-basics
 Teacher     : http://localhost:4567/teacher

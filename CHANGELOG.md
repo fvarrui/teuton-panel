@@ -1,3 +1,10 @@
+## [0.3.1] - 2026-10-08
+
+- [ADD] teuton-panel logo: three stacked panels in Teuton's colours with a white T. In the panel's top bar, student home, projector header and favicon (SVG, with PNG fallbacks), and in the documentation and the README.
+- [UPDATE] Panel and documentation palette taken from the Teuton logo: charcoal ink, deep green actions, Teuton green accents and sage greys. "Passed" grades are sage and "Complete" green.
+- [DOC] Install instructions use the `.gem` attached to the GitHub release (teuton-panel is not on RubyGems yet).
+- [DOC] Documentation with the panel's look, Mermaid diagrams of the architecture flow, and search in the page's language.
+
 ## [0.3.0] - 2026-10-07
 
 Usability review of the teacher and student areas.

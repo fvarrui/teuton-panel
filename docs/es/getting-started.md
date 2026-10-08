@@ -20,11 +20,21 @@ permalink: /getting-started/
 
 ## Instalación
 
+teuton-panel todavía no está publicado en RubyGems, así que `gem install teuton-panel` no funciona. Instala el fichero `.gem` que va adjunto a la [última release](https://github.com/fvarrui/teuton-panel/releases/latest); sus dependencias (`teuton`, `sinatra`…) se descargan de RubyGems como siempre:
+
 ```bash
-gem install teuton-panel
+# Linux / macOS
+curl -LO https://github.com/fvarrui/teuton-panel/releases/download/v0.3.1/teuton-panel-0.3.1.gem
+gem install teuton-panel-0.3.1.gem
 ```
 
-También puedes descargar el fichero `.gem` desde la [página de releases](https://github.com/fvarrui/teuton-panel/releases) e instalarlo con `gem install teuton-panel-<versión>.gem`.
+```powershell
+# Windows (PowerShell)
+Invoke-WebRequest https://github.com/fvarrui/teuton-panel/releases/download/v0.3.1/teuton-panel-0.3.1.gem -OutFile teuton-panel-0.3.1.gem
+gem install teuton-panel-0.3.1.gem
+```
+
+`gem install` no acepta una URL: primero hay que descargar el fichero. Para otra versión, cambia el número en las dos líneas o descarga el fichero desde la [página de releases](https://github.com/fvarrui/teuton-panel/releases). Para actualizar, instala la release nueva de la misma forma.
 
 {: .note }
 Si después de instalar no se encuentra el comando `teuton-panel`, la carpeta de ejecutables de las gemas no está en tu `PATH`. Búscala con `gem env` ("EXECUTABLE DIRECTORY") y añádela.
@@ -41,7 +51,7 @@ El panel comprueba que Teuton 3 está instalado, crea su fichero de configuraci�
 
 ```
 ------------------------------------------------------------
-teuton-panel 0.3.0
+teuton-panel 0.3.1
 Base dir    : /home/profesor/tests
 Active test : network-basics
 Teacher     : http://localhost:4567/teacher

@@ -8,18 +8,19 @@
 @font-face { font-family: "Bricolage Grotesque"; src: url("../fonts/bricolage-grotesque-latin-800-normal.woff2") format("woff2"); font-weight: 800; font-display: swap; }
 @font-face { font-family: "JetBrains Mono"; src: url("../fonts/jetbrains-mono-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-display: swap; }
 
-$ink: #1f2a44;
-$ink-soft: #4a5571;
-$lagoon: #0f7c80;
-$lagoon-dark: #0b5f62;
-$lagoon-wash: #e3f2f1;
-$sun: #f2b33d;
-$sun-wash: #fdf1d8;
-$line: #dde3ec;
+$ink: #1c1f23;
+$ink-soft: #5b5760;
+$green: #15803d;
+$green-dark: #0f6b30;
+$green-wash: #e6f4ea;
+$brand: #03c22c;
+$sage: #a3b5a8;
+$sage-wash: #eef2ef;
+$line: #dde3de;
 $title-font: "Bricolage Grotesque", "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
 
 body { font-size: 1.0625rem; }
-:focus-visible { outline: 3px solid $sun; outline-offset: 2px; }
+:focus-visible { outline: 3px solid $brand; outline-offset: 2px; }
 
 // Titles
 .main-content {
@@ -47,44 +48,40 @@ body { font-size: 1.0625rem; }
     &:hover { background-image: none; color: #fff; }
   }
   .site-button { color: #fff; .icon { color: #fff; } }
-  .site-footer { color: #a3adc2; a { color: #d8deea; } }
+  .site-footer { color: #a3b5a8; a { color: #d7dcd8; } }
 }
 
 .brand-logo {
-  width: 40px;
-  height: 40px;
-  padding: 3px;
-  border-radius: 10px;
-  background: #fff;
-  box-shadow: 0 0 0 2px $sun;
+  width: 36px;
+  height: 36px;
   flex: none;
 }
 
 .nav-list .nav-list-item {
   .nav-list-link {
-    color: #d8deea;
+    color: #d7dcd8;
     border-radius: 8px;
     &:hover { background-image: none; background: rgba(255, 255, 255, 0.08); color: #fff; }
     &.active { background-image: none; background: rgba(255, 255, 255, 0.14); color: #fff; font-weight: 700; }
   }
-  .nav-list-expander { color: #a3adc2; &:hover { background-image: none; background: rgba(255, 255, 255, 0.08); } }
+  .nav-list-expander { color: #a3b5a8; &:hover { background-image: none; background: rgba(255, 255, 255, 0.08); } }
 }
 
 // Header: white bar with search, links and language switch
 .main-header, .main-header .aux-nav, .main-header .search { background: #fff !important; }
 .main-header { border-bottom: 1px solid $line; }
 .search-input { background: #fff; }
-.aux-nav .aux-nav-list-item a, .aux-nav-list-link { color: $lagoon-dark; }
+.aux-nav .aux-nav-list-item a, .aux-nav-list-link { color: $green-dark; }
 
 // Content: tables, code and callouts as in the panel
-.table-wrapper { border: 1px solid $line; border-radius: 14px; box-shadow: 0 1px 2px rgba(31, 42, 68, 0.06), 0 6px 18px rgba(31, 42, 68, 0.06); }
+.table-wrapper { border: 1px solid $line; border-radius: 14px; box-shadow: 0 1px 2px rgba(28, 31, 35, 0.06), 0 6px 18px rgba(28, 31, 35, 0.06); }
 th { color: $ink-soft; font-size: 0.85rem; font-weight: 700; text-align: left; border-bottom: 2px solid $line !important; }
 td, th { border-color: $line; }
 
 code { border: 0; border-radius: 5px; }
 div.highlighter-rouge, figure.highlight { border-radius: 8px; }
 
-.main-content blockquote { border-left: 4px solid $sun; background: $sun-wash; padding: 0.6rem 1rem; border-radius: 8px; }
+.main-content blockquote { border-left: 4px solid $sage; background: $sage-wash; padding: 0.6rem 1rem; border-radius: 8px; }
 
 .btn-primary { border-radius: 10px; }
 
@@ -114,7 +111,7 @@ div.highlighter-rouge, figure.highlight { border-radius: 8px; }
     max-width: 100%;
     border: 1px solid $line;
     border-radius: 10px;
-    box-shadow: 0 6px 18px rgba(31, 42, 68, 0.08);
+    box-shadow: 0 6px 18px rgba(28, 31, 35, 0.08);
   }
 
   figcaption {
@@ -137,7 +134,7 @@ div.highlighter-rouge, figure.highlight { border-radius: 8px; }
     text-decoration: none;
 
     &.current {
-      color: $lagoon;
+      color: $green;
       text-decoration: underline;
       text-underline-offset: 3px;
     }
@@ -147,8 +144,8 @@ div.highlighter-rouge, figure.highlight { border-radius: 8px; }
 .uc-id {
   font-family: "JetBrains Mono", Consolas, monospace;
   font-size: 0.8em;
-  color: $lagoon-dark;
-  background: $lagoon-wash;
+  color: $green-dark;
+  background: $green-wash;
   border-radius: 999px;
   padding: 0.05rem 0.45rem;
   white-space: nowrap;

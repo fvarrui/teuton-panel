@@ -3,15 +3,15 @@
   "theme": "base",
   "themeVariables": {
     "fontFamily": "system-ui, -apple-system, Segoe UI, sans-serif",
-    "primaryColor": "#e3f2f1",
-    "primaryBorderColor": "#0f7c80",
-    "primaryTextColor": "#1f2a44",
-    "secondaryColor": "#fdf1d8",
-    "tertiaryColor": "#f4f6fa",
-    "lineColor": "#4a5571",
-    "actorBkg": "#e3f2f1",
-    "actorBorder": "#0f7c80",
-    "noteBkgColor": "#fdf1d8",
-    "noteBorderColor": "#f2b33d"
+    "primaryColor": "#e6f4ea",
+    "primaryBorderColor": "#15803d",
+    "primaryTextColor": "#1c1f23",
+    "secondaryColor": "#eef2ef",
+    "tertiaryColor": "#f4f6f4",
+    "lineColor": "#5b5760",
+    "actorBkg": "#e6f4ea",
+    "actorBorder": "#15803d",
+    "noteBkgColor": "#eef2ef",
+    "noteBorderColor": "#a3b5a8"
   }
 }
