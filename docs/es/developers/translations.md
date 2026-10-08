@@ -34,3 +34,5 @@ Usa las mismas palabras en todas partes: los términos de la interfaz en cada id
 ## Esta documentación
 
 Las páginas están en `docs/<idioma>/`, con `lang:` y la misma `permalink` en todos los idiomas. Los títulos de navegación (`title`, `parent`) se traducen, así que `parent` debe coincidir con el título del padre en el mismo idioma. Una página que falta en un idioma se muestra en inglés. Añade el idioma a `languages:` en `docs/_config.yml` y repite las capturas con `bundle exec rake docs:screenshots` después de añadirlo a `LANGS` en `docs/_scripts/screenshots.rb`.
+
+La búsqueda funciona por idioma: `docs/zzzz-search-data.json` genera un índice por idioma (`/search-data.json`, `/es/search-data.json`, `/ca/search-data.json`; se llama `zzzz-` para que se procese después de las páginas), y `docs/assets/js/just-the-docs.js` (una copia del script del tema, con los cambios marcados `teuton-panel:`) carga el índice del idioma de la página y quita el algoritmo de raíces del inglés en castellano y catalán. Al actualizar Just the Docs, compara esa copia con el script nuevo del tema.

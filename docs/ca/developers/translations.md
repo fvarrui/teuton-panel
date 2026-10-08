@@ -34,3 +34,5 @@ Fes servir les mateixes paraules a tot arreu: els termes de la interfície per i
 ## Aquesta documentació
 
 Les pàgines són a `docs/<idioma>/`, amb `lang:` i la mateixa `permalink` en tots els idiomes. Els títols de navegació (`title`, `parent`) es tradueixen, així que `parent` ha de coincidir amb el títol del pare en el mateix idioma. Una pàgina que falta en un idioma es mostra en anglès. Afegeix l'idioma a `languages:` a `docs/_config.yml` i repeteix les captures amb `bundle exec rake docs:screenshots` després d'afegir-lo a `LANGS` a `docs/_scripts/screenshots.rb`.
+
+La cerca funciona per idioma: `docs/zzzz-search-data.json` genera un índex per idioma (`/search-data.json`, `/es/search-data.json`, `/ca/search-data.json`; es diu `zzzz-` perquè es processi després de les pàgines), i `docs/assets/js/just-the-docs.js` (una còpia de l'script del tema, amb els canvis marcats `teuton-panel:`) carrega l'índex de l'idioma de la pàgina i treu l'algorisme d'arrels de l'anglès en castellà i català. En actualitzar Just the Docs, compara aquesta còpia amb l'script nou del tema.

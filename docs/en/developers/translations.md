@@ -34,3 +34,5 @@ Use the same words everywhere: the GUI terms per language (case → student, tar
 ## This documentation
 
 Pages live in `docs/<lang>/`, with `lang:` and the same `permalink` in every language. Navigation titles (`title`, `parent`) are translated, so `parent` must match the parent's title in the same language. A page missing in a language falls back to English. Add a language to `languages:` in `docs/_config.yml` and retake the screenshots with `bundle exec rake docs:screenshots` after adding it to `LANGS` in `docs/_scripts/screenshots.rb`.
+
+Search works per language: `docs/zzzz-search-data.json` builds one index per language (`/search-data.json`, `/es/search-data.json`, `/ca/search-data.json`; named `zzzz-` so it renders after the pages), and `docs/assets/js/just-the-docs.js` (a copy of the theme script, changes marked `teuton-panel:`) loads the index of the page's language and drops the English stemmer for Spanish and Catalan. When upgrading Just the Docs, compare that copy with the new theme script.
