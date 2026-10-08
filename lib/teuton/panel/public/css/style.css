@@ -59,7 +59,7 @@ code, kbd, pre { font-family: var(--font-mono); }
 .topbar .inner { max-width: 1160px; margin: 0 auto; padding: 0.8rem 1.25rem; display: flex; align-items: center; gap: 0.6rem 1rem; flex-wrap: wrap; }
 .brand { display: flex; align-items: center; gap: 0.6rem; color: #fff; text-decoration: none; font-family: var(--font-title); font-weight: 800; font-size: 1.25rem; }
 .brand:hover { color: #fff; }
-.brand-mark { width: 30px; height: 30px; border-radius: 9px; background: var(--sun); display: grid; place-items: center; color: var(--ink); }
+.brand-logo { width: 40px; height: 40px; display: block; margin: -4px 0; padding: 3px; border-radius: 10px; background: #fff; box-shadow: 0 0 0 2px var(--sun); }
 .area { font-size: 0.85rem; padding: 0.15rem 0.6rem; border-radius: 999px; background: rgba(255, 255, 255, 0.12); }
 .nav { display: flex; gap: 0.2rem; flex-wrap: wrap; margin-left: auto; }
 .nav a { color: #d8deea; text-decoration: none; padding: 0.3rem 0.45rem; border-radius: var(--radius-small); font-size: 0.9rem; }
@@ -217,6 +217,7 @@ body.projector .muted { color: #b9c2d6; }
 .tile .value { font-family: var(--font-title); font-weight: 800; font-size: 2.6rem; line-height: 1.1; }
 .tile .note { font-size: 0.9rem; color: #c9d1e2; }
 .projector-urls { font-family: var(--font-mono); font-size: 1.1rem; color: var(--sun); }
+.projector-title { display: flex; align-items: center; gap: 1rem; }
 
 /* Readme */
 .readme table { margin: 0.5rem 0 1rem; }

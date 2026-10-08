@@ -5,6 +5,8 @@ lang: es
 permalink: /
 ---
 
+<img class="home-logo" src="{{ site.baseurl }}/assets/images/logo/teuton-panel.svg" alt="teuton-panel" width="180" height="180">
+
 # Teuton Panel
 
 Un panel web para [Teuton](https://github.com/teuton-software/teuton) que el profesor arranca en la red del aula. Los alumnos registran sus máquinas desde el navegador o desde un terminal, el panel ejecuta Teuton para toda la clase o para un alumno, y todos ven los resultados: el profesor en un panel listo para el proyector y cada alumno en su propia página.

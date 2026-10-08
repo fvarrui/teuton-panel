@@ -39,6 +39,8 @@ body { font-size: 1.0625rem; }
     color: #fff;
     font-family: $title-font;
     font-weight: 800;
+    font-size: 1.2rem !important;
+    white-space: nowrap;
     display: flex;
     align-items: center;
     gap: 0.6rem;
@@ -48,14 +50,13 @@ body { font-size: 1.0625rem; }
   .site-footer { color: #a3adc2; a { color: #d8deea; } }
 }
 
-.brand-mark {
-  width: 30px;
-  height: 30px;
-  border-radius: 9px;
-  background: $sun;
-  color: $ink;
-  display: inline-grid;
-  place-items: center;
+.brand-logo {
+  width: 40px;
+  height: 40px;
+  padding: 3px;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 0 0 2px $sun;
   flex: none;
 }
 
@@ -152,3 +153,5 @@ div.highlighter-rouge, figure.highlight { border-radius: 8px; }
   padding: 0.05rem 0.45rem;
   white-space: nowrap;
 }
+
+.home-logo { display: block; width: 180px; height: auto; margin: 0 0 0.5rem; }

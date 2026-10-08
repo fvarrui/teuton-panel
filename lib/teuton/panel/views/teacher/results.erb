@@ -3,9 +3,12 @@
 <% if projector %>
   <% @body_class = "projector" %>
   <div class="page-head">
-    <div>
-      <h1><%= h project.name %></h1>
-      <% urls.first(2).each do |url| %><p class="projector-urls"><%= h url %></p><% end %>
+    <div class="projector-title">
+      <img src="/img/logo.svg" alt="" width="84" height="84">
+      <div>
+        <h1><%= h project.name %></h1>
+        <% urls.first(2).each do |url| %><p class="projector-urls"><%= h url %></p><% end %>
+      </div>
     </div>
     <a class="btn secondary" href="/teacher/results" style="color: #fff; border-color: #fff"><%= h t("teacher.results.exit_projector") %></a>
   </div>

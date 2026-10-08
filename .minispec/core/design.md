@@ -26,10 +26,11 @@ An elegant educational app for adults: warm, lively, motivating, with clear prog
 
 ## Components
 
-- Top bar (ink): brand mark (sunflower square + server icon), area pill, nav (one current tab, `aria-current`; teacher entries grouped as Prepare · Class · Sessions/Settings with small labels), EN/ES/CA switch.
+- Logo: the Teuton knight stepping out of a browser window (variation of the Teuton logo, made with Codex from it). Master `public/img/logo.svg` (traced from the PNG; also `docs/assets/images/logo/teuton-panel.svg`), PNG only for the favicon fallback and the touch icon. Favicon, top bar (on a white plate with a sunflower ring), student hero and projector header.
+- Top bar (ink): logo, area pill, nav (one current tab, `aria-current`; teacher entries grouped as Prepare · Class · Sessions/Settings with small labels), EN/ES/CA switch.
 - Page head: `h1` + muted subtitle, actions on the right.
 - Card (`.card`, `.card.featured` with a lagoon top border); `.grid` auto-fit columns.
-- Student hero (lagoon block with a sunflower circle) and numbered `.steps` (register → run → results: a real sequence).
+- Student hero (lagoon block with a sunflower circle and the logo) and numbered `.steps` (register → run → results: a real sequence).
 - Buttons: `.btn` (lagoon), `.secondary` (outline), `.danger` (coral outline), `.small`.
 - Forms: label above, 1.5 px border, 10 px radius, sunflower focus ring; errors in coral under the field.
 - `.notice` (info, success, warn, error) and `.empty` states with an icon and one helpful sentence.

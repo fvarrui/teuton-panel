@@ -4,6 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title><%= h(@title ? "#{@title} · #{t("app.name")}" : t("app.name")) %></title>
+  <link rel="icon" href="/img/logo.svg" type="image/svg+xml">
+  <link rel="icon" href="/img/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
   <link rel="stylesheet" href="/css/style.css">
   <% if @refresh %><meta http-equiv="refresh" content="<%= @refresh %><%= "; url=#{h @refresh_url}" if @refresh_url %>"><% end %>
 </head>
@@ -13,7 +16,7 @@
   <header class="topbar">
     <div class="inner">
       <a class="brand" href="<%= (@area == "teacher") ? "/teacher" : "/students" %>">
-        <span class="brand-mark"><%= icon(:server, 18) %></span><%= h t("app.name") %>
+        <img class="brand-logo" src="/img/logo.svg" alt="" width="40" height="40"><%= h t("app.name") %>
       </a>
       <span class="area"><%= h t(@area == "teacher" ? "app.teacher_area" : "app.student_area") %></span>
       <nav class="nav" aria-label="<%= h t("app.menu") %>">

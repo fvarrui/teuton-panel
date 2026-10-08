@@ -1,3 +1,5 @@
+<p align="center"><img src="docs/assets/images/logo/teuton-panel.svg" alt="teuton-panel logo" width="200"></p>
+
 # teuton-panel
 
 [![Release](https://img.shields.io/github/v/release/fvarrui/teuton-panel?label=release)](https://github.com/fvarrui/teuton-panel/releases/latest)
